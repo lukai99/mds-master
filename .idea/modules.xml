@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mds-dao/mds-dao.iml" filepath="$PROJECT_DIR$/mds-dao/mds-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mds-entity/mds-entity.iml" filepath="$PROJECT_DIR$/mds-entity/mds-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mds-master.iml" filepath="$PROJECT_DIR$/mds-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mds-service/mds-service.iml" filepath="$PROJECT_DIR$/mds-service/mds-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mds-sysweb/mds-sysweb.iml" filepath="$PROJECT_DIR$/mds-sysweb/mds-sysweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mds-utils/mds-utils.iml" filepath="$PROJECT_DIR$/mds-utils/mds-utils.iml" />
+    </modules>
+  </component>
+</project>

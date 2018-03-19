@@ -1,0 +1,16 @@
+.study_icon{width:64px;height:64px;background-image: url("/images/icon/studyNoSelect.png")}
+.study_icon_select{width:64px;height:64px;background-image: url("/images/icon/studySelect.png")}
+.game_icon{width:64px;height:64px;background-image: url("/images/icon/gameNoSelect.png")}
+.game_icon_select{width:64px;height:64px;background-image: url("/images/icon/gameSelect.png")}
+.other_icon{width:64px;height:64px;background-image: url("/images/icon/otherNoSelect.png")}
+.other_icon_select{width:64px;height:64px;background-image: url("/images/icon/otherSelect.png")}
+.photo_icon{width:64px;height:64px;background-image: url("/images/icon/photoNoSelect.png")}
+.photo_icon_select{width:64px;height:64px;background-image: url("/images/icon/photoSelect.png")}
+.lottery_icon{width:64px;height:64px;background-image: url("/images/icon/lotteryNoSelect.png")}
+.lottery_icon_select{width:64px;height:64px;background-image: url("/images/icon/lotterySelect.png")}
+.magic_icon{width:64px;height:64px;background-image: url("/images/icon/magicNoSelect.png")}
+.magic_icon_select{width:64px;height:64px;background-image: url("/images/icon/magicSelect.png")}
+
+.select_index{z-index: 999;}
+.position_r{position:relative; }
+.position_a{position:absolute; }

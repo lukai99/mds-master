@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.SharesGameRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.SharesGameRecord" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gamecode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sharesid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="frequency" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="initmoney" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="currentmoney" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="userid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="startrecordid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="offsetnum" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="gamestate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMap1" type="com.mds.vo.SharesGameRecordVo" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gamecode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sharesid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="frequency" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="initmoney" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="currentmoney" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="userid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="startrecordid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="offsetnum" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="gamestate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gamecode, sharesid, frequency, initmoney, currentmoney, userid, startrecordid, 
+    offsetnum, gamestate, createtime
+  </sql>
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="Base_Column_Where">
+    where
+    1 = 1
+    <if test="gamecode != null and gamecode !=''" >
+      and gamecode = #{gamecode,jdbcType=VARCHAR}
+    </if>
+    <if test="sharesid != null and sharesid !=''" >
+      and sharesid = #{sharesid,jdbcType=VARCHAR}
+    </if>
+    <if test="frequency != null and frequency !=''" >
+      and frequency = #{frequency,jdbcType=VARCHAR}
+    </if>
+    <if test="initmoney != null and initmoney !=''" >
+      and initmoney = #{initmoney,jdbcType=VARCHAR}
+    </if>
+    <if test="currentmoney != null and currentmoney !=''" >
+      and currentmoney = #{currentmoney,jdbcType=VARCHAR}
+    </if>
+    <if test="userid != null and userid !=''" >
+      and userid = #{userid,jdbcType=VARCHAR}
+    </if>
+    <if test="startrecordid != null and startrecordid !=''" >
+      and startrecordid = #{startrecordid,jdbcType=VARCHAR}
+    </if>
+    <if test="offsetnum != null" >
+      and offsetnum = #{offsetnum,jdbcType=DECIMAL}
+    </if>
+    <if test="gamestate != null and gamestate !=''" >
+      and gamestate = #{gamestate,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gp_gamerecord
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySelective" resultMap="ResultMap1" parameterType="com.mds.vo.SharesGameRecordVo" >
+    select
+    <include refid="Base_Column_List" />
+    from gp_gamerecord
+    <include refid="Base_Column_Where" />
+    order by createtime desc
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.vo.SharesGameRecordVo" >
+    select
+    count(1)
+    from gp_gamerecord
+    <include refid="Base_Column_Where" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gp_gamerecord
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mds.entity.SharesGameRecord" >
+    insert into gp_gamerecord (id, gamecode, sharesid, 
+      frequency, initmoney, currentmoney, 
+      userid, startrecordid, offsetnum, 
+      gamestate, createtime)
+    values (#{id,jdbcType=VARCHAR}, #{gamecode,jdbcType=VARCHAR}, #{sharesid,jdbcType=VARCHAR}, 
+      #{frequency,jdbcType=VARCHAR}, #{initmoney,jdbcType=DECIMAL}, #{currentmoney,jdbcType=DECIMAL},
+      #{userid,jdbcType=VARCHAR}, #{startrecordid,jdbcType=VARCHAR}, #{offsetnum,jdbcType=DECIMAL}, 
+      #{gamestate,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mds.entity.SharesGameRecord" >
+    insert into gp_gamerecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gamecode != null" >
+        gamecode,
+      </if>
+      <if test="sharesid != null" >
+        sharesid,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="initmoney != null" >
+        initmoney,
+      </if>
+      <if test="currentmoney != null" >
+        currentmoney,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="startrecordid != null" >
+        startrecordid,
+      </if>
+      <if test="offsetnum != null" >
+        offsetnum,
+      </if>
+      <if test="gamestate != null" >
+        gamestate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="gamecode != null" >
+        #{gamecode,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesid != null" >
+        #{sharesid,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="initmoney != null" >
+        #{initmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="currentmoney != null" >
+        #{currentmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="startrecordid != null" >
+        #{startrecordid,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetnum != null" >
+        #{offsetnum,jdbcType=DECIMAL},
+      </if>
+      <if test="gamestate != null" >
+        #{gamestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.SharesGameRecord" >
+    update gp_gamerecord
+    <set >
+      <if test="gamecode != null" >
+        gamecode = #{gamecode,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesid != null" >
+        sharesid = #{sharesid,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null" >
+        frequency = #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="initmoney != null" >
+        initmoney = #{initmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="currentmoney != null" >
+        currentmoney = #{currentmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="startrecordid != null" >
+        startrecordid = #{startrecordid,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetnum != null" >
+        offsetnum = #{offsetnum,jdbcType=DECIMAL},
+      </if>
+      <if test="gamestate != null" >
+        gamestate = #{gamestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.SharesGameRecord" >
+    update gp_gamerecord
+    set gamecode = #{gamecode,jdbcType=VARCHAR},
+      sharesid = #{sharesid,jdbcType=VARCHAR},
+      frequency = #{frequency,jdbcType=VARCHAR},
+      initmoney = #{initmoney,jdbcType=DECIMAL},
+      currentmoney = #{currentmoney,jdbcType=DECIMAL},
+      userid = #{userid,jdbcType=VARCHAR},
+      startrecordid = #{startrecordid,jdbcType=VARCHAR},
+      offsetnum = #{offsetnum,jdbcType=DECIMAL},
+      gamestate = #{gamestate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

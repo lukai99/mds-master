@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mds-dao" />
+        <module name="mds-entity" />
+        <module name="mds-service" />
+        <module name="mds-sysweb" />
+        <module name="mds-utils" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mds-dao" target="1.7" />
+      <module name="mds-entity" target="1.7" />
+      <module name="mds-master" target="1.7" />
+      <module name="mds-service" target="1.7" />
+      <module name="mds-sysweb" target="1.7" />
+      <module name="mds-utils" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

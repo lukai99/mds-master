@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.SharesHistoryDataMapper" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.SharesHistoryData" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sharesId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="frequency" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="startPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="highPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="lowPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="endPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <arg column="upVal" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="amplitude" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="countNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="countMoney" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="changedHands" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="volamount" jdbcType="VARCHAR" javaType="java.lang.Integer" />
+      <arg column="dataTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMap1" type="com.mds.entity.SharesHistoryData" >
+    <!--<constructor >-->
+      <id column="id" property="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="sharesId" property="sharesId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="sharesName" property="sharesName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="sharesCode" property="sharesCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="frequency" property="frequency" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="startPrice" property="startPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <result column="highPrice" property="highPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <result column="lowPrice" property="lowPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <result column="endPrice" property="endPrice" jdbcType="DECIMAL" javaType="java.lang.Double" />
+      <result column="upVal" property="upVal" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="amplitude" property="amplitude" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="countNum" property="countNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="countMoney" property="countMoney" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="changedHands" property="changedHands" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="volamount" property="volamount" jdbcType="VARCHAR" javaType="java.lang.Integer" />
+      <result column="dataTime" property="dataTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="createTime" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    <!--</constructor>-->
+  </resultMap>
+  <sql id="Base_Column_Where">
+    where
+    1=1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="sharesId != null and sharesId != ''" >
+      and  sharesId = #{sharesId,jdbcType=VARCHAR}
+    </if>
+    <if test="frequency != null and frequency != ''" >
+      and frequency = #{frequency,jdbcType=VARCHAR}
+    </if>
+    <if test="startPrice != null" >
+      and startPrice = #{startPrice,jdbcType=DECIMAL}
+    </if>
+    <if test="highPrice != null" >
+      and highPrice = #{highPrice,jdbcType=DECIMAL}
+    </if>
+    <if test="lowPrice != null" >
+      and lowPrice = #{lowPrice,jdbcType=DECIMAL}
+    </if>
+    <if test="endPrice != null" >
+      and endPrice = #{endPrice,jdbcType=DECIMAL}
+    </if>
+    <if test="upVal != null and upVal !=''" >
+      and upVal = #{upVal,jdbcType=VARCHAR}
+    </if>
+    <if test="amplitude != null and amplitude !=''" >
+      and amplitude = #{amplitude,jdbcType=VARCHAR}
+    </if>
+    <if test="countNum != null and countNum != ''" >
+      and countNum = #{countNum,jdbcType=VARCHAR}
+    </if>
+    <if test="countMoney != null and countMoney !=''" >
+      and countMoney = #{countMoney,jdbcType=VARCHAR}
+    </if>
+    <if test="changedHands != null and changedHands !=''" >
+      and changedHands = #{changedHands,jdbcType=VARCHAR}
+    </if>
+    <if test="volamount != null and volamount !=''" >
+      and volamount = #{volamount,jdbcType=VARCHAR}
+    </if>
+    <if test="dataTime != null" >
+      and dataTime = #{dataTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createTime != null" >
+      and createTime = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <!--冗余字段查询-->
+    <if test="sharesName != null and sharesName !=''" >
+      and b.name like "%"#{sharesName,jdbcType=VARCHAR}"%"
+    </if>
+
+  </sql>
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, sharesId, frequency, startPrice, highPrice, lowPrice, endPrice, upVal, amplitude,
+    countNum, countMoney, changedHands, volamount, dataTime, createTime
+  </sql>
+  <sql id="Column_List1" >
+    a.id, a.sharesId,b.name as sharesName,b.code as sharesCode,a.frequency, a.startPrice, a.highPrice, a.lowPrice, a.endPrice, a.upVal, a.amplitude,
+    a.countNum, a.countMoney, a.changedHands, a.volamount, a.dataTime, a.createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gp_shareshistorydata
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--
+  单表查询
+  -->
+  <!--<select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.mdsntity.SharesHistoryData">
+    select
+    <include refid="Base_Column_List" />
+    from gp_shareshistorydata
+    <include refid="Base_Column_Where" />
+    order by createTime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mdsntity.SharesHistoryData">
+    select
+    count(1)
+    from gp_shareshistorydata
+    <include refid="Base_Column_Where" />
+  </select>-->
+<!--
+级联查询
+-->
+  <select id="selectBySelective" resultMap="ResultMap1" parameterType="com.mds.entity.SharesHistoryData">
+    select
+    <include refid="Column_List1" />
+    from gp_shareshistorydata a join gp_shares b on a.sharesid = b.id
+    <include refid="Base_Column_Where" />
+    order by a.createTime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.entity.SharesHistoryData">
+    select
+    count(1)
+    from gp_shareshistorydata a join gp_shares b on a.sharesid = b.id
+    <include refid="Base_Column_Where" />
+  </select>
+  <!--股票数据查询 无分页-->
+  <select id="selectForNoPageBySelective" resultMap="ResultMap1" parameterType="com.mds.entity.SharesHistoryData">
+    select
+    <include refid="Column_List1" />
+    from gp_shareshistorydata a join gp_shares b on a.sharesid = b.id
+    <include refid="Base_Column_Where" />
+    order by a.datatime asc
+    limit #{kChartStartIndex,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+  </select>
+  <!-- 随机获取一条股票数据 -->
+  <select id="getRandStartData" resultMap="ResultMap1" parameterType="com.mds.entity.SharesHistoryData">
+    select
+    <include refid="Column_List1" />
+    from gp_shareshistorydata a join gp_shares b on a.sharesid = b.id
+    <include refid="Base_Column_Where" />
+    order by rand() LIMIT 1
+  </select>
+  <!--获取数据的位置-->
+  <select id="getDataStartIndex" resultType="java.lang.Integer" parameterType="java.lang.String">
+    <![CDATA[
+    select count(1) from gp_shareshistorydata a
+    where a.datatime < (select t.datatime from  gp_shareshistorydata t where t.id = #{dataId,jdbcType=VARCHAR})
+    and a.sharesid = (select t.sharesid from  gp_shareshistorydata t where t.id = #{dataId,jdbcType=VARCHAR})
+    and a.frequency = (select t.frequency from  gp_shareshistorydata t where t.id = #{dataId,jdbcType=VARCHAR})
+    ]]>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gp_shareshistorydata
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mds.entity.SharesHistoryData" >
+    insert into gp_shareshistorydata (id, sharesId, frequency, 
+      startPrice, highPrice, lowPrice, 
+      endPrice, upVal, amplitude, 
+      countNum, countMoney, changedHands, 
+      volamount, dataTime, createTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{sharesId,jdbcType=VARCHAR}, #{frequency,jdbcType=VARCHAR},
+      #{startPrice,jdbcType=DECIMAL}, #{highPrice,jdbcType=DECIMAL}, #{lowPrice,jdbcType=DECIMAL},
+      #{endPrice,jdbcType=DECIMAL}, #{upVal,jdbcType=VARCHAR}, #{amplitude,jdbcType=VARCHAR},
+      #{countNum,jdbcType=VARCHAR}, #{countMoney,jdbcType=VARCHAR}, #{changedHands,jdbcType=VARCHAR},
+      #{volaMount,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mds.entity.SharesHistoryData" >
+    insert into gp_shareshistorydata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sharesId != null" >
+        sharesId,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="startPrice != null" >
+        startPrice,
+      </if>
+      <if test="highPrice != null" >
+        highPrice,
+      </if>
+      <if test="lowPrice != null" >
+        lowPrice,
+      </if>
+      <if test="endPrice != null" >
+        endPrice,
+      </if>
+      <if test="upVal != null" >
+        upVal,
+      </if>
+      <if test="amplitude != null" >
+        amplitude,
+      </if>
+      <if test="countNum != null" >
+        countNum,
+      </if>
+      <if test="countMoney != null" >
+        countMoney,
+      </if>
+      <if test="changedHands != null" >
+        changedHands,
+      </if>
+      <if test="volamount != null" >
+        volamount,
+      </if>
+      <if test="dataTime != null" >
+        dataTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesId != null" >
+        #{sharesId,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="startPrice != null" >
+        #{startPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="highPrice != null" >
+        #{highPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lowPrice != null" >
+        #{lowPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="endPrice != null" >
+        #{endPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="upVal != null" >
+        #{upVal,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="countNum != null" >
+        #{countNum,jdbcType=VARCHAR},
+      </if>
+      <if test="countMoney != null" >
+        #{countMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="changedHands != null" >
+        #{changedHands,jdbcType=VARCHAR},
+      </if>
+      <if test="volamount != null" >
+        #{volamount,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTime != null" >
+        #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.SharesHistoryData" >
+    update gp_shareshistorydata
+    <set >
+      <if test="sharesId != null" >
+        sharesId = #{sharesId,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null" >
+        frequency = #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="startPrice != null" >
+        startPrice = #{startPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="highPrice != null" >
+        highPrice = #{highPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lowPrice != null" >
+        lowPrice = #{lowPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="endPrice != null" >
+        endPrice = #{endPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="upVal != null" >
+        upVal = #{upVal,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        amplitude = #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="countNum != null" >
+        countNum = #{countNum,jdbcType=VARCHAR},
+      </if>
+      <if test="countMoney != null" >
+        countMoney = #{countMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="changedHands != null" >
+        changedHands = #{changedHands,jdbcType=VARCHAR},
+      </if>
+      <if test="volamount != null" >
+        volamount = #{volamount,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTime != null" >
+        dataTime = #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.SharesHistoryData" >
+    update gp_shareshistorydata
+    set sharesId = #{sharesId,jdbcType=VARCHAR},
+      frequency = #{frequency,jdbcType=VARCHAR},
+      startPrice = #{startPrice,jdbcType=DECIMAL},
+      highPrice = #{highPrice,jdbcType=DECIMAL},
+      lowPrice = #{lowPrice,jdbcType=DECIMAL},
+      endPrice = #{endPrice,jdbcType=DECIMAL},
+      upVal = #{upVal,jdbcType=VARCHAR},
+      amplitude = #{amplitude,jdbcType=VARCHAR},
+      countNum = #{countNum,jdbcType=VARCHAR},
+      countMoney = #{countMoney,jdbcType=VARCHAR},
+      changedHands = #{changedHands,jdbcType=VARCHAR},
+      volamount = #{volamount,jdbcType=VARCHAR},
+      dataTime = #{dataTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

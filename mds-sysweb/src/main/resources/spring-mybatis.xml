@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+     http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- spring的属性加载器，加载properties文件中的属性 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--数据库连接-->
+    <!--<bean id="dataSource" name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        &lt;!&ndash; 指定连接数据库的驱动&ndash;&gt;
+        <property name="driverClass" value="${mds.jdbcdriverClassName}"/>
+        &lt;!&ndash; 指定连接数据库的URL&ndash;&gt;
+        <property name="jdbcUrl" value="${mds.jdbc.url}"/>
+        &lt;!&ndash; 指定连接数据库的用户名&ndash;&gt;
+        <property name="user" value="${mds.jdbc.username}"/>
+        &lt;!&ndash; 指定连接数据库的密码&ndash;&gt;
+        <property name="password" value="${mds.jdbc.password}"/>
+        &lt;!&ndash; 指定连接池中保留的最大连接数. Default:15&ndash;&gt;
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+        &lt;!&ndash; 指定连接池中保留的最小连接数&ndash;&gt;
+        <property name="minPoolSize" value="${mds.jdbc.minPoolSize}"/>
+        &lt;!&ndash; 指定连接池的初始化连接数  取值应在minPoolSize 与 maxPoolSize 之间.Default:3&ndash;&gt;
+        <property name="initialPoolSize" value="${mds.jdbc.initialPoolSize}"/>
+        &lt;!&ndash; 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0&ndash;&gt;
+        <property name="maxIdleTime" value="${mds.jdbc.maxIdleTime}"/>
+        &lt;!&ndash; 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数. Default:3&ndash;&gt;
+        <property name="acquireIncrement" value="${mds.jdbc.acquireIncrement}"/>
+        &lt;!&ndash; JDBC的标准,用以控制数据源内加载的PreparedStatements数量。
+        但由于预缓存的statements属于单个connection而不是整个连接池所以设置这个参数需要考虑到多方面的因数.如果maxStatements与maxStatementsPerConnection均为0,则缓存被关闭。Default:0&ndash;&gt;
+        <property name="maxStatements" value="${mds.jdbc.maxStatements}"/>
+        &lt;!&ndash; 每60秒检查所有连接池中的空闲连接.Default:0 &ndash;&gt;
+        <property name="idleConnectionTestPeriod" value="${mds.jdbc.idleConnectionTestPeriod}"/>
+    </bean>-->
+
+    <!-- 配置druid数据源 -->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <!-- 数据库连接基础信息 -->
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="0" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="1500" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="0" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000" />
+        <!-- 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。 -->
+        <!-- <property name="poolPreparedStatements" value="true" /> <property
+            name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证数据库连接有效性，要求查询语句 -->
+        <property name="validationQuery" value="select 1 from dual" />
+        <!-- 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效，配置true会降低性能。 -->
+        <property name="testOnBorrow" value="false" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效，配置true会降低性能 -->
+        <property name="testOnReturn" value="false" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <!-- 对于长时间不使用的连接强制关闭 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 关闭超过30分钟的空闲连接，1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+        <!-- 监控数据库 -->
+        <!-- <property name="filters" value="mergeStat" /> -->
+        <property name="filters" value="stat" />
+    </bean>
+
+    <!-- 配置Jdbc模板  -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 启用注解方式管理事务 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+
+    <!-- 整合spring+mtbatis -->
+    <bean id ="sqlsessionfactory" class= "org.mybatis.spring.SqlSessionFactoryBean" >
+        <!-- 指定数据源 -->
+        <property name ="dataSource" ref="dataSource"></property>
+        <!-- 指定sql 的XML文件路径 -->
+        <property name ="mapperLocations" value= "classpath*:com/mds/mapper/*.xml"></property>
+    </bean>
+    <bean class= "org.mybatis.spring.mapper.MapperScannerConfigurer" >
+        <property name ="basePackage" value= "com.mds.dao"></property>
+    </bean>
+
+</beans>

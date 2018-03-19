@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Dictionary" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="value" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="parentid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="state" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ordernum" jdbcType="BIGINT" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_Where">
+    where
+      1 = 1
+    <if test="code != null and code != ''" >
+      and code = #{code,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null and name != ''" >
+      and name like "%"#{name,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="value != null and value != ''" >
+      and value = #{value,jdbcType=VARCHAR}
+    </if>
+    <if test="parentid != null and parentid != ''" >
+      and parentid = #{parentid,jdbcType=VARCHAR}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="state != null and state != ''" >
+      and state = #{state,jdbcType=VARCHAR}
+    </if>
+    <if test="ordernum != null" >
+      and ordernum = #{ordernum,jdbcType=BIGINT}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and updatetime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="Page_Where">
+      <if test="page != null and limit != null " >
+          limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+      </if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, code, name, value, parentid, isdel, state,ordernum, remark, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.mds.entity.Dictionary" >
+    select
+    <include refid="Base_Column_List" />
+    from dictionary
+    <include refid="Base_Column_Where" />
+    order by createtime desc,parentid desc,ordernum desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.entity.Dictionary" >
+    select
+    count(1)
+    from dictionary
+    <include refid="Base_Column_Where" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dictionary
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mds.entity.Dictionary" >
+    insert BIGINTo dictionary (id, code, name,
+      value, parentid, isdel, 
+      state,ordernum, remark, createtime,
+      updatetime)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR},#{ordernum,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mds.entity.Dictionary" >
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null and id != ''" >
+        id,
+      </if>
+      <if test="code != null and code != ''" >
+        code,
+      </if>
+      <if test="name != null and name != ''" >
+        name,
+      </if>
+      <if test="value != null and value != ''" >
+        value,
+      </if>
+      <if test="parentid != null and parentid != ''" >
+        parentid,
+      </if>
+      <if test="isdel != null and isdel != ''" >
+        isdel,
+      </if>
+      <if test="state != null and state != ''" >
+        state,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="remark != null and remark != ''" >
+        remark,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null and id != ''" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null and value != ''" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null and parentid != ''" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null and isdel != ''" >
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null and state != ''" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null and remark != ''" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Dictionary" >
+    update dictionary
+    <set >
+      <if test="code != null and code != ''" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null and value != ''" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null and parentid != ''" >
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null and isdel != ''" >
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null and state != ''" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null and remark != ''" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Dictionary" >
+    update dictionary
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      ordernum = #{ordernum,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

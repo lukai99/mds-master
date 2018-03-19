@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mds-sysweb:war">
+    <output-path>$PROJECT_DIR$/mds-sysweb/target</output-path>
+    <root id="archive" name="magic-sysweb.war">
+      <element id="artifact" artifact-name="mds-sysweb:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mds-parent</artifactId>
+        <groupId>com.mds</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mds-sysweb</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>magic-sysweb Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mds</groupId>
+            <artifactId>mds-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>magic-sysweb</finalName>
+    </build>
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>develop</id>
+            <properties>
+                <!-- <mds.jdbc.url>jdbc:mysql://localhost:3306/mds</mds.jdbc.url>
+                 <mds.jdbc.driverClassName>com.mysql.jdbc.Driver</mds.jdbc.driverClassName>
+                 <mds.jdbc.username>admin</mds.jdbc.username>
+                 <mds.jdbc.password>admin</mds.jdbc.password>
+                 <mds.jdbc.maxPoolSize>20</mds.jdbc.maxPoolSize>
+                 <mds.jdbc.minPoolSize>5</mds.jdbc.minPoolSize>
+                 <mds.jdbc.initialPoolSize>5</mds.jdbc.initialPoolSize>
+                 <mds.jdbc.maxIdleTime>60</mds.jdbc.maxIdleTime>
+                 <mds.jdbc.acquireIncrement>5</mds.jdbc.acquireIncrement>
+                 <mds.jdbc.maxStatements>5</mds.jdbc.maxStatements>
+                 <mds.jdbc.idleConnectionTestPeriod>60</mds.jdbc.idleConnectionTestPeriod>-->
+            </properties>
+        </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <properties>
+
+            </properties>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>production</id>
+            <properties>
+
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
