@@ -29,12 +29,12 @@ public class MenuDao {
      * @return
      */
     public List<Menu> getChildMenus(String parentId){
-        String sql = "select * from menu where parentid = ? and isdel = '1' order by 'order'";
+        String sql = "select * from sys_menu where parentid = ? and isdel = '1' order by 'order'";
         List<Menu> list = jdbcTemplate.query(sql,new Object[]{parentId},new BeanPropertyRowMapper(Menu.class));
         return list;
     }
     public List<Menu> queryMenus(Menu menu){
-        StringBuilder sql = new StringBuilder("select t.* from menu t where 1=1");
+        StringBuilder sql = new StringBuilder("select t.* from sys_menu t where 1=1");
         if(!StringUtils.isEmpty(menu.getLevel())){
             sql.append(" and t.level = '"+menu.getLevel()+"' ");
         }
@@ -47,7 +47,7 @@ public class MenuDao {
         return list;
     }
     public int queryMenusCount(Menu menu){
-        StringBuilder sql = new StringBuilder("select count(1) from menu t where 1=1");
+        StringBuilder sql = new StringBuilder("select count(1) from sys_menu t where 1=1");
         if(!StringUtils.isEmpty(menu.getName())){
             sql.append(" and t.name like '%"+menu.getName()+"%' ");
         }
@@ -65,7 +65,7 @@ public class MenuDao {
         return count;
     }
     public List<Menu> queryMenus(Menu menu,PageBean pageBean){
-        StringBuilder sql = new StringBuilder("select t.* from menu t where 1=1");
+        StringBuilder sql = new StringBuilder("select t.* from sys_menu t where 1=1");
         if(!StringUtils.isEmpty(menu.getName())){
             sql.append(" and t.name like '%"+menu.getName()+"%' ");
         }
@@ -85,31 +85,31 @@ public class MenuDao {
         return list;
     }
     public Menu getMenuInfo(String id){
-        String sql = "select * from menu where id = ? ";
+        String sql = "select * from sys_menu where id = ? ";
         List<Menu> list = jdbcTemplate.query(sql,new Object[]{id},new BeanPropertyRowMapper(Menu.class));
         return list.get(0);
     }
 
     public int saveMenu(Menu menu){
         StringBuilder sql = new StringBuilder("");
-        sql.append("insert into menu(id,name,rel,parentid,url,icon,level,`order`,state,createtime,remark) values(?,?,?,?,?,?,?,?,?,?,?)");
+        sql.append("insert into sys_menu(id,name,rel,parentid,url,icon,level,`order`,state,createtime,remark) values(?,?,?,?,?,?,?,?,?,?,?)");
         return jdbcTemplate.update(sql.toString(),menu.getId(),menu.getName(),menu.getRel(),menu.getParentId(),menu.getUrl(),menu.getIcon(),menu.getLevel(),menu.getOrder(),menu.getState(),menu.getCreateTime(),menu.getRemark());
     }
 
     public int updateMenu(Menu menu){
         StringBuilder sql = new StringBuilder("");
-        sql.append("update  menu set name = ?,rel = ?,parentid = ?,url = ?,icon = ?,level = ?,`order` = ?,state = ?,remark = ? where id = ?");
+        sql.append("update  sys_menu set name = ?,rel = ?,parentid = ?,url = ?,icon = ?,level = ?,`order` = ?,state = ?,remark = ? where id = ?");
         return jdbcTemplate.update(sql.toString(),menu.getName(),menu.getRel(),menu.getParentId(),menu.getUrl(),menu.getIcon(),menu.getLevel(),menu.getOrder(),menu.getState(),menu.getRemark(),menu.getId());
     }
 
     public int deleteMenu(String ids){
         StringBuilder sql = new StringBuilder("");
-        sql.append("delete from menu where id in ("+ids+")");
+        sql.append("delete from sys_menu where id in ("+ids+")");
         return jdbcTemplate.update(sql.toString());
     }
     public int deleteMenuByUpdate(String ids){
         StringBuilder sql = new StringBuilder("");
-        sql.append("update menu set isdel = '0' where id in ("+ids+")");
+        sql.append("update sys_menu set isdel = '0' where id in ("+ids+")");
         return jdbcTemplate.update(sql.toString());
     }
 }

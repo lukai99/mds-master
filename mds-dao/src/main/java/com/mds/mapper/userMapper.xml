@@ -5,6 +5,6 @@
 <!-- 命名空间 是必须的 -->
 <mapper namespace="com.mds.dao.UserDao">
     <select id="getUserByEntity" parameterType="com.mds.entity.User" resultType="com.mds.entity.User">
-        select * from user where username = #{userName} and password = #{password}
+        select * from sys_user where username = #{userName} and password = #{password}
     </select>
 </mapper>
