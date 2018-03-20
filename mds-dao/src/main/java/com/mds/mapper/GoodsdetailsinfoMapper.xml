@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.GoodsdetailsinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.magic.entity.Goodsdetailsinfo" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="syscode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="goodsinfoid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="grossweight" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="trait" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cartype" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="brand" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sougl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="carriershape" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="netweight" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="honeycombshape" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, syscode, goodsinfoid, grossweight, trait, cartype, brand, sougl, place, carriershape, 
+    netweight, honeycombshape, isdel, remark, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mds_goodsdetailsinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mds_goodsdetailsinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magic.entity.Goodsdetailsinfo" >
+    insert into mds_goodsdetailsinfo (id, syscode, goodsinfoid, 
+      grossweight, trait, cartype, 
+      brand, sougl, place, 
+      carriershape, netweight, honeycombshape, 
+      isdel, remark, createtime, 
+      updatetime)
+    values (#{id,jdbcType=VARCHAR}, #{syscode,jdbcType=VARCHAR}, #{goodsinfoid,jdbcType=INTEGER}, 
+      #{grossweight,jdbcType=DOUBLE}, #{trait,jdbcType=VARCHAR}, #{cartype,jdbcType=VARCHAR}, 
+      #{brand,jdbcType=VARCHAR}, #{sougl,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, 
+      #{carriershape,jdbcType=VARCHAR}, #{netweight,jdbcType=DOUBLE}, #{honeycombshape,jdbcType=VARCHAR}, 
+      #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.magic.entity.Goodsdetailsinfo" >
+    insert into mds_goodsdetailsinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="syscode != null" >
+        syscode,
+      </if>
+      <if test="goodsinfoid != null" >
+        goodsinfoid,
+      </if>
+      <if test="grossweight != null" >
+        grossweight,
+      </if>
+      <if test="trait != null" >
+        trait,
+      </if>
+      <if test="cartype != null" >
+        cartype,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="sougl != null" >
+        sougl,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="carriershape != null" >
+        carriershape,
+      </if>
+      <if test="netweight != null" >
+        netweight,
+      </if>
+      <if test="honeycombshape != null" >
+        honeycombshape,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="syscode != null" >
+        #{syscode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsinfoid != null" >
+        #{goodsinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="grossweight != null" >
+        #{grossweight,jdbcType=DOUBLE},
+      </if>
+      <if test="trait != null" >
+        #{trait,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null" >
+        #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="sougl != null" >
+        #{sougl,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="carriershape != null" >
+        #{carriershape,jdbcType=VARCHAR},
+      </if>
+      <if test="netweight != null" >
+        #{netweight,jdbcType=DOUBLE},
+      </if>
+      <if test="honeycombshape != null" >
+        #{honeycombshape,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magic.entity.Goodsdetailsinfo" >
+    update mds_goodsdetailsinfo
+    <set >
+      <if test="syscode != null" >
+        syscode = #{syscode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsinfoid != null" >
+        goodsinfoid = #{goodsinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="grossweight != null" >
+        grossweight = #{grossweight,jdbcType=DOUBLE},
+      </if>
+      <if test="trait != null" >
+        trait = #{trait,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null" >
+        cartype = #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="sougl != null" >
+        sougl = #{sougl,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="carriershape != null" >
+        carriershape = #{carriershape,jdbcType=VARCHAR},
+      </if>
+      <if test="netweight != null" >
+        netweight = #{netweight,jdbcType=DOUBLE},
+      </if>
+      <if test="honeycombshape != null" >
+        honeycombshape = #{honeycombshape,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magic.entity.Goodsdetailsinfo" >
+    update mds_goodsdetailsinfo
+    set syscode = #{syscode,jdbcType=VARCHAR},
+      goodsinfoid = #{goodsinfoid,jdbcType=INTEGER},
+      grossweight = #{grossweight,jdbcType=DOUBLE},
+      trait = #{trait,jdbcType=VARCHAR},
+      cartype = #{cartype,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      sougl = #{sougl,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      carriershape = #{carriershape,jdbcType=VARCHAR},
+      netweight = #{netweight,jdbcType=DOUBLE},
+      honeycombshape = #{honeycombshape,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
