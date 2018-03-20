@@ -61,13 +61,13 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from dictionary
+    from sys_dictionary
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.mds.entity.Dictionary" >
     select
     <include refid="Base_Column_List" />
-    from dictionary
+    from sys_dictionary
     <include refid="Base_Column_Where" />
     order by createtime desc,parentid desc,ordernum desc
     <include refid="Page_Where" />
@@ -75,15 +75,15 @@
   <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.entity.Dictionary" >
     select
     count(1)
-    from dictionary
+    from sys_dictionary
     <include refid="Base_Column_Where" />
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from dictionary
+    delete from sys_dictionary
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mds.entity.Dictionary" >
-    insert BIGINTo dictionary (id, code, name,
+    insert BIGINTo sys_dictionary (id, code, name,
       value, parentid, isdel, 
       state,ordernum, remark, createtime,
       updatetime)
@@ -93,7 +93,7 @@
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mds.entity.Dictionary" >
-    insert into dictionary
+    insert into sys_dictionary
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null and id != ''" >
         id,
@@ -166,7 +166,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Dictionary" >
-    update dictionary
+    update sys_dictionary
     <set >
       <if test="code != null and code != ''" >
         code = #{code,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mds.entity.Dictionary" >
-    update dictionary
+    update sys_dictionary
     set code = #{code,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       value = #{value,jdbcType=VARCHAR},
