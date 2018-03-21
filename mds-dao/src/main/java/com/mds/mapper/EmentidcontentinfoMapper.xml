@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mds.dao.EmentidcontentinfoMapper" >
-  <resultMap id="BaseResultMap" type="com.magic.entity.Ementidcontentinfo" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Ementidcontentinfo" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="baseelementid" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -25,7 +25,7 @@
     delete from mds_ementidcontentinfo
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.magic.entity.Ementidcontentinfo" >
+  <insert id="insert" parameterType="com.mds.entity.Ementidcontentinfo" >
     insert into mds_ementidcontentinfo (id, baseelementid, content, 
       isdel, remark, createtime, 
       updatetime)
@@ -33,7 +33,7 @@
       #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.magic.entity.Ementidcontentinfo" >
+  <insert id="insertSelective" parameterType="com.mds.entity.Ementidcontentinfo" >
     insert into mds_ementidcontentinfo
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -82,7 +82,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.magic.entity.Ementidcontentinfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Ementidcontentinfo" >
     update mds_ementidcontentinfo
     <set >
       <if test="baseelementid != null" >
@@ -106,7 +106,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.magic.entity.Ementidcontentinfo" >
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Ementidcontentinfo" >
     update mds_ementidcontentinfo
     set baseelementid = #{baseelementid,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},

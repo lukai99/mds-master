@@ -1,6 +1,6 @@
 package com.mds.service.impl;
 
-import com.mds.dao.UserDao;
+import com.mds.dao.UserMapper;
 import com.mds.entity.User;
 import com.mds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     @Override
     public List<User> getUserByEntity(User user) {
-        List<User> userList =  userDao.getUserByEntity(user);
+        List<User> userList =  userMapper.getUserByEntity(user);
         return userList;
     }
 }

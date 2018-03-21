@@ -77,7 +77,7 @@
         </c:if>
 		<div class="mydiv">
 			<form action="userLogin.htm" method="post">
-				<input class="t" type="text" name="userName" required=""/>
+				<input class="t" type="text" name="username" required=""/>
 				<label alt="请输入用户名" filed = "用户名"></label>
 				<input class="t" type="password" name="password" required=""/>
 				<label alt="请输入密码" filed = "密码"></label>

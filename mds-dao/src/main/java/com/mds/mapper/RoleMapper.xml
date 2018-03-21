@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mds.dao.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.magic.entity.Role" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Role" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="rolename" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,7 +26,7 @@
     delete from sys_role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.magic.entity.Role" >
+  <insert id="insert" parameterType="com.mds.entity.Role" >
     insert into sys_role (id, rolename, rolecode, 
       state, isdel, remark, 
       createtime, updatetime)
@@ -34,7 +34,7 @@
       #{state,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.magic.entity.Role" >
+  <insert id="insertSelective" parameterType="com.mds.entity.Role" >
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -89,7 +89,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.magic.entity.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Role" >
     update sys_role
     <set >
       <if test="rolename != null" >
@@ -116,7 +116,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.magic.entity.Role" >
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Role" >
     update sys_role
     set rolename = #{rolename,jdbcType=VARCHAR},
       rolecode = #{rolecode,jdbcType=VARCHAR},

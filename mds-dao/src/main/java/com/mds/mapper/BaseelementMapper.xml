@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mds.dao.BaseelementMapper" >
-  <resultMap id="BaseResultMap" type="com.magic.entity.Baseelement" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Baseelement" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="code" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,7 +26,7 @@
     delete from mds_baseelement
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.magic.entity.Baseelement" >
+  <insert id="insert" parameterType="com.mds.entity.Baseelement" >
     insert into mds_baseelement (id, code, name, 
       state, isdel, remark, 
       createtime, updatetime)
@@ -34,7 +34,7 @@
       #{state,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.magic.entity.Baseelement" >
+  <insert id="insertSelective" parameterType="com.mds.entity.Baseelement" >
     insert into mds_baseelement
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -89,7 +89,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.magic.entity.Baseelement" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Baseelement" >
     update mds_baseelement
     <set >
       <if test="code != null" >
@@ -116,7 +116,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.magic.entity.Baseelement" >
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Baseelement" >
     update mds_baseelement
     set code = #{code,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

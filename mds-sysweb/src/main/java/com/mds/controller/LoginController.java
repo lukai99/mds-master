@@ -52,7 +52,7 @@ public class LoginController {
     @RequestMapping("/userLogin.htm")
     @SystemControllerLog(module = "mds",option="登录系统",description ="用户登录操作")
     public String userLogin(HttpServletRequest request,Model model,User user){
-        System.out.println("username:" + user.getUserName() + ",password:" + user.getPassword());
+        System.out.println("username:" + user.getUsername() + ",password:" + user.getPassword());
         if(loginService.userLogin(user)) {
             HttpSession session = request.getSession();
             session.setAttribute(WebConstants.CURRENT_USER,user);

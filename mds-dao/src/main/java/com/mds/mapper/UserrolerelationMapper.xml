@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mds.dao.UserrolerelationMapper" >
-  <resultMap id="BaseResultMap" type="com.magic.entity.Userrolerelation" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Userrolerelation" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="userid" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -23,13 +23,13 @@
     delete from sys_userrolerelation
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.magic.entity.Userrolerelation" >
+  <insert id="insert" parameterType="com.mds.entity.Userrolerelation" >
     insert into sys_userrolerelation (id, userid, roleid, 
       isdel, createtime)
     values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
       #{isdel,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.magic.entity.Userrolerelation" >
+  <insert id="insertSelective" parameterType="com.mds.entity.Userrolerelation" >
     insert into sys_userrolerelation
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.magic.entity.Userrolerelation" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Userrolerelation" >
     update sys_userrolerelation
     <set >
       <if test="userid != null" >
@@ -84,7 +84,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.magic.entity.Userrolerelation" >
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Userrolerelation" >
     update sys_userrolerelation
     set userid = #{userid,jdbcType=VARCHAR},
       roleid = #{roleid,jdbcType=VARCHAR},
