@@ -1,8 +1,10 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
 import java.util.Date;
 
-public class Goodsinfo {
+public class Goodsinfo extends PageBean<Goodsinfo>{
     private String id;
 
     private String goodsname;

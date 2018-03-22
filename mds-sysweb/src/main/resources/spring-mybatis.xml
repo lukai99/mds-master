@@ -95,6 +95,7 @@
     <bean id ="sqlsessionfactory" class= "org.mybatis.spring.SqlSessionFactoryBean" >
         <!-- 指定数据源 -->
         <property name ="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <!-- 指定sql 的XML文件路径 -->
         <property name ="mapperLocations" value= "classpath*:com/mds/mapper/*.xml"></property>
     </bean>
