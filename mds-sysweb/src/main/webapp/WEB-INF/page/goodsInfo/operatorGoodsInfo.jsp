@@ -26,13 +26,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">物品编号</label>
             <div class="layui-input-block">
-                <input type="text" name="goodscode" placeholder="请输入物品编号" class="layui-input" value="${goodsinfo.goodscode}">
+                <input type="text" name="goodscode" placeholder="请输入物品编号" class="layui-input" lay-verify="required" value="${goodsinfo.goodscode}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">物品名称</label>
             <div class="layui-input-block">
-                <input type="text" name="goodsname" placeholder="请输入物品名称" class="layui-input" value="${goodsinfo.goodsname}">
+                <input type="text" name="goodsname" placeholder="请输入物品名称" class="layui-input" lay-verify="required" value="${goodsinfo.goodsname}">
             </div>
         </div>
         <div class="layui-form-item" pane="">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <button id="submitBtn" class="layui-btn" type="button" lay-filter="demo2">保存</button>
+            <button id="submitBtn" class="layui-btn" type="button" lay-submit lay-filter="demo">保存</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </form>
@@ -60,14 +60,16 @@
 <script>
 ;!function(){
     var form = layui.form;
-    $("#submitBtn").click(function(){
-        var data = $("#dateForm").serialize();
+    /*$("#submitBtn").click(function(){*/
+    //监听提交
+    form.on('submit(demo)', function(data){
+        /*var data = $("#dateForm").serialize();*/
         var url = $("#dateForm").attr("action");
         $.ajax({
             type: "POST",
             dataType: "json",
             url: url,
-            data: data,
+            data: data.field,
             success: function (result) {
                 if(result.state == '200'){
                     parent.reloadDataTable();
