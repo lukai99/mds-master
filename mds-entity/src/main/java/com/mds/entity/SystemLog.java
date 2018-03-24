@@ -1,6 +1,9 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +12,7 @@ import java.io.Serializable;
  * Time: 13:17
  * To change this template use File | Settings | File Templates.
  */
-public class SystemLog extends BaseEntity implements Serializable{
+public class SystemLog extends PageBean implements Serializable{
 
     private String id;//数据编号
     private String userId;//操作人
@@ -20,6 +23,9 @@ public class SystemLog extends BaseEntity implements Serializable{
     private String methodName;//方法名称
     private String parameter;//参数
     private String userIp;//用户ip
+    private String remark;//备注
+    private Date createtime;//创建时间
+    private Date updatetime;//修改时间
 
 
     public String getId() {
@@ -92,5 +98,29 @@ public class SystemLog extends BaseEntity implements Serializable{
 
     public void setUserIp(String userIp) {
         this.userIp = userIp;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 }

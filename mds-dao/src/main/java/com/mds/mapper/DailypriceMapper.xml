@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.mds.entity.Dailyprice" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="baseelementid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="dailyprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="inputtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -13,24 +13,59 @@
       <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, code, dailyprice, inputtime, isdel, remark, createtime, updatetime
+  <sql id="Base_Column_Where">
+    where 1=1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="baseelementid != null and baseelementid != ''" >
+      and baseelementid = #{baseelementid,jdbcType=VARCHAR}
+    </if>
+    <if test="dailyprice != null" >
+      and dailyprice = #{dailyprice,jdbcType=DOUBLE}
+    </if>
+    <if test="inputtime != null" >
+      and inputtime = #{inputtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
   </sql>
+
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="Base_Column_List" >
+  id, baseelementid, dailyprice, inputtime, isdel, remark, createtime, updatetime
+  </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from mds_dailyprice
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from mds_dailyprice
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mds.entity.Dailyprice" >
-    insert into mds_dailyprice (id, code, dailyprice, 
+    insert into mds_dailyprice (id, baseelementid, dailyprice,
       inputtime, isdel, remark, 
       createtime, updatetime)
-    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{dailyprice,jdbcType=DOUBLE}, 
+    values (#{id,jdbcType=VARCHAR}, #{baseelementid,jdbcType=VARCHAR}, #{dailyprice,jdbcType=DOUBLE},
       #{inputtime,jdbcType=TIMESTAMP}, #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
@@ -40,8 +75,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="code != null" >
-        code,
+      <if test="baseelementid != null" >
+        baseelementid,
       </if>
       <if test="dailyprice != null" >
         dailyprice,
@@ -66,8 +101,8 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+      <if test="baseelementid != null" >
+        #{baseelementid,jdbcType=VARCHAR},
       </if>
       <if test="dailyprice != null" >
         #{dailyprice,jdbcType=DOUBLE},
@@ -92,8 +127,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Dailyprice" >
     update mds_dailyprice
     <set >
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
+      <if test="baseelementid != null" >
+        baseelementid = #{baseelementid,jdbcType=VARCHAR},
       </if>
       <if test="dailyprice != null" >
         dailyprice = #{dailyprice,jdbcType=DOUBLE},
@@ -118,7 +153,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mds.entity.Dailyprice" >
     update mds_dailyprice
-    set code = #{code,jdbcType=VARCHAR},
+    set baseelementid = #{baseelementid,jdbcType=VARCHAR},
       dailyprice = #{dailyprice,jdbcType=DOUBLE},
       inputtime = #{inputtime,jdbcType=TIMESTAMP},
       isdel = #{isdel,jdbcType=VARCHAR},
@@ -127,4 +162,100 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.mds.entity.Dailyprice" >
+    select
+    <include refid="Base_Column_List" />
+    from mds_dailyprice
+    <include refid="Base_Column_Where" />
+    order by createtime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.entity.Dailyprice" >
+    select
+    count(1)
+    from mds_dailyprice
+    <include refid="Base_Column_Where" />
+  </select>
+  <select id="selectVoBySelective" resultType="com.mds.vo.DailypriceVo" parameterType="com.mds.entity.Dailyprice" >
+    select
+    a.id, a.baseelementid,b.name, a.dailyprice, a.inputtime, a.isdel, a.remark, a.createtime, a.updatetime
+    from mds_dailyprice a left join mds_baseelement b on a.baseelementid = b.id
+    where 1=1
+    <if test="id != null and id != ''" >
+      and a.id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="baseelementid != null and baseelementid != ''" >
+      and a.baseelementid = #{baseelementid,jdbcType=VARCHAR}
+    </if>
+    <if test="dailyprice != null" >
+      and a.dailyprice = #{dailyprice,jdbcType=DOUBLE}
+    </if>
+    <if test="inputtime != null" >
+      and a.inputtime = #{inputtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and a.isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and a.remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and a.createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and a.updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+    /*冗余字段查询*/
+    <if test="name != null and name != ''" >
+      and name like "%"#{name,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="startDate != null and startDate != ''" >
+      <![CDATA[ and inputtime >= #{startDate,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="endDate != null and endDate != ''" >
+      <![CDATA[ and inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+    </if>
+    order by a.createtime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectVoCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.entity.Dailyprice" >
+    select
+    count(1)
+    from mds_dailyprice a left join mds_baseelement b on a.baseelementid = b.id
+    where 1=1
+    <if test="id != null and id != ''" >
+      and a.id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="baseelementid != null and baseelementid != ''" >
+      and a.baseelementid = #{baseelementid,jdbcType=VARCHAR}
+    </if>
+    <if test="dailyprice != null" >
+      and a.dailyprice = #{dailyprice,jdbcType=DOUBLE}
+    </if>
+    <if test="inputtime != null" >
+      and a.inputtime = #{inputtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and a.isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and a.remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and a.createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and a.updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+    /*冗余字段查询*/
+    <if test="name != null and name != ''" >
+      and name like "%"#{name,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="startDate != null and startDate != ''" >
+      <![CDATA[ and inputtime >= #{startDate,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="endDate != null and endDate != ''" >
+      <![CDATA[ and inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+    </if>
+  </select>
 </mapper>

@@ -1,8 +1,10 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
 import java.util.Date;
 
-public class Goodsdetailsinfo {
+public class Goodsdetailsinfo extends PageBean {
     private String id;
 
     private String syscode;

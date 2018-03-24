@@ -1,14 +1,18 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
-public class Dailyprice {
+public class Dailyprice  extends PageBean {
     private String id;
 
-    private String code;
+    private String baseelementid;
 
     private Double dailyprice;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date inputtime;
 
     private String isdel;
@@ -19,9 +23,9 @@ public class Dailyprice {
 
     private Date updatetime;
 
-    public Dailyprice(String id, String code, Double dailyprice, Date inputtime, String isdel, String remark, Date createtime, Date updatetime) {
+    public Dailyprice(String id, String baseelementid, Double dailyprice, Date inputtime, String isdel, String remark, Date createtime, Date updatetime) {
         this.id = id;
-        this.code = code;
+        this.baseelementid = baseelementid;
         this.dailyprice = dailyprice;
         this.inputtime = inputtime;
         this.isdel = isdel;
@@ -42,12 +46,12 @@ public class Dailyprice {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getCode() {
-        return code;
+    public String getBaseelementid() {
+        return baseelementid;
     }
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+    public void setBaseelementid(String baseelementid) {
+        this.baseelementid = baseelementid == null ? null : baseelementid.trim();
     }
 
     public Double getDailyprice() {

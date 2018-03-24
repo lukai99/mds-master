@@ -1,5 +1,8 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,7 +12,7 @@ import java.util.List;
  * Time: 下午5:40
  * To change this template use File | Settings | File Templates.
  */
-public class Menu extends BaseEntity{
+public class Menu extends PageBean{
 
     private String id;  //id
     private String name;      //菜单名称
@@ -20,6 +23,9 @@ public class Menu extends BaseEntity{
     private Integer level;  //菜单级别
     private Integer order;  //排序
     private String state;   //状态  0 禁用 1 启用
+    private Date createTime;   //创建时间
+    private Date updateTime;   //修改时间
+    private String remark;     //备注
 
     //冗余字段
     private List<Menu> childList;//子集菜单项
@@ -102,5 +108,29 @@ public class Menu extends BaseEntity{
 
     public void setRel(String rel) {
         this.rel = rel;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

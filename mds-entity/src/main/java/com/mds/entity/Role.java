@@ -1,8 +1,10 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
 import java.util.Date;
 
-public class Role {
+public class Role extends PageBean{
     private String id;
 
     private String rolename;

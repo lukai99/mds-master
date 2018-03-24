@@ -93,7 +93,7 @@ public class SystemLogAspect {
             log.setDescription(description);
             log.setMethodName(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
             log.setParameter(params);
-            log.setCreateTime(DateUtil.getCurrentDateTime());
+            log.setCreatetime(DateUtil.getCurrentDateTime());
             log.setUserIp(ip);
             //保存数据库
             systemLogService.addSystemLog(log);
@@ -160,7 +160,7 @@ public class SystemLogAspect {
             log.setDescription(description);
             log.setMethodName(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
             log.setParameter(params);
-            log.setCreateTime(DateUtil.getCurrentDateTime());
+            log.setCreatetime(DateUtil.getCurrentDateTime());
             log.setUserIp(ip);
             //保存数据库
             systemLogService.addSystemLog(log);
@@ -228,7 +228,7 @@ public class SystemLogAspect {
             log.setDescription(description);
             log.setMethodName(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
             log.setParameter(params);
-            log.setCreateTime(DateUtil.getCurrentDateTime());
+            log.setCreatetime(DateUtil.getCurrentDateTime());
             log.setUserIp(ip);
             //保存数据库
             systemLogService.addSystemLog(log);

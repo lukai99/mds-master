@@ -471,8 +471,6 @@ public class DateUtil {
      * 
      * @param dateString
      *                需要转换为Date的字符串
-     * @param format
-     *                格式化的格式
      * @return dataTime Date
      * @throws ParseException
      */
@@ -625,5 +623,31 @@ public class DateUtil {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMM");
 		String strDate = sf.format(date);
         return strDate;  
-    } 
+    }
+
+	/**
+	 * 解析layui时间范围选择控件的时间
+	 * 默认解析分割符“~”
+	 * @param dateStr
+	 * @return
+	 */
+	public static String[] parseLayuiDate(String dateStr){
+		return parseLayuiDate(dateStr,"~");
+	}
+
+	/**
+	 * 解析layui时间范围选择控件的时间
+	 * @param dateStr
+	 * @param symbol 页面端定义的分割符
+	 * @return
+	 */
+	public static String[] parseLayuiDate(String dateStr,String symbol){
+			String [] resultStr = new String[2];
+			try {
+				resultStr = dateStr.split("~");
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			return resultStr;
+	}
 }

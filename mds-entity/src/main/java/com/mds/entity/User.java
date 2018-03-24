@@ -1,8 +1,10 @@
 package com.mds.entity;
 
+import com.mds.utils.PageBean;
+
 import java.util.Date;
 
-public class User {
+public class User extends PageBean{
     private String id;
 
     private String username;
