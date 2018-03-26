@@ -1,6 +1,9 @@
 package com.mds.dao;
 
 import com.mds.entity.Baseelement;
+import com.mds.vo.BaseElementVo;
+
+import java.util.List;
 
 public interface BaseelementMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +17,8 @@ public interface BaseelementMapper {
     int updateByPrimaryKeySelective(Baseelement record);
 
     int updateByPrimaryKey(Baseelement record);
+
+    List<BaseElementVo>  selectBySelective(BaseElementVo baseElementVo);
+
+    int selectCountBySelective(BaseElementVo baseElementVo);
 }

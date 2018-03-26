@@ -29,7 +29,7 @@ public class MenuDao {
      * @return
      */
     public List<Menu> getChildMenus(String parentId){
-        String sql = "select * from sys_menu where parentid = ? and isdel = '1' order by 'order'";
+        String sql = "select * from sys_menu where parentid = ? and isdel = '1' order by `order` asc";
         List<Menu> list = jdbcTemplate.query(sql,new Object[]{parentId},new BeanPropertyRowMapper(Menu.class));
         return list;
     }
@@ -42,7 +42,7 @@ public class MenuDao {
             sql.append(" and t.state = '"+menu.getState()+"' ");
         }
         sql.append(" and t.isdel = '1' ");
-        sql.append(" order by 'order' desc ");
+        sql.append(" order by `order` asc ");
         List<Menu> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(Menu.class));
         return list;
     }
@@ -79,7 +79,8 @@ public class MenuDao {
             sql.append(" and t.state = '"+menu.getState()+"' ");
         }
         sql.append(" and t.isdel = '1' ");
-        sql.append(" order by createTime desc ");
+//        sql.append(" order by createTime asc ");
+        sql.append(" order by `order` asc ");
         sql.append(" limit "+pageBean.getStartRowNum()+","+pageBean.getEndRowNum()+" ");
         List<Menu> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(Menu.class));
         return list;

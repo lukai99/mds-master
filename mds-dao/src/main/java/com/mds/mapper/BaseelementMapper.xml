@@ -13,9 +13,46 @@
       <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, code, name, state, isdel, remark, createtime, updatetime
   </sql>
+
+  <sql id="Base_Column_Where">
+    where
+    1 = 1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="code != null and code != ''" >
+      and code like "%"#{code,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="name != null and name != ''" >
+      and name like "%"#{name,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="state != null and state != ''" >
+      and state = #{state,jdbcType=VARCHAR}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -127,4 +164,18 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectBySelective" resultType="com.mds.vo.BaseElementVo" parameterType="com.mds.vo.BaseElementVo">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM mds_baseelement
+    <include refid="Base_Column_Where"/>
+    ORDER by createtime desc
+    <include refid="Page_Where"/>
+  </select>
+
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.vo.BaseElementVo">
+    SELECT COUNT(1) FROM mds_baseelement
+    <include refid="Base_Column_Where"/>
+  </select>
 </mapper>
