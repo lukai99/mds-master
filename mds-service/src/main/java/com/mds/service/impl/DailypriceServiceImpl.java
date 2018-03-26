@@ -135,8 +135,8 @@ public class DailypriceServiceImpl implements DailypriceService {
     @Override
     public ResultVo<DailypriceVo> queryDailyprice(DailypriceVo dailypriceVo) {
         ResultVo<DailypriceVo> resultVo = new ResultVo<DailypriceVo>();
-        resultVo.setData(dailypriceVo);
-        dailypriceMapper.selectVoBySelective(dailypriceVo);
+        List<DailypriceVo> resultList = dailypriceMapper.selectVoBySelective(dailypriceVo);
+        resultVo.setDataList(resultList);
         resultVo.setState(ResultVo.SUCCESS);
         resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
         return resultVo;
