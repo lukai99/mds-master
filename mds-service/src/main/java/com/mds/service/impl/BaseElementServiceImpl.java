@@ -104,7 +104,10 @@ public class BaseElementServiceImpl implements BaseElementService{
     @Override
     public ResultVo<BaseElementVo> queryBaseElementInfo(BaseElementVo baseElementVo) {
         ResultVo<BaseElementVo> resultVo = new ResultVo<BaseElementVo>();
-        //List<BaseElementVo> list =
-        return null;
+        List<BaseElementVo> baseElementVoList = baseelementMapper.selectBySelective(baseElementVo);
+        resultVo.setDataList(baseElementVoList);
+        resultVo.setState(resultVo.SUCCESS);
+        resultVo.setMessage(resultVo.SUCCESS_MESSAGE);
+        return resultVo;
     }
 }

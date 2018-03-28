@@ -2,10 +2,13 @@ package com.mds.controller;
 
 import com.mds.annotation.SystemControllerLog;
 import com.mds.common.ResultVo;
+import com.mds.entity.Baseelement;
 import com.mds.entity.Dailyprice;
 import com.mds.entity.Dictionary;
+import com.mds.service.BaseElementService;
 import com.mds.service.DailypriceService;
 import com.mds.utils.PageBean;
+import com.mds.vo.BaseElementVo;
 import com.mds.vo.DailypriceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,6 +34,8 @@ public class DailypriceController {
 
     @Autowired
     private DailypriceService dailypriceService;
+    @Autowired
+    private BaseElementService baseElementService;
 
     /**
      * 跳转每日价格管理页面
@@ -72,6 +78,10 @@ public class DailypriceController {
             Dailyprice dailypriceObj = (Dailyprice)vo.getData();
             model.addAttribute("dailyPrice",dailypriceObj);
         }
+        //基本元素下拉选项
+        ResultVo<BaseElementVo> baseElementVoResultVo = baseElementService.queryBaseElementInfo(new BaseElementVo());
+        List<BaseElementVo> list = baseElementVoResultVo.getDataList();
+        model.addAttribute("baseElementVoList",list);
         return "dailypriceManager/operatorDailyprice";
     }
     //operatorDailyPrice.do

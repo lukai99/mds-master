@@ -171,7 +171,9 @@
     FROM mds_baseelement
     <include refid="Base_Column_Where"/>
     ORDER by createtime desc
-    <include refid="Page_Where"/>
+    <if test="page != 0">
+      <include refid="Page_Where"/>
+    </if>
   </select>
 
   <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.vo.BaseElementVo">
