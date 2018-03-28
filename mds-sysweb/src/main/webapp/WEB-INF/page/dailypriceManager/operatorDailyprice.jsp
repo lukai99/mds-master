@@ -27,9 +27,6 @@
         <input type="hidden" name="id" value="${dailyPrice.id}">
         <div class="layui-form-item">
             <label class="layui-form-label">请选择元素</label>
-            <%--<div class="layui-input-block">
-                <input type="text" name="name" placeholder="请选择元素" class="layui-input" value="${dailyPrice.name}">
-            </div>--%>
             <div class="layui-input-block">
                 <select name="baseelementid" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
@@ -65,7 +62,6 @@
     </form>
 </div>
 
-<%--<script src="/library/layui/layui.js"></script>--%>
 <script src="/library/layui/layui.all.js"></script>
 <script src="/library/jquery/jquery.min.js"></script>
 <script>

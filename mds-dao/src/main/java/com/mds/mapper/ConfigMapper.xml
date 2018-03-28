@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.ConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Config" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="discount" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, discount
+  </sql>
+  <sql id="Base_Column_Where">
+    where 1=1
+    <if test="id != null" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="discount != null" >
+      and discount = #{discount,jdbcType=VARCHAR}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySelective" resultType="com.mds.entity.Config" parameterType="com.mds.entity.Config">
+    select
+    <include refid="Base_Column_List" />
+    from sys_config
+    <include refid="Base_Column_Where" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mds.entity.Config" >
+    insert into sys_config (id, discount)
+    values (#{id,jdbcType=VARCHAR}, #{discount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mds.entity.Config" >
+    insert into sys_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Config" >
+    update sys_config
+    <set >
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Config" >
+    update sys_config
+    set discount = #{discount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
