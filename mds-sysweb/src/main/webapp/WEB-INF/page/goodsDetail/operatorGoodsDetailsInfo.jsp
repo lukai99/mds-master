@@ -1,0 +1,126 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@ page isELIgnored="false" %>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+    <link rel="shortcut icon" href="/library/cfda.ico">
+    <%--<link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/library/animate/animate.min.css" rel="stylesheet">
+    <link href="/library/layui/css/layui.css" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+<div style="padding: 0px 50px;padding-top: 20px;">
+    <form id="dateForm" class="layui-form layui-form-pane" action="/goodsDetail/operatorGoodsDetail.do">
+        <input type="hidden" name="id" value="${detailsinfoObj.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">请选择物品</label>
+            <div class="layui-input-block">
+                <select name="goodsinfoid" lay-verify="required" lay-search="">
+                    <option value="">直接选择或搜索选择</option>
+                    <c:forEach items="${goodslist}" var="goods">
+                        <option value="${goods.id}" ${detailsinfoObj.goodsinfoid eq goods.id ? 'selcted' : ''}>${goods.goodsname}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="syscode" placeholder="请输入编号" class="layui-input" lay-verify="required" value="${detailsinfoObj.syscode}">
+            </div>
+        </div>
+        <%--毛重--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">毛重</label>
+            <div class="layui-input-block">
+                <input type="text" name="grossweight" placeholder="请输入毛重" class="layui-input" lay-verify="required" value="${detailsinfoObj.grossweight}">
+            </div>
+        </div>
+        <%--特征编号--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">特征编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="trait" placeholder="请输入特征编号" class="layui-input" lay-verify="required" value="${detailsinfoObj.trait}">
+            </div>
+        </div>
+        <%--车型--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">车型</label>
+            <div class="layui-input-block">
+                <input type="text" name="cartype" placeholder="请输入车型" class="layui-input" lay-verify="required" value="${detailsinfoObj.cartype}">
+            </div>
+        </div>
+        <%--品牌--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">品牌</label>
+            <div class="layui-input-block">
+                <input type="text" name="brand" placeholder="请输入品牌" class="layui-input" lay-verify="required" value="${detailsinfoObj.brand}">
+            </div>
+        </div>
+        <%--货源位置--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">货源位置</label>
+            <div class="layui-input-block">
+                <input type="text" name="sougl" placeholder="请输入货源位置" class="layui-input" lay-verify="required" value="${detailsinfoObj.sougl}">
+            </div>
+        </div>
+        <%--产地--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产地</label>
+            <div class="layui-input-block">
+                <input type="text" name="place" placeholder="请输入产地" class="layui-input" lay-verify="required" value="${detailsinfoObj.place}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="请输入备注" class="layui-textarea">${detailsinfoObj.remark}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <button id="submitBtn" class="layui-btn" type="button" lay-submit lay-filter="demo">保存</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </form>
+</div>
+
+<%--<script src="/library/layui/layui.js"></script>--%>
+<script src="/library/layui/layui.all.js"></script>
+<script src="/library/jquery/jquery.min.js"></script>
+<script>
+    ;!function(){
+        var form = layui.form;
+        /*$("#submitBtn").click(function(){*/
+        //监听提交
+        form.on('submit(demo)', function(data){
+            /*var data = $("#dateForm").serialize();*/
+            var url = $("#dateForm").attr("action");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: url,
+                data: data.field,
+                success: function (result) {
+                    if(result.state == '200'){
+                        parent.reloadDataTable();
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    }else{
+
+                    }
+                },
+                error: function(data) {
+                }
+            });
+
+        });
+    }();
+</script>
+</body>
+</html>

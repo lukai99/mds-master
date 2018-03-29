@@ -1,0 +1,152 @@
+package com.mds.service.impl;
+
+import com.mds.annotation.SystemServiceLog;
+import com.mds.common.ResultVo;
+import com.mds.common.WebConstants;
+import com.mds.dao.GoodsdetailsinfoMapper;
+import com.mds.entity.Goodsdetailsinfo;
+import com.mds.service.GoodsDetailService;
+import com.mds.utils.PageBean;
+import com.mds.utils.UUIDUtils;
+import com.mds.vo.GoodsdetailsinfoVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by ASUS on 2018/3/27.
+ */
+@Service
+public class GoodsDetailServiceImpl implements GoodsDetailService {
+    @Autowired
+    GoodsdetailsinfoMapper detailsinfoMapper;
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "添加物品信息详情",description = "添加物品信息详情")
+    public ResultVo<Goodsdetailsinfo> saveGoodsDetail(Goodsdetailsinfo detailsinfo) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        detailsinfo.setId(UUIDUtils.getUUID());
+        detailsinfo.setCreatetime(new Date());
+        detailsinfo.setIsdel(WebConstants.NO);
+        detailsinfoMapper.insertSelective(detailsinfo);
+        resultVo.setData(detailsinfo);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "修改物品信息详情",description = "修改物品信息详情")
+    public ResultVo<Goodsdetailsinfo> updateGoodsDetail(Goodsdetailsinfo detailsinfo) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        detailsinfo.setUpdatetime(new Date());
+        int resultNum = detailsinfoMapper.updateByPrimaryKeySelective(detailsinfo);
+        resultVo.setData(resultNum);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "删除物品信息详情（逻辑删除）",description = "删除物品信息详情（逻辑删除）根据数据主键")
+    public ResultVo<Goodsdetailsinfo> deleteGoodsDetailForUpdate(String id) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        Goodsdetailsinfo detailsinfo = detailsinfoMapper.selectByPrimaryKey(id);
+        detailsinfo.setUpdatetime(new Date());
+        detailsinfo.setIsdel(WebConstants.YES);
+        int resultNum = detailsinfoMapper.updateByPrimaryKeySelective(detailsinfo);
+        resultVo.setData(resultNum);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "删除物品信息详情（逻辑删除）",description = "删除物品信息详情（逻辑删除）根据数据主键")
+    public ResultVo<Goodsdetailsinfo> deleteGoodsDetailForUpdate(String[] ids) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        for(String id : ids){
+            Goodsdetailsinfo goodsdetailObj = detailsinfoMapper.selectByPrimaryKey(id);
+            goodsdetailObj.setIsdel(WebConstants.YES);
+            detailsinfoMapper.updateByPrimaryKeySelective(goodsdetailObj);
+        }
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "删除物品信息详情（物理删除）",description = "删除物品信息详情（物理删除）根据数据主键")
+    public ResultVo<Goodsdetailsinfo> deleteGoodsDetailForDelete(String id) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        int resultNum = detailsinfoMapper.deleteByPrimaryKey(id);
+        resultVo.setData(resultNum);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "删除物品信息详情（物理删除）",description = "删除物品信息详情（物理删除）")
+    public ResultVo<Goodsdetailsinfo> deleteGoodsDetailForDelete(String[] ids) {
+        ResultVo<Goodsdetailsinfo> resultVo = new ResultVo<Goodsdetailsinfo>();
+        for(String id : ids){
+            detailsinfoMapper.deleteByPrimaryKey(id);
+        }
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    public PageBean<GoodsdetailsinfoVo> queryGoodsDetail(GoodsdetailsinfoVo goodsdetailVo, PageBean pageBean) {
+        PageBean<GoodsdetailsinfoVo> resultPageBean = new PageBean<GoodsdetailsinfoVo>();
+        goodsdetailVo.setPage(pageBean.getStartRowNum());
+        goodsdetailVo.setLimit(pageBean.getEndRowNum());
+        goodsdetailVo.setIsdel(WebConstants.NO);
+        List<GoodsdetailsinfoVo> resultList = detailsinfoMapper.listGoodsDetail(goodsdetailVo);
+        int count = detailsinfoMapper.countGoodsDetail(goodsdetailVo);
+        resultPageBean.setRows(resultList);
+        resultPageBean.setTotal(count);
+        resultPageBean.setResultCode(WebConstants.layuiRequestCode);
+        return resultPageBean;
+    }
+
+    @Override
+    public ResultVo<GoodsdetailsinfoVo> queryGoodsDetail(String id) {
+        ResultVo<GoodsdetailsinfoVo> resultVo = new ResultVo<GoodsdetailsinfoVo>();
+        Goodsdetailsinfo goodsdetailsinfo = detailsinfoMapper.selectByPrimaryKey(id);
+        resultVo.setData(goodsdetailsinfo);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
+    public ResultVo<GoodsdetailsinfoVo> queryGoodsDetail(GoodsdetailsinfoVo goodsdetailVo) {
+        ResultVo<GoodsdetailsinfoVo> resultVo = new ResultVo<GoodsdetailsinfoVo>();
+        List<GoodsdetailsinfoVo> resultList = detailsinfoMapper.selectBySelective(goodsdetailVo);
+        resultVo.setDataList(resultList);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        resultVo.setState(ResultVo.SUCCESS);
+        return resultVo;
+    }
+
+    @Override
+    public List<GoodsdetailsinfoVo> getUnCheckList() {
+        GoodsdetailsinfoVo vo = new GoodsdetailsinfoVo();
+        vo.setIscheck(0);
+        List<GoodsdetailsinfoVo> detailsinfovo = detailsinfoMapper.listGoodsDetail(vo);
+        return detailsinfovo;
+    }
+}
