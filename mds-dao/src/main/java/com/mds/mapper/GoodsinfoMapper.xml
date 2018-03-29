@@ -176,4 +176,11 @@
     from mds_goodsinfo
     <include refid="Base_Column_Where" />
   </select>
+  <select id="getGoodsList" resultType="com.mds.entity.Goodsinfo">
+    select
+    <include refid="Base_Column_List" />
+    from mds_goodsinfo where isdel = '0'
+    order by createtime desc
+  </select>
+
 </mapper>

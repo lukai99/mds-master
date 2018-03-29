@@ -33,4 +33,11 @@ public interface GoodsinfoMapper {
      * @return
      */
     int selectCountBySelective(GoodsInfoVo goodsInfoVo);
+
+    /**
+     * 获取物品信息下拉框
+     * @param goodsinfo
+     * @return
+     */
+    List<Goodsinfo> getGoodsList();
 }

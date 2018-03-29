@@ -5,6 +5,7 @@
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="baseelementid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="goodsdetailid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,10 +27,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mds.entity.Ementidcontentinfo" >
-    insert into mds_ementidcontentinfo (id, baseelementid, content, 
+    insert into mds_ementidcontentinfo (id, baseelementid,goodsdetailid, content,
       isdel, remark, createtime, 
       updatetime)
-    values (#{id,jdbcType=VARCHAR}, #{baseelementid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{baseelementid,jdbcType=VARCHAR},#{goodsdetailid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
       #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
@@ -88,6 +89,9 @@
       <if test="baseelementid != null" >
         baseelementid = #{baseelementid,jdbcType=VARCHAR},
       </if>
+      <if test="goodsdetailid != null" >
+        goodsdetailid = #{goodsdetailid,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
@@ -115,5 +119,10 @@
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteEmentCheckInfo" parameterType="java.lang.String">
+    update mds_ementidcontentinfo me set me.isdel = '1'
+    where me.goodsdetailid = #{goodsdetailid}
   </update>
 </mapper>

@@ -73,12 +73,14 @@
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
+                {type:'numbers',title: '序号'},
                 /*{field:'id', width:80, title: 'ID', align:'center'},*/
                 {field:'name', width:150, title: '名称', align:'center'},
-                {field:'dailyprice', width:240, title: '价格', align:'center'},
-                {field:'inputtime', width:200, title: '日期', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime,"yyyy-MM-dd") }}</div>'},
-                {field:'remark', width:400, title: '备注', align:'center'},
-                {field:'createtime', width:200, title: '创建时间', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime) }}</div>'}
+                {field:'dailyprice', width:100, title: '价格', align:'center'},
+                {field:'inputtime', width:150, title: '日期', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime,"yyyy-MM-dd") }}</div>'},
+                {field:'remark', width:200, title: '备注', align:'center'},
+                {field:'createtime', width:200, title: '创建时间', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime) }}</div>'},
+                {field:'updatetime', width:200, title: '修改时间', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.updatetime) }}</div>'}
             ]],
             page: true,
             request: {

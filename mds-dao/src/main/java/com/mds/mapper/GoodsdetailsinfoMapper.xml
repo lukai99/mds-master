@@ -5,25 +5,90 @@
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="syscode" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="goodsinfoid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="grossweight" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="goodsinfoid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="grossweight" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="trait" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="cartype" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="brand" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="sougl" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="carriershape" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="netweight" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="netweight" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="honeycombshape" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="checkremark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ischeck" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     id, syscode, goodsinfoid, grossweight, trait, cartype, brand, sougl, place, carriershape, 
-    netweight, honeycombshape, isdel, remark, createtime, updatetime
+    netweight, honeycombshape, isdel, remark, createtime, updatetime,ischeck,checkremark
+  </sql>
+  <sql id="Base_Column_Where">
+    where
+    1 = 1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="syscode != null and syscode != ''" >
+      and syscode like "%"#{syscode,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="goodsinfoid != null and goodsinfoid != ''" >
+      and goodsinfoid = #{goodsinfoid,jdbcType=VARCHAR}
+    </if>
+    <if test="grossweight != null and grossweight != ''" >
+      and grossweight = #{grossweight,jdbcType=VARCHAR}
+    </if>
+    <if test="trait != null and trait != ''" >
+      and trait = #{trait,jdbcType=VARCHAR}
+    </if>
+    <if test="cartype != null and cartype != ''" >
+      and cartype = #{cartype,jdbcType=VARCHAR}
+    </if>
+    <if test="brand != null and brand != ''" >
+      and brand = #{brand,jdbcType=VARCHAR}
+    </if>
+    <if test="sougl != null and sougl != ''" >
+      and sougl = #{sougl,jdbcType=VARCHAR}
+    </if>
+    <if test="place != null and place != ''" >
+      and place = #{place,jdbcType=VARCHAR}
+    </if>
+    <if test="carriershape != null and carriershape != ''" >
+      and carriershape = #{carriershape,jdbcType=VARCHAR}
+    </if>
+    <if test="netweight != null and netweight != ''" >
+      and netweight = #{netweight,jdbcType=VARCHAR}
+    </if><if test="honeycombshape != null and honeycombshape != ''" >
+    and honeycombshape = #{honeycombshape,jdbcType=VARCHAR}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null and createtime != ''" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null and updatetime != ''" >
+      and updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="ischeck != null and ischeck != ''">
+      and ischeck = #{ischeck,jdbcType=Integer}
+    </if>
+    <if test="checkremark != null and checkremark != ''" >
+      and checkremark = #{checkremark,jdbcType=VARCHAR}
+    </if>
+
+  </sql>
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -42,7 +107,7 @@
       carriershape, netweight, honeycombshape, 
       isdel, remark, createtime, 
       updatetime)
-    values (#{id,jdbcType=VARCHAR}, #{syscode,jdbcType=VARCHAR}, #{goodsinfoid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{syscode,jdbcType=VARCHAR}, #{goodsinfoid,jdbcType=VARCHAR},
       #{grossweight,jdbcType=DOUBLE}, #{trait,jdbcType=VARCHAR}, #{cartype,jdbcType=VARCHAR}, 
       #{brand,jdbcType=VARCHAR}, #{sougl,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, 
       #{carriershape,jdbcType=VARCHAR}, #{netweight,jdbcType=DOUBLE}, #{honeycombshape,jdbcType=VARCHAR}, 
@@ -109,7 +174,7 @@
         #{syscode,jdbcType=VARCHAR},
       </if>
       <if test="goodsinfoid != null" >
-        #{goodsinfoid,jdbcType=INTEGER},
+        #{goodsinfoid,jdbcType=VARCHAR},
       </if>
       <if test="grossweight != null" >
         #{grossweight,jdbcType=DOUBLE},
@@ -159,7 +224,7 @@
         syscode = #{syscode,jdbcType=VARCHAR},
       </if>
       <if test="goodsinfoid != null" >
-        goodsinfoid = #{goodsinfoid,jdbcType=INTEGER},
+        goodsinfoid = #{goodsinfoid,jdbcType=VARCHAR},
       </if>
       <if test="grossweight != null" >
         grossweight = #{grossweight,jdbcType=DOUBLE},
@@ -200,13 +265,19 @@
       <if test="updatetime != null" >
         updatetime = #{updatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="ischeck != null" >
+        ischeck = #{ischeck,jdbcType=INTEGER},
+      </if>
+      <if test="checkremark != null" >
+        checkremark = #{checkremark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mds.entity.Goodsdetailsinfo" >
     update mds_goodsdetailsinfo
     set syscode = #{syscode,jdbcType=VARCHAR},
-      goodsinfoid = #{goodsinfoid,jdbcType=INTEGER},
+      goodsinfoid = #{goodsinfoid,jdbcType=VARCHAR},
       grossweight = #{grossweight,jdbcType=DOUBLE},
       trait = #{trait,jdbcType=VARCHAR},
       cartype = #{cartype,jdbcType=VARCHAR},
@@ -219,7 +290,44 @@
       isdel = #{isdel,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      ischeck = #{ischeck,jdbcType=INTEGER},
+      checkremark = #{checkremark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectBySelective" resultType="com.mds.vo.GoodsdetailsinfoVo" parameterType="com.mds.vo.GoodsdetailsinfoVo" >
+    select
+    <include refid="Base_Column_List" />
+    from mds_goodsdetailsinfo
+    <include refid="Base_Column_Where" />
+    order by createtime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="selectCountBySelective" resultType="java.lang.Integer" parameterType="com.mds.vo.GoodsdetailsinfoVo" >
+    select
+    count(1)
+    from mds_goodsdetailsinfo
+    <include refid="Base_Column_Where" />
+  </select>
+  
+  <select id="listGoodsDetail" resultType="com.mds.vo.GoodsdetailsinfoVo" parameterType="com.mds.vo.GoodsdetailsinfoVo">
+    select
+    de.id, de.syscode, de.goodsinfoid,gi.goodsname, de.grossweight, de.trait, de.cartype, de.brand, de.sougl, de.place, de.carriershape,
+    de.netweight, de.honeycombshape, de.isdel, de.remark, de.createtime, de.updatetime,de.checkremark
+    from mds_goodsdetailsinfo de join mds_goodsinfo gi on de.goodsinfoid = gi.id
+    and de.isdel = '0' and gi.isdel = '0'
+    <if test="ischeck!=null">
+      and de.ischeck=#{ischeck}
+    </if>
+  </select>
+  <select id="countGoodsDetail" resultType="java.lang.Integer" parameterType="com.mds.vo.GoodsdetailsinfoVo">
+    select
+    count(1)
+    from mds_goodsdetailsinfo de join mds_goodsinfo gi on de.goodsinfoid = gi.id
+    and de.isdel = '0' and gi.isdel = '0'
+    <if test="ischeck!=null">
+      and de.ischeck=#{ischeck}
+    </if>
+  </select>
 </mapper>

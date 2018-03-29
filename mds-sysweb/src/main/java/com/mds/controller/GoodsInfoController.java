@@ -37,7 +37,7 @@ public class GoodsInfoController {
         return resultPageBean;
     }
 
-    /* 添加字典项页面 */
+    /* 添加物品信息页面 */
     @RequestMapping("/toOperatorGoodsInfoPage.do")
     public String addGoodsInfoPage(Goodsinfo goodsinfo, HttpServletRequest request, Model model){
         if(goodsinfo.getId() != null){

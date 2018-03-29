@@ -59,7 +59,7 @@
     <div class="data-part">
         <div style="margin-top: 5px;">
             <div class="layui-btn-group">
-                <button id="addBtn" class="layui-btn layui-btn-normal layui-btn-sm">增加</button>
+                <button id="addBtn" class="layui-btn layui-btn-normal layui-btn-sm">录入</button>
                 <button id="updateBtn" class="layui-btn layui-btn-normal layui-btn-sm">编辑</button>
                 <button id="deleteBtn" class="layui-btn layui-btn-normal layui-btn-sm">删除</button>
             </div>
@@ -98,7 +98,6 @@
                 {field:'updatetime', width:200, title: '修改时间', align:'center',sort:true,templet:'<div>{{ layui.laytpl.toDateString(d.updatetime) }}</div>'}
             ]],
             page: true,
-            limits:[10,30,50],
             request: {
                 pageName: 'page', //页码的参数名称，默认：page
                 limitName: 'limit' //每页数据量的参数名，默认：limit
@@ -164,7 +163,7 @@
             console.log(checkStatus.isAll ) //表格是否全选
             layer.open({
                 type: 2,
-                title: '修改字典项',
+                title: '修改物品信息',
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['800px' , '520px'],
@@ -176,7 +175,7 @@
         $("#deleteBtn").on('click', function(){
             var checkStatus = table.checkStatus('goodsinfotable'); //test即为基础参数id对应的值
             if(checkStatus.data.length==0){
-                alert("请选择需要删除的数据");
+                layer.msg("请选择需要删除的数据");
                 return false;
             }
             //得到要删除的数据的id

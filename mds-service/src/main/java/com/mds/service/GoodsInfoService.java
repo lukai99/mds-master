@@ -5,6 +5,8 @@ import com.mds.entity.Goodsinfo;
 import com.mds.utils.PageBean;
 import com.mds.vo.GoodsInfoVo;
 
+import java.util.List;
+
 /**
  * Created by ASUS on 2018/3/21.
  */
@@ -77,5 +79,11 @@ public interface GoodsInfoService {
      * @param goodsInfoVo
      * @return
      */
-    public ResultVo<GoodsInfoVo> querySharesAccountInfo(GoodsInfoVo goodsInfoVo);
+    public ResultVo<GoodsInfoVo> queryGoodsInfo(GoodsInfoVo goodsInfoVo);
+
+    /**
+     * 获取物品信息下拉框
+     * @return
+     */
+    public List<Goodsinfo> getGoodsList();
 }

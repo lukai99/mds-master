@@ -9,6 +9,8 @@ public class Ementidcontentinfo extends PageBean {
 
     private String baseelementid;
 
+    private String goodsdetailid;
+
     private String content;
 
     private String isdel;
@@ -87,5 +89,13 @@ public class Ementidcontentinfo extends PageBean {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getGoodsdetailid() {
+        return goodsdetailid;
+    }
+
+    public void setGoodsdetailid(String goodsdetailid) {
+        this.goodsdetailid = goodsdetailid;
     }
 }

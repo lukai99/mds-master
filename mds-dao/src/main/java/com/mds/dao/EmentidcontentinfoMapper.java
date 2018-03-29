@@ -14,4 +14,6 @@ public interface EmentidcontentinfoMapper {
     int updateByPrimaryKeySelective(Ementidcontentinfo record);
 
     int updateByPrimaryKey(Ementidcontentinfo record);
+
+    int deleteEmentCheckInfo(String goodsdetailid);
 }

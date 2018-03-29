@@ -99,7 +99,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    @SystemServiceLog(module = "mds",option = "删除字典项（物理删除）",description = "删除字典项（物理删除）")
+    @SystemServiceLog(module = "mds",option = "删除物品（物理删除）",description = "删除物品（物理删除）")
     public ResultVo<Goodsinfo> deleteGoodsInfoForDelete(String[] ids) {
         ResultVo<Goodsinfo> resultVo = new ResultVo<Goodsinfo>();
         for(String id : ids){
@@ -136,12 +136,17 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
     }
 
     @Override
-    public ResultVo<GoodsInfoVo> querySharesAccountInfo(GoodsInfoVo goodsInfoVo) {
+    public ResultVo<GoodsInfoVo> queryGoodsInfo(GoodsInfoVo goodsInfoVo) {
         ResultVo<GoodsInfoVo> resultVo = new ResultVo<GoodsInfoVo>();
         List<GoodsInfoVo> resultList = goodsinfoMapper.selectBySelective(goodsInfoVo);
         resultVo.setDataList(resultList);
         resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
         resultVo.setState(ResultVo.SUCCESS);
         return resultVo;
+    }
+
+    @Override
+    public List<Goodsinfo> getGoodsList() {
+        return goodsinfoMapper.getGoodsList();
     }
 }

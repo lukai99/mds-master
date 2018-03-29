@@ -9,9 +9,9 @@ public class Goodsdetailsinfo extends PageBean {
 
     private String syscode;
 
-    private Integer goodsinfoid;
+    private String goodsinfoid;
 
-    private Double grossweight;
+    private String grossweight;
 
     private String trait;
 
@@ -25,7 +25,7 @@ public class Goodsdetailsinfo extends PageBean {
 
     private String carriershape;
 
-    private Double netweight;
+    private String netweight;
 
     private String honeycombshape;
 
@@ -37,7 +37,11 @@ public class Goodsdetailsinfo extends PageBean {
 
     private Date updatetime;
 
-    public Goodsdetailsinfo(String id, String syscode, Integer goodsinfoid, Double grossweight, String trait, String cartype, String brand, String sougl, String place, String carriershape, Double netweight, String honeycombshape, String isdel, String remark, Date createtime, Date updatetime) {
+    private Integer ischeck;
+
+    private String checkremark;
+
+    public Goodsdetailsinfo(String id, String syscode, String goodsinfoid, String grossweight, String trait, String cartype, String brand, String sougl, String place, String carriershape, String netweight, String honeycombshape, String isdel, String remark, Date createtime, Date updatetime, String checkremark, Integer ischeck) {
         this.id = id;
         this.syscode = syscode;
         this.goodsinfoid = goodsinfoid;
@@ -54,6 +58,8 @@ public class Goodsdetailsinfo extends PageBean {
         this.remark = remark;
         this.createtime = createtime;
         this.updatetime = updatetime;
+        this.ischeck = ischeck;
+        this.checkremark = checkremark;
     }
 
     public Goodsdetailsinfo() {
@@ -76,19 +82,19 @@ public class Goodsdetailsinfo extends PageBean {
         this.syscode = syscode == null ? null : syscode.trim();
     }
 
-    public Integer getGoodsinfoid() {
+    public String getGoodsinfoid() {
         return goodsinfoid;
     }
 
-    public void setGoodsinfoid(Integer goodsinfoid) {
+    public void setGoodsinfoid(String goodsinfoid) {
         this.goodsinfoid = goodsinfoid;
     }
 
-    public Double getGrossweight() {
+    public String getGrossweight() {
         return grossweight;
     }
 
-    public void setGrossweight(Double grossweight) {
+    public void setGrossweight(String grossweight) {
         this.grossweight = grossweight;
     }
 
@@ -140,11 +146,11 @@ public class Goodsdetailsinfo extends PageBean {
         this.carriershape = carriershape == null ? null : carriershape.trim();
     }
 
-    public Double getNetweight() {
+    public String getNetweight() {
         return netweight;
     }
 
-    public void setNetweight(Double netweight) {
+    public void setNetweight(String netweight) {
         this.netweight = netweight;
     }
 
@@ -186,5 +192,21 @@ public class Goodsdetailsinfo extends PageBean {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Integer getIscheck() {
+        return ischeck;
+    }
+
+    public void setIscheck(Integer ischeck) {
+        this.ischeck = ischeck;
+    }
+
+    public String getCheckremark() {
+        return checkremark;
+    }
+
+    public void setCheckremark(String checkremark) {
+        this.checkremark = checkremark;
     }
 }

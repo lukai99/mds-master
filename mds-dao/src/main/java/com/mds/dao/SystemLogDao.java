@@ -19,7 +19,7 @@ public class SystemLogDao {
 
     public int saveSystemLog(SystemLog systemLog){
         StringBuilder sql = new StringBuilder("");
-        sql.append("insert into systemlog(id,userid,type,module,`option`,description,methodname,parameter,createtime,remark,userip) values(?,?,?,?,?,?,?,?,?,?,?)");
+        sql.append("insert into sys_log(id,userid,type,module,`option`,description,methodname,parameter,createtime,remark,userip) values(?,?,?,?,?,?,?,?,?,?,?)");
         return jdbcTemplate.update(sql.toString(),systemLog.getId(),systemLog.getUserId(),systemLog.getType(),systemLog.getModule(),systemLog.getOption(),systemLog.getDescription(),systemLog.getMethodName(),systemLog.getParameter(),systemLog.getCreatetime(),systemLog.getRemark(),systemLog.getUserIp());
     }
 }
