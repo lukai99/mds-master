@@ -8,14 +8,24 @@ import com.mds.service.GoodsDetailService;
 import com.mds.service.GoodsInfoService;
 import com.mds.utils.PageBean;
 import com.mds.vo.GoodsdetailsinfoVo;
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ASUS on 2018/3/27.
@@ -78,5 +88,44 @@ public class GoodsDetailController {
         ResultVo vo =  null;
         vo = detailService.deleteGoodsDetailForUpdate(ids);
         return vo;
+    }
+
+    @RequestMapping("uploadGoodsIamges.do")
+    @ResponseBody
+    public Map<String,String> upload(MultipartFile upload){
+
+        Map<String,String> resmap = new HashMap<String,String>();
+        try{
+            long uploadname = System.currentTimeMillis();//获得当前时间戳
+            String realname = upload.getOriginalFilename();
+            String suffix = realname.substring(realname.lastIndexOf("."));
+
+            String path = "E:\\upload";
+            File file = new File(path);
+            if(!file.exists()){
+                file.mkdir();
+            }
+            path = path+File.separator+uploadname+suffix;
+            file = new File(path);
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            InputStream in = upload.getInputStream();
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) != -1){
+                fos.write(buffer,0,len);
+            }
+
+            resmap.put("realname",realname);
+            resmap.put("uploadname",uploadname+suffix);
+
+            fos.close();
+            in.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resmap;
     }
 }

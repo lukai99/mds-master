@@ -258,4 +258,11 @@
       <![CDATA[ and inputtime <= #{endDate,jdbcType=VARCHAR}]]>
     </if>
   </select>
+
+  <select id="queryTodayPrice" resultType="com.mds.entity.Dailyprice" parameterType="com.mds.vo.DailypriceVo">
+    select * from mds_dailyprice where 1=1
+    and baseelementid = #{baseelementid,jdbcType=VARCHAR}
+    and inputtime = #{inputtime,jdbcType=TIMESTAMP}
+    order by createtime
+  </select>
 </mapper>

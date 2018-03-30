@@ -13,6 +13,14 @@ public class Ementidcontentinfo extends PageBean {
 
     private String content;
 
+    private Double dailyprice;
+
+    private Double zkrate;
+
+    private Double realprice;
+
+    private Double reprice;
+
     private String isdel;
 
     private String remark;
@@ -21,18 +29,26 @@ public class Ementidcontentinfo extends PageBean {
 
     private Date updatetime;
 
-    public Ementidcontentinfo(String id, String baseelementid, String content, String isdel, String remark, Date createtime, Date updatetime) {
+    private Integer sort;
+
+    public Ementidcontentinfo() {
+        super();
+    }
+
+    public Ementidcontentinfo(String id, String baseelementid, String goodsdetailid, String content, Double dailyprice, Double zkrate, Double realprice, Double reprice, String isdel, String remark, Date createtime, Date updatetime, Integer sort) {
         this.id = id;
         this.baseelementid = baseelementid;
+        this.goodsdetailid = goodsdetailid;
         this.content = content;
+        this.dailyprice = dailyprice;
+        this.zkrate = zkrate;
+        this.realprice = realprice;
+        this.reprice = reprice;
         this.isdel = isdel;
         this.remark = remark;
         this.createtime = createtime;
         this.updatetime = updatetime;
-    }
-
-    public Ementidcontentinfo() {
-        super();
+        this.sort = sort;
     }
 
     public String getId() {
@@ -97,5 +113,45 @@ public class Ementidcontentinfo extends PageBean {
 
     public void setGoodsdetailid(String goodsdetailid) {
         this.goodsdetailid = goodsdetailid;
+    }
+
+    public Double getDailyprice() {
+        return dailyprice;
+    }
+
+    public Double getZkrate() {
+        return zkrate;
+    }
+
+    public Double getRealprice() {
+        return realprice;
+    }
+
+    public Double getReprice() {
+        return reprice;
+    }
+
+    public void setDailyprice(Double dailyprice) {
+        this.dailyprice = dailyprice;
+    }
+
+    public void setZkrate(Double zkrate) {
+        this.zkrate = zkrate;
+    }
+
+    public void setRealprice(Double realprice) {
+        this.realprice = realprice;
+    }
+
+    public void setReprice(Double reprice) {
+        this.reprice = reprice;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

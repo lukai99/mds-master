@@ -2,6 +2,7 @@ package com.mds.controller;
 
 import com.mds.annotation.SystemControllerLog;
 import com.mds.common.ResultVo;
+import com.mds.entity.Ementidcontentinfo;
 import com.mds.entity.Goodsdetailsinfo;
 import com.mds.entity.Goodsinfo;
 import com.mds.service.BaseElementService;
@@ -9,6 +10,7 @@ import com.mds.service.GoodsCheckService;
 import com.mds.service.GoodsDetailService;
 import com.mds.utils.PageBean;
 import com.mds.vo.BaseElementVo;
+import com.mds.vo.EmentidcontentinfoVo;
 import com.mds.vo.GoodsdetailsinfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +48,7 @@ public class GoodsCheckController {
         return resultPageBean;
     }
 
-    /* 添加物品信息页面 */
+    /* 添加物品检测信息页面 */
     @RequestMapping("/toOperatorGoodsCheckPage.do")
     public String addGoodsInfoPage(Goodsdetailsinfo detailsinfo, HttpServletRequest request, Model model){
         //物品信息详情下拉选项
@@ -56,12 +58,24 @@ public class GoodsCheckController {
         ResultVo<BaseElementVo> baseElementVoResultVo = baseElementService.queryBaseElementInfo(new BaseElementVo());
         List<BaseElementVo> list = baseElementVoResultVo.getDataList();
         model.addAttribute("baseElementVoList",list);
+        return "goodsCheck/operatorGoodsCheckInfo";
+    }
+
+    /* 修改物品检测信息页面 */
+    @RequestMapping("/toUpdateGoodsCheckPage.do")
+    public String updateGoodsInfoPage(Goodsdetailsinfo detailsinfo, HttpServletRequest request, Model model){
+        //基本元素下拉选项
+        ResultVo<BaseElementVo> baseElementVoResultVo = baseElementService.queryBaseElementInfo(new BaseElementVo());
+        List<BaseElementVo> list = baseElementVoResultVo.getDataList();
+        model.addAttribute("baseElementVoList",list);
         if(detailsinfo.getId() != null){
             ResultVo vo = detailService.queryGoodsDetail(detailsinfo.getId());
             Goodsdetailsinfo detailsinfoObj = (Goodsdetailsinfo)vo.getData();
             model.addAttribute("detailsinfoObj",detailsinfoObj);
+            List<EmentidcontentinfoVo> checklist = checkService.getCheckInfoByDetailid(detailsinfo.getId());
+            model.addAttribute("checklist",checklist);
         }
-        return "goodsCheck/operatorGoodsCheckInfo";
+        return "goodsCheck/updateGoodsCheckInfo";
     }
 
     @RequestMapping("/operatorGoodsCheck.do")
@@ -70,5 +84,17 @@ public class GoodsCheckController {
     public ResultVo operatorGoodsCheck(GoodsdetailsinfoVo detailsinfo){
         ResultVo vo =  checkService.saveGoodsCheck(detailsinfo);
         return vo;
+    }
+
+    /**
+     * 检测详情查看
+     * @param detailsinfo
+     * @return
+     */
+    @RequestMapping("toLookGoodsCheckPage.do")
+    public String toLookGoodsCheckPage(Goodsdetailsinfo detailsinfo,Model model){
+        List<EmentidcontentinfoVo> checklist = checkService.getCheckInfoByDetailid(detailsinfo.getId());
+        model.addAttribute("checklist",checklist);
+        return "goodsCheck/lookGoodsCheckInfo";
     }
 }

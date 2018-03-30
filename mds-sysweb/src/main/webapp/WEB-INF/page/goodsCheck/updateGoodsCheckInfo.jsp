@@ -22,9 +22,7 @@
             <div class="layui-input-block">
                 <select name="id" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${detaillist}" var="detail">
-                        <option value="${detail.id}" ${detailsinfoObj.id eq detail.id ? 'selcted' : ''}>${detail.syscode}</option>
-                    </c:forEach>
+                    <option value="${detailsinfoObj.id}" selected>${detailsinfoObj.syscode}</option>
                 </select>
             </div>
         </div>
@@ -32,21 +30,57 @@
         <div class="layui-form-item">
             <label class="layui-form-label">载体形状</label>
             <div class="layui-input-block">
-                <input type="text" name="carriershape" placeholder="请输入载体形状" class="layui-input" lay-verify="required" value="">
+                <input type="text" name="carriershape" placeholder="请输入载体形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.carriershape}">
             </div>
         </div>
         <%--蜂窝形状--%>
         <div class="layui-form-item">
             <label class="layui-form-label">蜂窝形状</label>
             <div class="layui-input-block">
-                <input type="text" name="honeycombshape" placeholder="请输入蜂窝形状" class="layui-input" lay-verify="required" value="">
+                <input type="text" name="honeycombshape" placeholder="请输入蜂窝形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.honeycombshape}">
             </div>
         </div>
         <%--净重--%>
         <div class="layui-form-item">
             <label class="layui-form-label">净重</label>
             <div class="layui-input-block">
-                <input type="text" name="netweight" placeholder="请输入净重" class="layui-input" lay-verify="required" value="">
+                <input type="text" name="netweight" placeholder="请输入净重" class="layui-input" lay-verify="required" value="${detailsinfoObj.netweight}">
+            </div>
+        </div>
+        <c:forEach items="${checklist}" var="check">
+            <div class="layui-form-item">
+                <label class="layui-form-label">元素名称</label>
+                <div class="layui-input-block">
+                    <select name="elname" lay-verify="required" lay-search="">
+                        <option value="">直接选择或搜索选择</option>
+                        <c:forEach items="${baseElementVoList}" var="baseElement">
+                            <option value="${baseElement.id}" ${baseElement.id eq check.baseelementid? 'selected':''}>${baseElement.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">含量</label>
+                <div class="layui-input-block">
+                    <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="${check.content}">
+                </div>
+            </div>
+        </c:forEach>
+        <%--<div class="layui-form-item">
+            <label class="layui-form-label">元素名称</label>
+            <div class="layui-input-block">
+                <select name="elname" lay-verify="required" lay-search="">
+                    <option value="">直接选择或搜索选择</option>
+                    <c:forEach items="${baseElementVoList}" var="baseElement">
+                        <option value="${baseElement.id}" ${baseElement.id eq dailyPrice.baseelementid? 'selected':''}>${baseElement.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">含量</label>
+            <div class="layui-input-block">
+                <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="${goodsinfo.netweight}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -55,7 +89,7 @@
                 <select name="elname" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
+                        <option value="${baseElement.id}" ${baseElement.id eq dailyPrice.baseelementid? 'selected':''}>${baseElement.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -63,47 +97,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">含量</label>
             <div class="layui-input-block">
-                <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="">
+                <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="${goodsinfo.netweight}">
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">元素名称</label>
-            <div class="layui-input-block">
-                <select name="elname" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">含量</label>
-            <div class="layui-input-block">
-                <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">元素名称</label>
-            <div class="layui-input-block">
-                <select name="elname" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">含量</label>
-            <div class="layui-input-block">
-                <input type="text" name="elcontent" placeholder="请输入含量" class="layui-input" lay-verify="required|number" value="">
-            </div>
-        </div>
+        </div>--%>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
-                <textarea name="checkremark" placeholder="请输入备注" class="layui-textarea">${detailsinfoObj.remark}</textarea>
+                <textarea name="checkremark" placeholder="请输入备注" class="layui-textarea">${detailsinfoObj.checkremark}</textarea>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">

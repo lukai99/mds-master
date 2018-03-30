@@ -76,6 +76,12 @@
                 <input type="text" name="place" placeholder="请输入产地" class="layui-input" lay-verify="required" value="${detailsinfoObj.place}">
             </div>
         </div>
+        <%--上传文件--%>
+        <div class="layui-form-item">
+            <button type="button" class="layui-btn" id="upload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+        </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
@@ -95,6 +101,7 @@
 <script>
     ;!function(){
         var form = layui.form;
+        var upload = layui.upload;
         /*$("#submitBtn").click(function(){*/
         //监听提交
         form.on('submit(demo)', function(data){
@@ -119,6 +126,18 @@
                 }
             });
 
+        });
+
+        upload.render({
+            elem: '#upload',
+            field: 'upload',//控件的name名，与后台参数名称一致
+            url:  '/goodsDetail/uploadGoodsIamges.do',
+            accept: 'images',//默认值就是images
+            multiple: false,//是否允许多文件上传。设置 true即可开启 默认值false
+            size: 5120 //上传图片最大为5M
+//            done: function(res, index, upload){ //上传后的回调
+//
+//            },
         });
     }();
 </script>

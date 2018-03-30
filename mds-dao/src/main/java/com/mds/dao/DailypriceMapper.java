@@ -38,4 +38,12 @@ public interface DailypriceMapper {
      * @return
      */
     int selectVoCountBySelective(DailypriceVo dailypriceVo);
+
+
+    /**
+     *查询元素当日价格
+     * @param dailypriceVo
+     * @return
+     */
+    List<Dailyprice> queryTodayPrice(DailypriceVo dailypriceVo);
 }

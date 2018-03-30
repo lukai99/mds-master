@@ -7,14 +7,19 @@
       <arg column="baseelementid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="goodsdetailid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dailyprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="zkrate" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="realprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="reprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, baseelementid, content, isdel, remark, createtime, updatetime
+    id, baseelementid, content,dailyprice,zkrate,realprice,reprice, isdel, remark, createtime, updatetime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,12 +32,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mds.entity.Ementidcontentinfo" >
-    insert into mds_ementidcontentinfo (id, baseelementid,goodsdetailid, content,
+    insert into mds_ementidcontentinfo (id, baseelementid,goodsdetailid, content,dailyprice,zkrate,realprice,reprice,
       isdel, remark, createtime, 
-      updatetime)
+      updatetime, sort)
     values (#{id,jdbcType=VARCHAR}, #{baseelementid,jdbcType=VARCHAR},#{goodsdetailid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+      #{dailyprice,jdbcType=DOUBLE},#{zkrate,jdbcType=DOUBLE},#{realprice,jdbcType=DOUBLE},#{reprice,jdbcType=DOUBLE},
       #{isdel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+      #{updatetime,jdbcType=TIMESTAMP},#{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.mds.entity.Ementidcontentinfo" >
     insert into mds_ementidcontentinfo
@@ -45,6 +51,18 @@
       </if>
       <if test="content != null" >
         content,
+      </if>
+      <if test="dailyprice != null" >
+        dailyprice,
+      </if>
+      <if test="zkrate != null" >
+        zkrate,
+      </if>
+      <if test="realprice != null" >
+        realprice,
+      </if>
+      <if test="reprice != null" >
+        reprice,
       </if>
       <if test="isdel != null" >
         isdel,
@@ -68,6 +86,18 @@
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyprice != null" >
+        #{dailyprice,jdbcType=DOUBLE},
+      </if>
+      <if test="zkrate != null" >
+        #{zkrate,jdbcType=DOUBLE},
+      </if>
+      <if test="realprice != null" >
+        #{realprice,jdbcType=DOUBLE},
+      </if>
+      <if test="reprice != null" >
+        #{reprice,jdbcType=DOUBLE},
       </if>
       <if test="isdel != null" >
         #{isdel,jdbcType=VARCHAR},
@@ -95,6 +125,18 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
+      <if test="dailyprice != null" >
+        #{dailyprice,jdbcType=DOUBLE},
+      </if>
+      <if test="zkrate != null" >
+        #{zkrate,jdbcType=DOUBLE},
+      </if>
+      <if test="realprice != null" >
+        #{realprice,jdbcType=DOUBLE},
+      </if>
+      <if test="reprice != null" >
+        #{reprice,jdbcType=DOUBLE},
+      </if>
       <if test="isdel != null" >
         isdel = #{isdel,jdbcType=VARCHAR},
       </if>
@@ -114,6 +156,10 @@
     update mds_ementidcontentinfo
     set baseelementid = #{baseelementid,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
+      dailyprice = #{dailyprice,jdbcType=DOUBLE},
+      zkrate = #{zkrate,jdbcType=DOUBLE},
+      realprice = #{realprice,jdbcType=DOUBLE},
+      reprice = #{reprice,jdbcType=DOUBLE},
       isdel = #{isdel,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -125,4 +171,10 @@
     update mds_ementidcontentinfo me set me.isdel = '1'
     where me.goodsdetailid = #{goodsdetailid}
   </update>
+
+  <select id="getCheckInfoByDetailid" resultType="com.mds.vo.EmentidcontentinfoVo" parameterType="java.lang.String">
+    select me.*,mb.name from mds_ementidcontentinfo me join mds_baseelement mb on mb.id = me.baseelementid
+    where me.isdel = '0'
+    and me.goodsdetailid = #{goodsdetailid} order by me.sort
+  </select>
 </mapper>

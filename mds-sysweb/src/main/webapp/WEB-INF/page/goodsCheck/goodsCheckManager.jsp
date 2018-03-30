@@ -45,10 +45,10 @@
             <div class="layui-btn-group">
                 <button id="addBtn" class="layui-btn layui-btn-normal layui-btn-sm">录入</button>
                 <button id="updateBtn" class="layui-btn layui-btn-normal layui-btn-sm">编辑</button>
-                <%--<button id="deleteBtn" class="layui-btn layui-btn-normal layui-btn-sm">删除</button>--%>
+                <%--<button id="lookBtn" class="layui-btn layui-btn-normal layui-btn-sm">查看检测详情</button>--%>
             </div>
         </div>
-        <table class="layui-hide" id="dataTable"></table>
+        <table lay-filter="lookcheck" class="layui-hide" id="dataTable"></table>
     </div>
 </div>
 </body>
@@ -74,7 +74,8 @@
                 {field:'carriershape', width:150, title: '载体形状', align:'center'},
                 {field:'honeycombshape', width:150, title: '蜂窝形状', align:'center'},
                 {field:'netweight', width:150, title: '净重', align:'center'},
-                {field:'checkremark', width:210, title: '备注', align:'center'}
+                {field:'checkremark', width:210, title: '备注', align:'center'},
+                {width:210, title: '操作', align:'center',toolbar: '#barDemo'}
             ]],
             page: true,
             request: {
@@ -139,44 +140,11 @@
             console.log(checkStatus.isAll ) //表格是否全选
             layer.open({
                 type: 2,
-                title: '修改物品信息详情',
+                title: '修改物品检测详情',
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['100%' , '100%'],
-                content: '/goodsDetail/toOperatorGoodsDetailPage.do?id='+checkStatus.data[0].id
-            });
-        });
-
-        //删除字典项
-        $("#deleteBtn").on('click', function(){
-            var checkStatus = table.checkStatus('goodschecktable'); //test即为基础参数id对应的值
-            if(checkStatus.data.length==0){
-                layer.msg("请选择需要删除的数据");
-                return false;
-            }
-            //得到要删除的数据的id
-            var ids = "";
-            for(var i=0;i<checkStatus.data.length;i++){
-                ids += checkStatus.data[i].id+",";
-            }
-            ids = ids.substr(0,ids.length-1);
-            layer.msg('确定要删除此数据？', {
-                shade:0.3,
-                time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    layer.close(index);
-                    $.ajax({
-                        url:"/goodsDetail/toDeleteGoodsDetailPage.do",
-                        type:"POST",
-                        async:false,
-                        data:{ids:ids},
-                        dataType:"json",
-                        success:function(data){
-                            reloadDataTable();
-                        }
-                    });
-                }
+                content: '/goodsCheck/toUpdateGoodsCheckPage.do?id='+checkStatus.data[0].id
             });
         });
 
@@ -185,8 +153,25 @@
         window.reloadDataTable = function reloadDataTable(){
             $("#queryBtn").click();
         }
+
+        table.on('tool(lookcheck)', function(obj){
+            var id = obj.data.id;
+
+            layer.open({
+                type: 2,
+                title: '查看物品检测详情',
+                maxmin: true,
+                shadeClose: false, //点击遮罩关闭层
+                area : ['80%' , '70%'],
+                content: '/goodsCheck/toLookGoodsCheckPage.do?id='+id
+            });
+        });
     }();
 
 
+
+</script>
+<script type="text/html" id="barDemo">
+    <a class="lookbtn layui-btn layui-btn-xs" lay-event="detail">查看检测详情</a>
 </script>
 </html>
