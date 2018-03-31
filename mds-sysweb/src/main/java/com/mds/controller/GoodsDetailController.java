@@ -10,6 +10,7 @@ import com.mds.service.FileInfoService;
 import com.mds.service.GoodsDetailService;
 import com.mds.service.GoodsInfoService;
 import com.mds.utils.PageBean;
+import com.mds.utils.PropertiesUtil;
 import com.mds.utils.UUIDUtils;
 import com.mds.vo.GoodsdetailsinfoVo;
 import org.apache.commons.collections.map.HashedMap;
@@ -73,6 +74,10 @@ public class GoodsDetailController {
             ResultVo rvo = fileInfoService.findFileinfoByDetailId(fileinfo);
             List<Fileinfo> filelist = rvo.getDataList();
             model.addAttribute("filelist",filelist);
+            String[] arr = (String[])rvo.getData();
+            model.addAttribute("realnames",arr[0]);
+            model.addAttribute("uploadnames",arr[1]);
+            model.addAttribute("dirnames",arr[2]);
         }
         return "goodsDetail/operatorGoodsDetailsInfo";
     }
@@ -118,12 +123,12 @@ public class GoodsDetailController {
             //当前时间戳加文件后缀
             String uploadname = UUIDUtils.getUUID()+realname.substring(realname.lastIndexOf("."));
 
-            String path = "E:\\upload";
+            String path = PropertiesUtil.getUploadPath();
             File file = new File(path);
             if(!file.exists()){
                 file.mkdir();
             }
-            path = "E:\\upload"+File.separator+dirname;
+            path = path+File.separator+dirname;
             file = new File(path);
             if(!file.exists()){
                 file.mkdir();

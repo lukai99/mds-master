@@ -83,13 +83,13 @@
                 预览图：
                 <div class="layui-upload-list" id="imgqueue">
                     <c:forEach items="${filelist}" var="file">
-                        <img src="E:/upload/${file.dir}/${file.uploadname}" class="layui-upload-img">'
+                        <img src="E:/upload/${file.dir}/${file.uploadname}" >
                     </c:forEach>
                 </div>
             </blockquote>
-            <textarea class="layui-hide" id="realnames" name="realnames"></textarea>
-            <textarea class="layui-hide" id="uploadnames" name="uploadnames"></textarea>
-            <textarea class="layui-hide" id="dirname" name="dirname"></textarea>
+            <textarea class="layui-hide" id="realnames" name="realnames">${realnames}</textarea>
+            <textarea class="layui-hide" id="uploadnames" name="uploadnames">${uploadnames}</textarea>
+            <textarea class="layui-hide" id="dirname" name="dirname">${dirnames}</textarea>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
@@ -151,9 +151,6 @@
             multiple: false,//是否允许多文件上传。设置 true即可开启 默认值false
             size: 5120, //上传图片最大为5M
             multiple:true,
-            choose: function(obj){
-
-            },
             before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -166,6 +163,13 @@
                 $("#dirname").val($("#dirname").val()+res.dirname+",");
 
             },
+        });
+
+        $('#upload').on('click', function(){
+            $("#imgqueue").empty();
+            $("#realnames").val("");
+            $("#uploadnames").val("");
+            $("#dirname").val("");
         });
     }();
 </script>
