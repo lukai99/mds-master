@@ -12,6 +12,12 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
 
     private String[] elcontent;
 
+    private String[] realnames;
+
+    private String[] uploadnames;
+
+    private String[] dirname;
+
     public String getGoodsname() {
         return goodsname;
     }
@@ -35,4 +41,30 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
     public void setElcontent(String[] elcontent) {
         this.elcontent = elcontent;
     }
+
+    public String[] getRealnames() {
+
+        return realnames;
+    }
+
+    public String[] getUploadnames() {
+        return uploadnames;
+    }
+
+    public String[] getDirname() {
+        return dirname;
+    }
+
+    public void setRealnames(String[] realnames) {
+        this.realnames = realnames;
+    }
+
+    public void setUploadnames(String[] uploadnames) {
+        this.uploadnames = uploadnames;
+    }
+
+    public void setDirname(String[] dirname) {
+        this.dirname = dirname;
+    }
+
 }

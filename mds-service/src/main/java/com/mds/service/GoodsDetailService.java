@@ -15,14 +15,14 @@ public interface GoodsDetailService {
      * @param detailsinfo
      * @return
      */
-    public ResultVo<Goodsdetailsinfo> saveGoodsDetail(Goodsdetailsinfo detailsinfo);
+    public ResultVo<Goodsdetailsinfo> saveGoodsDetail(GoodsdetailsinfoVo detailsinfo);
 
     /**
      * 修改物品详情
-     * @param goodsinfo
+     * @param detailsinfo
      * @return
      */
-    public ResultVo<Goodsdetailsinfo> updateGoodsDetail(Goodsdetailsinfo detailsinfo);
+    public ResultVo<Goodsdetailsinfo> updateGoodsDetail(GoodsdetailsinfoVo detailsinfo);
 
     /**
      * 删除物品详情

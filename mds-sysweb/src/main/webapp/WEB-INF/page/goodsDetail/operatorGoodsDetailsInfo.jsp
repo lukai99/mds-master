@@ -23,7 +23,7 @@
                 <select name="goodsinfoid" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${goodslist}" var="goods">
-                        <option value="${goods.id}" ${detailsinfoObj.goodsinfoid eq goods.id ? 'selcted' : ''}>${goods.goodsname}</option>
+                        <option value="${goods.id}" ${detailsinfoObj.goodsinfoid eq goods.id ? 'selected' : ''}>${goods.goodsname}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -77,10 +77,19 @@
             </div>
         </div>
         <%--上传文件--%>
-        <div class="layui-form-item">
-            <button type="button" class="layui-btn" id="upload">
-                <i class="layui-icon">&#xe67c;</i>上传图片
-            </button>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="upload">图片上传</button>
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                预览图：
+                <div class="layui-upload-list" id="imgqueue">
+                    <c:forEach items="${filelist}" var="file">
+                        <img src="E:/upload/${file.dir}/${file.uploadname}" class="layui-upload-img">'
+                    </c:forEach>
+                </div>
+            </blockquote>
+            <textarea class="layui-hide" id="realnames" name="realnames"></textarea>
+            <textarea class="layui-hide" id="uploadnames" name="uploadnames"></textarea>
+            <textarea class="layui-hide" id="dirname" name="dirname"></textarea>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
@@ -106,6 +115,12 @@
         //监听提交
         form.on('submit(demo)', function(data){
             /*var data = $("#dateForm").serialize();*/
+            if($("#realnames").val()=="" ||
+                $("#uploadnames").val()=="" ||
+                $("#dirname").val()==""){
+                layer.msg("请上传图片信息");
+                return;
+            }
             var url = $("#dateForm").attr("action");
             $.ajax({
                 type: "POST",
@@ -134,10 +149,23 @@
             url:  '/goodsDetail/uploadGoodsIamges.do',
             accept: 'images',//默认值就是images
             multiple: false,//是否允许多文件上传。设置 true即可开启 默认值false
-            size: 5120 //上传图片最大为5M
-//            done: function(res, index, upload){ //上传后的回调
-//
-//            },
+            size: 5120, //上传图片最大为5M
+            multiple:true,
+            choose: function(obj){
+
+            },
+            before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#imgqueue').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+                });
+            },
+            done: function(res){ //上传后的回调
+                $("#realnames").val($("#realnames").val()+res.realname+",");
+                $("#uploadnames").val($("#uploadnames").val()+res.uploadname+",");
+                $("#dirname").val($("#dirname").val()+res.dirname+",");
+
+            },
         });
     }();
 </script>

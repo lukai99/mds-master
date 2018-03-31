@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mds.dao.FileinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mds.entity.Fileinfo" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detailinfo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="uploadname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dir" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, detailinfo, realname, uploadname, dir, isdel, createtime, updatetime
+  </sql>
+  <sql id="Base_Column_Where">
+    where
+    1 = 1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="detailinfo != null and detailinfo != ''" >
+      and detailinfo = #{detailinfo,jdbcType=VARCHAR}
+    </if>
+    <if test="realname != null and realname != ''" >
+      and realname = #{realname,jdbcType=VARCHAR}
+    </if>
+    <if test="uploadname != null and uploadname != ''" >
+      and uploadname = #{uploadname,jdbcType=VARCHAR}
+    </if>
+    <if test="dir != null and dir != ''" >
+      and dir = #{dir,jdbcType=VARCHAR}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and updatetime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mds_fileinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mds_fileinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mds.entity.Fileinfo" >
+    insert into mds_fileinfo (id, detailinfo, realname, 
+      uploadname, dir, isdel, 
+      createtime, updatetime)
+    values (#{id,jdbcType=VARCHAR}, #{detailinfo,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{uploadname,jdbcType=VARCHAR}, #{dir,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mds.entity.Fileinfo" >
+    insert into mds_fileinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailinfo != null" >
+        detailinfo,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="uploadname != null" >
+        uploadname,
+      </if>
+      <if test="dir != null" >
+        dir,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailinfo != null" >
+        #{detailinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadname != null" >
+        #{uploadname,jdbcType=VARCHAR},
+      </if>
+      <if test="dir != null" >
+        #{dir,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mds.entity.Fileinfo" >
+    update mds_fileinfo
+    <set >
+      <if test="detailinfo != null" >
+        detailinfo = #{detailinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadname != null" >
+        uploadname = #{uploadname,jdbcType=VARCHAR},
+      </if>
+      <if test="dir != null" >
+        dir = #{dir,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mds.entity.Fileinfo" >
+    update mds_fileinfo
+    set detailinfo = #{detailinfo,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      uploadname = #{uploadname,jdbcType=VARCHAR},
+      dir = #{dir,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByDetailId" parameterType="com.mds.entity.Fileinfo" >
+    update mds_fileinfo
+    set isdel = #{isdel,jdbcType=VARCHAR}
+    where detailinfo = #{detailinfo,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.mds.entity.Fileinfo">
+    select
+    <include refid="Base_Column_List" />
+    from mds_fileinfo
+    <include refid="Base_Column_Where" />
+    order by createtime desc
+  </select>
+</mapper>
