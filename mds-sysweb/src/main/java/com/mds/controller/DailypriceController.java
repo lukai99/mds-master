@@ -91,8 +91,6 @@ public class DailypriceController {
     @ResponseBody
     public ResultVo operatorDictionary(Dailyprice dailyprice, PageBean pageBean, HttpServletRequest request, Model model){
         ResultVo vo =  null;
-        dailyprice.setBaseelementid("001");
-
         //id为空的话 为添加菜单的操作 不为空的话为修改的操作
         if(dailyprice.getId()!=null&&!"".equals(dailyprice.getId())){
             vo = dailypriceService.updateDailyprice(dailyprice);

@@ -3,13 +3,18 @@ package com.mds.service.impl;
 import com.mds.annotation.SystemServiceLog;
 import com.mds.common.ResultVo;
 import com.mds.common.WebConstants;
+import com.mds.dao.EmentidcontentinfoMapper;
 import com.mds.dao.FileinfoMapper;
 import com.mds.dao.GoodsdetailsinfoMapper;
+import com.mds.dao.GoodsinfoMapper;
+import com.mds.entity.Ementidcontentinfo;
 import com.mds.entity.Fileinfo;
 import com.mds.entity.Goodsdetailsinfo;
+import com.mds.entity.Goodsinfo;
 import com.mds.service.GoodsDetailService;
 import com.mds.utils.PageBean;
 import com.mds.utils.UUIDUtils;
+import com.mds.vo.EmentidcontentinfoVo;
 import com.mds.vo.GoodsdetailsinfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +32,11 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
     @Autowired
     GoodsdetailsinfoMapper detailsinfoMapper;
     @Autowired
+    GoodsinfoMapper goodsinfoMapper;
+    @Autowired
     FileinfoMapper fileinfoMapper;
+    @Autowired
+    EmentidcontentinfoMapper ementidcontentinfoMapper;
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
@@ -160,6 +169,32 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
         return detailsinfovo;
     }
 
+    @Override
+    public ResultVo<GoodsdetailsinfoVo> queryGoodsDetailForPrice(String id) {
+        ResultVo<GoodsdetailsinfoVo> resultVo = new ResultVo<GoodsdetailsinfoVo>();
+        Goodsdetailsinfo goodsdetailsinfo = detailsinfoMapper.selectByPrimaryKey(id);
+        //计算总参考价格
+        List<EmentidcontentinfoVo> ementidcontentinfoList = ementidcontentinfoMapper.getCheckInfoByDetailid(goodsdetailsinfo.getId());
+        Double totalPrice = new Double(0);
+        for(EmentidcontentinfoVo vo:ementidcontentinfoList){
+            totalPrice += vo.getRealprice();
+        }
+        //获得物品名称
+        Goodsinfo goodsinfo = goodsinfoMapper.selectByPrimaryKey(goodsdetailsinfo.getGoodsinfoid());
+
+        //返回结果
+        GoodsdetailsinfoVo goodsdetailsinfoVo = new GoodsdetailsinfoVo();
+        goodsdetailsinfoVo.setTotalreprice(totalPrice+"");
+        goodsdetailsinfoVo.setSyscode(goodsdetailsinfo.getSyscode());
+        goodsdetailsinfoVo.setGoodsname(goodsinfo.getGoodsname());
+        resultVo.setData(goodsdetailsinfoVo);
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Transactional(propagation= Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "上传文件",description = "上传文件")
     public void saveFile(GoodsdetailsinfoVo goodsdetailVo){
         Fileinfo file = new Fileinfo();
         file.setDetailinfo(goodsdetailVo.getId());

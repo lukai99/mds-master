@@ -86,4 +86,13 @@ public interface GoodsDetailService {
      */
     public List<GoodsdetailsinfoVo> getUnCheckList();
 
+    /**
+     * 查询物品信息详情
+     * 包括参考价格
+     * 根据id
+     * @param id
+     * @return
+     */
+    public ResultVo<GoodsdetailsinfoVo> queryGoodsDetailForPrice(String id);
+
 }

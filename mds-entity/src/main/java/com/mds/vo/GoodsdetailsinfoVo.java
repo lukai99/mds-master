@@ -18,6 +18,8 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
 
     private String[] dirname;
 
+    private String totalreprice;//总参考价格
+
     public String getGoodsname() {
         return goodsname;
     }
@@ -67,4 +69,11 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
         this.dirname = dirname;
     }
 
+    public String getTotalreprice() {
+        return totalreprice;
+    }
+
+    public void setTotalreprice(String totalreprice) {
+        this.totalreprice = totalreprice;
+    }
 }
