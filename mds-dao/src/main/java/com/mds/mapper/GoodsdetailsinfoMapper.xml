@@ -317,6 +317,9 @@
     de.netweight, de.honeycombshape, de.isdel, de.remark, de.createtime, de.updatetime,de.checkremark
     from mds_goodsdetailsinfo de join mds_goodsinfo gi on de.goodsinfoid = gi.id
     and de.isdel = '0' and gi.isdel = '0'
+    <if test="syscode!=null">
+      and syscode like "%"#{syscode,jdbcType=VARCHAR}"%"
+    </if>
     <if test="ischeck!=null">
       and de.ischeck=#{ischeck}
     </if>
