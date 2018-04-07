@@ -129,16 +129,16 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
 
     @Override
     public PageBean<GoodsdetailsinfoVo> queryGoodsDetail(GoodsdetailsinfoVo goodsdetailVo, PageBean pageBean) {
-        PageBean<GoodsdetailsinfoVo> resultPageBean = new PageBean<GoodsdetailsinfoVo>();
+//        PageBean<GoodsdetailsinfoVo> resultPageBean = new PageBean<GoodsdetailsinfoVo>();
         goodsdetailVo.setPage(pageBean.getStartRowNum());
         goodsdetailVo.setLimit(pageBean.getEndRowNum());
         goodsdetailVo.setIsdel(WebConstants.NO);
         List<GoodsdetailsinfoVo> resultList = detailsinfoMapper.listGoodsDetail(goodsdetailVo);
         int count = detailsinfoMapper.countGoodsDetail(goodsdetailVo);
-        resultPageBean.setRows(resultList);
-        resultPageBean.setTotal(count);
-        resultPageBean.setResultCode(WebConstants.layuiRequestCode);
-        return resultPageBean;
+        pageBean.setRows(resultList);
+        pageBean.setTotal(count);
+        pageBean.setResultCode(WebConstants.layuiRequestCode);
+        return pageBean;
     }
 
     @Override

@@ -19,6 +19,14 @@
     <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/library/animate/animate.min.css" rel="stylesheet">
     <link href="/library/layui/css/layui.css" rel="stylesheet">
+    <style type="text/css">
+        .flow-default{ height: 400px; overflow: auto; font-size: 0;margin-top: 20px;}
+        .flow-default li{display: inline-block; margin: 20px 5px; font-size: 14px; width: 300px;  margin-bottom: 10px; height: 200px; line-height: 20px; text-align: center; background-color: #eee;}
+        .flow-default img{width: 100%; height: 100%;}
+        .site-demo-flow{width: 600px; height: 300px; overflow: auto; text-align: center;}
+        .site-demo-flow img{width: 40%; height: 200px; margin: 0 2px 5px 0; border: none;}
+        .goodBtn{cursor:hand}
+    </style>
 
 </head>
 <body class="gray-bg">
@@ -58,7 +66,7 @@
             </div>
             <div style="text-align: right; padding-right: 50px;">
                 <button id="queryBtn" class="layui-btn layui-btn-normal layui-btn-sm" type="button">查询</button>
-                <button id="resetBtn" class="layui-btn layui-btn-normal layui-btn-sm" type="button">重置</button>
+                <button id="resetBtn" class="layui-btn layui-btn-normal layui-btn-sm" type="reset">重置</button>
             </div>
         </form>
     </div>
@@ -70,7 +78,10 @@
                 <button id="deleteBtn" class="layui-btn layui-btn-normal layui-btn-sm">删除</button>--%>
             </div>
         </div>
-        <table class="layui-hide" id="dataTable"></table>
+        <%--<table class="layui-hide" id="dataTable"></table>--%>
+        <ul class="flow-default" id="demo" style="height:fit-content;min-height: 400px;">
+
+        </ul>
     </div>
 </div>
 </body>
@@ -79,77 +90,71 @@
 <script src="/common/common_layui.js"></script>
 <script type="text/javascript">
     ;!function(){
-        var table = layui.table;
-        var dataTableObj = table.render({
-            id: 'goodsdetailtable',
-            elem: '#dataTable',
-            height: 'full-200',
-            method:'post',
-            url:'/goodsDetail/getGoodsInfoListForQuery.do',
-            cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            cols: [[
-                {type:'checkbox'},
-                {type:'numbers',title: '序号'},
-                /*{field:'id', width:80, title: 'ID', align:'center'},*/
-                {field:'syscode', width:150, title: '编号', align:'center'},
-                {field:'goodsname', width:150, title: '物品名称', align:'center'},
-                {field:'remark', width:210, title: '备注', align:'center'},
-                {field:'operator', width:210, title: '操作', align:'center',toolbar: '#barBtn'}
-            ]],
-            page: true,
-            request: {
-                pageName: 'page', //页码的参数名称，默认：page
-                limitName: 'limit' //每页数据量的参数名，默认：limit
-            },
-            response: {
-                statusName: 'resultCode', //数据状态的字段名称，默认：code
-                statusCode: 0, //成功的状态码，默认：0
-                msgName: 'msg', //状态信息的字段名称，默认：msg
-                countName: 'count', //数据总数的字段名称，默认：count
-                dataName: 'data', //数据列表的字段名称，默认：data
-            }
-        });
+        var flow = layui.flow;
+
         /*事件绑定*/
-        $("#resetBtn").click(resetQueryForm);
         $("#queryBtn").click(queryQueryForm);
-        //重置查询项
-        function resetQueryForm(){
-            $("#queryForm input[type='text']").val("");
-        }
+
+        getData();
+
         //条件查询
         function queryQueryForm(){
             /*表格重新加载的两种方式*/
-            /*dataTableObj.reload({*/
-            table.reload("goodsdetailtable",{
-                where: { //设定异步数据接口的额外参数，任意设
-                    syscode:$("#syscode").val(),
-                    trait:$("#trait option:selected").val(),
-                    cartype:$("#cartype option:selected").val()
-                }
-                ,page: {
-                    curr: 1 //重新从第 1 页开始  不设定就是还是定位到当前页
+            $("#demo").empty();
+            getData();
+        }
+        function getData(){
+            flow.load({
+                elem: '#demo', //流加载容器
+                scrollElem: '#demo', //滚动条所在元素，一般不用填，此处只是演示需要。
+                isAuto:false,
+                isLazyimg: true,
+                done: function(page, next){ //执行下一页的回调
+                    //模拟插入
+                    var lis = [];
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/goodsDetail/getGoodsInfoListForQuery.do?page='+page+"&&limit="+8,
+                        data: {
+                            syscode:$("#syscode").val(),
+                            cartype:$("#cartype option:selected").val(),
+                            trait:$("#trait option:selected").val()
+                        },
+                        success: function (result) {
+                            //假设你的列表返回在data集合中
+                            layui.each(result.data, function(index, item){
+                                /*lis.push('<li>'+ item.title +'</li>');*/
+                                lis.push('<li class="goodBtn" data_id="'+item.id+'"><img lay-src="http://img.zcool.cn/community/01ceff57bdaa2a0000012e7ea5534a.jpg@2o.jpg"> <label>编号：<span>'+item.syscode+'</span></label></li>');
+                            });
+
+                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                            next(lis.join(''), page < Math.ceil(result.total/result.limit));
+                        },
+                        error: function(data) {
+                            alert("数据加载失败");
+                        }
+                    });
                 }
             });
+
         }
 
-        table.on('tool()', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-            var data = obj.data; //获得当前行数据
-            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-            if(layEvent === 'show'){ //查看
-                layer.open({
-                    type: 2,
-                    title: '物品信息详情',
-                    maxmin: true,
-                    shadeClose: false, //点击遮罩关闭层
-                    area : ['100%' , '100%'],
-                    content: '/goodsDetail/toGoodsInfoDetailsShowPage.do?id='+data.id,
-                    success: function(layero, index){
-                        layer.full(index);
-                    }
-                });
-            }
+        $("#demo").on('click',".goodBtn",function(){
+            var id = $(this).attr("data_id");
+            layer.open({
+                type: 2,
+                title: '物品信息详情',
+                maxmin: true,
+                shadeClose: false, //点击遮罩关闭层
+                area : ['100%' , '100%'],
+                content: '/goodsDetail/toGoodsInfoDetailsShowPage.do?id='+id,
+                success: function(layero, index){
+                    layer.full(index);
+                }
+            });
         });
 
         //刷新数据表格
@@ -159,8 +164,5 @@
     }();
 
 
-</script>
-<script type="text/html" id="barBtn">
-    <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
 </script>
 </html>

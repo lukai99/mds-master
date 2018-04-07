@@ -314,12 +314,24 @@
   <select id="listGoodsDetail" resultType="com.mds.vo.GoodsdetailsinfoVo" parameterType="com.mds.vo.GoodsdetailsinfoVo">
     select
     de.id, de.syscode, de.goodsinfoid,gi.goodsname, de.grossweight, de.trait, de.cartype, de.brand, de.sougl, de.place, de.carriershape,
-    de.netweight, de.honeycombshape, de.isdel, de.remark, de.createtime, de.updatetime,de.checkremark
-    from mds_goodsdetailsinfo de join mds_goodsinfo gi on de.goodsinfoid = gi.id
-    and de.isdel = '0' and gi.isdel = '0'
+    de.netweight, de.honeycombshape, de.isdel, de.remark, de.createtime, de.updatetime,de.checkremark,mf.uploadname,mf.dir
+    from mds_goodsdetailsinfo de left join mds_goodsinfo gi on de.goodsinfoid = gi.id and gi.isdel = '0'
+    left join mds_fileinfo mf on de.id = mf.detailinfo and mf.isdel = '0'
+    where 1 = 1
+    and de.isdel = '0'
     <if test="ischeck!=null">
       and de.ischeck=#{ischeck}
     </if>
+    <if test="syscode!=null and  syscode!= ''">
+      and de.syscode=#{syscode}
+    </if>
+    <if test="trait!=null and trait!= ''">
+      and de.ischeck=#{ischeck}
+    </if>
+    <if test="cartype!=null and cartype != ''">
+      and de.ischeck=#{ischeck}
+    </if>
+    <include refid="Page_Where" />
   </select>
   <select id="countGoodsDetail" resultType="java.lang.Integer" parameterType="com.mds.vo.GoodsdetailsinfoVo">
     select
@@ -327,6 +339,15 @@
     from mds_goodsdetailsinfo de join mds_goodsinfo gi on de.goodsinfoid = gi.id
     and de.isdel = '0' and gi.isdel = '0'
     <if test="ischeck!=null">
+      and de.ischeck=#{ischeck}
+    </if>
+    <if test="syscode!=null and  syscode!= ''">
+      and de.syscode=#{syscode}
+    </if>
+    <if test="trait!=null and trait!= ''">
+      and de.ischeck=#{ischeck}
+    </if>
+    <if test="cartype!=null and cartype != ''">
       and de.ischeck=#{ischeck}
     </if>
   </select>

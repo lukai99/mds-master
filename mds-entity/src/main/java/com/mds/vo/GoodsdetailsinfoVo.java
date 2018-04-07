@@ -7,6 +7,8 @@ import com.mds.entity.Goodsdetailsinfo;
  */
 public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
     private String goodsname;
+    private String uploadname;
+    private String dir;
 
     private String[] elname;
 
@@ -75,5 +77,21 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
 
     public void setTotalreprice(String totalreprice) {
         this.totalreprice = totalreprice;
+    }
+
+    public String getUploadname() {
+        return uploadname;
+    }
+
+    public void setUploadname(String uploadname) {
+        this.uploadname = uploadname;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 }

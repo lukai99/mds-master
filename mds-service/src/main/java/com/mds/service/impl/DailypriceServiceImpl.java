@@ -36,6 +36,16 @@ public class DailypriceServiceImpl implements DailypriceService {
     @SystemServiceLog(module = "mds",option = "添加每日价格",description = "添加每日价格")
     public ResultVo<Dailyprice> saveDailyprice(Dailyprice dailyprice) {
         ResultVo<Dailyprice> resultVo = new ResultVo<Dailyprice>();
+        //验证数据是否已经存在
+        DailypriceVo vo = new DailypriceVo();
+        vo.setBaseelementid(dailyprice.getBaseelementid());
+        vo.setInputtime(dailyprice.getInputtime());
+        List<Dailyprice> vilist = dailypriceMapper.queryTodayPrice(vo);
+        if(vilist!=null&&vilist.size()>0){
+            resultVo.setState(ResultVo.FAILED);
+            resultVo.setMessage("价格已录入！");
+            return resultVo;
+        }
         dailyprice.setId(UUIDUtils.getUUID());
         dailyprice.setCreatetime(new Date());
         dailyprice.setIsdel(WebConstants.NO);
@@ -51,6 +61,16 @@ public class DailypriceServiceImpl implements DailypriceService {
     @SystemServiceLog(module = "mds",option = "修改每日价格",description = "修改每日价格")
     public ResultVo<Dailyprice> updateDailyprice(Dailyprice dailyprice) {
         ResultVo<Dailyprice> resultVo = new ResultVo<Dailyprice>();
+        //验证数据是否已经存在
+        DailypriceVo vo = new DailypriceVo();
+        vo.setBaseelementid(dailyprice.getBaseelementid());
+        vo.setInputtime(dailyprice.getInputtime());
+        List<Dailyprice> vilist = dailypriceMapper.queryTodayPrice(vo);
+        if(vilist!=null&&vilist.size()>0){
+            resultVo.setState(ResultVo.FAILED);
+            resultVo.setMessage("价格已录入！");
+            return resultVo;
+        }
         dailyprice.setUpdatetime(new Date());
         int resultNum = dailypriceMapper.updateByPrimaryKeySelective(dailyprice);
         resultVo.setData(resultNum);
