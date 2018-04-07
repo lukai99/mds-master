@@ -1,3 +1,4 @@
+<%@ page import="com.mds.utils.PropertiesUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
@@ -83,7 +84,7 @@
                 预览图：
                 <div class="layui-upload-list" id="imgqueue">
                     <c:forEach items="${filelist}" var="file">
-                        <img src="E:/upload/${file.dir}/${file.uploadname}" >
+                        <img src="<%=PropertiesUtil.getImgUrl() %>/${file.dir}/${file.uploadname}" >
                     </c:forEach>
                 </div>
             </blockquote>
