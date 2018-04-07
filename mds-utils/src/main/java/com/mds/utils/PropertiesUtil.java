@@ -30,4 +30,8 @@ public class PropertiesUtil {// 静态块中不能有非静态属性，所以加
     public static String getUploadPath(){
         return getValue("uploadpath");
     }
+
+    public static String getImgUrl(){
+        return getValue("lookImgUrl");
+    }
 }
