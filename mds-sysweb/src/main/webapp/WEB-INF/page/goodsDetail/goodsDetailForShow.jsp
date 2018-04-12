@@ -1,3 +1,4 @@
+<%@ page import="com.mds.utils.PropertiesUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
@@ -18,7 +19,9 @@
     <div class="layui-row">
         <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
             <div class="" style="margin: 0px 10px">
-                <img src="http://img.zcool.cn/community/01ceff57bdaa2a0000012e7ea5534a.jpg@2o.jpg" style="width: 100%;">
+                <c:forEach items="${detailsinfoObj.fileinfoList}" var="file">
+                    <img src="<%=PropertiesUtil.getImgUrl() %>/${file.dir}/${file.uploadname}" style="width: 100%;margin: 5px;">
+                </c:forEach>
             </div>
         </div>
         <div class="layui-col-xs8 layui-col-sm8 layui-col-md8">

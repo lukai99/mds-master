@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.mds.utils.PropertiesUtil" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2018/3/22
@@ -26,6 +26,8 @@
         .site-demo-flow{width: 600px; height: 300px; overflow: auto; text-align: center;}
         .site-demo-flow img{width: 40%; height: 200px; margin: 0 2px 5px 0; border: none;}
         .goodBtn{cursor:hand}
+        .textLabel{width: 100%;background-color: #cbcbcb;padding-top: 5px;}
+        .layui-flow-more{margin: 25px 0px !important;}
     </style>
 
 </head>
@@ -79,9 +81,10 @@
             </div>
         </div>
         <%--<table class="layui-hide" id="dataTable"></table>--%>
-        <ul class="flow-default" id="demo" style="height:fit-content;min-height: 400px;">
-
-        </ul>
+        <div>
+            <ul class="flow-default" id="demo" style="height:fit-content;min-height: 400px;text-align: center;">
+            </ul>
+        </div>
     </div>
 </div>
 </body>
@@ -126,7 +129,7 @@
                             //假设你的列表返回在data集合中
                             layui.each(result.data, function(index, item){
                                 /*lis.push('<li>'+ item.title +'</li>');*/
-                                lis.push('<li class="goodBtn" data_id="'+item.id+'"><img lay-src="http://img.zcool.cn/community/01ceff57bdaa2a0000012e7ea5534a.jpg@2o.jpg"> <label>编号：<span>'+item.syscode+'</span></label></li>');
+                                lis.push('<li class="goodBtn" data_id="'+item.id+'"><img lay-src="<%=PropertiesUtil.getImgUrl() %>/'+item.fileinfoList[0].dir+'/'+item.fileinfoList[0].uploadname+'"> <label class="textLabel">编号：<span>'+item.syscode+'</span></label></li>');
                             });
 
                             //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页

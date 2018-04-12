@@ -135,6 +135,15 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
         goodsdetailVo.setIsdel(WebConstants.NO);
         List<GoodsdetailsinfoVo> resultList = detailsinfoMapper.listGoodsDetail(goodsdetailVo);
         int count = detailsinfoMapper.countGoodsDetail(goodsdetailVo);
+
+        //封装图片
+        for(GoodsdetailsinfoVo entity:resultList){
+            Fileinfo fileinfo = new Fileinfo();
+            fileinfo.setDetailinfo(entity.getId());
+            List<Fileinfo> fileinfoList = fileinfoMapper.selectBySelective(fileinfo);
+            entity.setFileinfoList(fileinfoList);
+        }
+
         pageBean.setRows(resultList);
         pageBean.setTotal(count);
         pageBean.setResultCode(WebConstants.layuiRequestCode);
@@ -182,11 +191,17 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
         //获得物品名称
         Goodsinfo goodsinfo = goodsinfoMapper.selectByPrimaryKey(goodsdetailsinfo.getGoodsinfoid());
 
+        //获取物品图片信息
+        Fileinfo fileinfo = new Fileinfo();
+        fileinfo.setDetailinfo(id);
+        List<Fileinfo> fileinfoList = fileinfoMapper.selectBySelective(fileinfo);
+
         //返回结果
         GoodsdetailsinfoVo goodsdetailsinfoVo = new GoodsdetailsinfoVo();
         goodsdetailsinfoVo.setTotalreprice(totalPrice+"");
         goodsdetailsinfoVo.setSyscode(goodsdetailsinfo.getSyscode());
         goodsdetailsinfoVo.setGoodsname(goodsinfo.getGoodsname());
+        goodsdetailsinfoVo.setFileinfoList(fileinfoList);
         resultVo.setData(goodsdetailsinfoVo);
         resultVo.setState(ResultVo.SUCCESS);
         resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
