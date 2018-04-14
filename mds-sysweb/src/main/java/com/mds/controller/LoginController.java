@@ -85,4 +85,10 @@ public class LoginController {
         System.out.print("123");
         return menu;
     }
+
+    @RequestMapping("/logout.do")
+    public String logout(HttpSession session){
+        session.removeAttribute(WebConstants.CURRENT_USER);
+        return "redirect:/login/toLoginPage.htm";
+    }
 }

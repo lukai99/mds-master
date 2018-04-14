@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,12 +152,12 @@
                 <a href="/index.php?m=Admin&c=Index&a=changePassword" class="J_menuItem">修改密码</a>
             </div>
             <div class="btn-user roll-nav roll-right">
-                <button class="dropdown J_tabClose wrapRow" data-toggle="dropdown" title="ifcc">
+                <button class="dropdown J_tabClose wrapRow" data-toggle="dropdown" title="${user.netname}">
                     <i class="fa fa-user" style="margin-right: 5px;"></i>
-                    ifcc                    <span class="caret"></span>
+                    ${user.netname}<span class="caret"></span>
                 </button>
                 <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                    <li class="J_tabExit"><a>退出</a>
+                    <li class="J_tabExit"><a href="/login/logout.do">退出</a>
                     </li>
                 </ul>
             </div>
@@ -240,6 +241,7 @@
             }
         });
     }
+
 </script>
 </body>
 </html>
