@@ -7,6 +7,7 @@ import com.mds.entity.Goodsinfo;
 import com.mds.service.GoodsDetailService;
 import com.mds.service.GoodsInfoService;
 import com.mds.utils.PageBean;
+import com.mds.utils.PropertiesUtil;
 import com.mds.vo.GoodsInfoVo;
 import com.mds.vo.GoodsdetailsinfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class GoodsInfoQueryController {
     /* 物品查询页面 */
     @RequestMapping("/toGoodsInfoQueryPage.do")
     public String toGoodsInfoQueryPage(HttpServletRequest request,Model model){
+        String path = PropertiesUtil.getUploadPath();
+        model.addAttribute("path",path);
         return "goodsDetail/goodsDetailQuery";
     }
 

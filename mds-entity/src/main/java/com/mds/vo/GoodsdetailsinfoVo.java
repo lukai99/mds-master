@@ -1,6 +1,9 @@
 package com.mds.vo;
 
+import com.mds.entity.Fileinfo;
 import com.mds.entity.Goodsdetailsinfo;
+
+import java.util.List;
 
 /**
  * Created by ASUS on 2018/3/27.
@@ -9,6 +12,7 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
     private String goodsname;
     private String uploadname;
     private String dir;
+    private List<Fileinfo> fileinfoList;
 
     private String[] elname;
 
@@ -93,5 +97,13 @@ public class GoodsdetailsinfoVo extends Goodsdetailsinfo{
 
     public void setDir(String dir) {
         this.dir = dir;
+    }
+
+    public List<Fileinfo> getFileinfoList() {
+        return fileinfoList;
+    }
+
+    public void setFileinfoList(List<Fileinfo> fileinfoList) {
+        this.fileinfoList = fileinfoList;
     }
 }
