@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,7 +17,7 @@
 </head>
 <body class="gray-bg">
 <div style="padding: 0px 50px;padding-top: 20px;">
-    <form id="dateForm" class="layui-form layui-form-pane" action="/goodsDetail/operatorGoodsDetail.do">
+    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/goodsDetail/operatorGoodsDetail.do">
         <input type="hidden" name="id" value="${detailsinfoObj.id}">
         <div class="layui-form-item">
             <label class="layui-form-label">请选择物品</label>
@@ -147,7 +148,7 @@
         upload.render({
             elem: '#upload',
             field: 'upload',//控件的name名，与后台参数名称一致
-            url:  '/goodsDetail/uploadGoodsIamges.do',
+            url:  '${basepath}/goodsDetail/uploadGoodsIamges.do',
             accept: 'images',//默认值就是images
             multiple: false,//是否允许多文件上传。设置 true即可开启 默认值false
             size: 5120, //上传图片最大为5M

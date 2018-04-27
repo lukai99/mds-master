@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -69,7 +71,7 @@
             elem: '#dataTable',
             height: 'full-200',
             method:'post',
-            url:'/dailyPrice/getDailyPriceList.do',
+            url:'${basepath}/dailyPrice/getDailyPriceList.do',
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
@@ -129,7 +131,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['800px' , '520px'],
-                content: '/dailyPrice/toOperatorDailyPricerPage.do'
+                content: '${basepath}/dailyPrice/toOperatorDailyPricerPage.do'
             });
         });
         //修改每日价格
@@ -152,7 +154,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['800px' , '520px'],
-                content: '/dailyPrice/toOperatorDailyPricerPage.do?id='+checkStatus.data[0].id
+                content: '${basepath}/dailyPrice/toOperatorDailyPricerPage.do?id='+checkStatus.data[0].id
             });
         });
         //删除每日价格
@@ -175,7 +177,7 @@
                 yes: function(index){
                     layer.close(index);
                     $.ajax({
-                        url:"/dailyPrice/deleteDailyPrice.do",
+                        url:"${basepath}/dailyPrice/deleteDailyPrice.do",
                         type:"POST",
                         async:false,
                         data:{dictionaryIds:ids},

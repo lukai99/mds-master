@@ -65,7 +65,7 @@
             elem: '#dataTable',
             height: 'full-200',
             method:'post',
-            url:'/goodsCheck/getGoodsCheckList.do',
+            url:'${basepath}/goodsCheck/getGoodsCheckList.do',
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
@@ -120,7 +120,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['100%' , '100%'],
-                content: '/goodsCheck/toOperatorGoodsCheckPage.do'
+                content: '${basepath}/goodsCheck/toOperatorGoodsCheckPage.do'
             });
         });
 
@@ -144,7 +144,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['100%' , '100%'],
-                content: '/goodsCheck/toUpdateGoodsCheckPage.do?id='+checkStatus.data[0].id
+                content: '${basepath}/goodsCheck/toUpdateGoodsCheckPage.do?id='+checkStatus.data[0].id
             });
         });
 
@@ -163,7 +163,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['80%' , '70%'],
-                content: '/goodsCheck/toLookGoodsCheckPage.do?id='+id
+                content: '${basepath}/goodsCheck/toLookGoodsCheckPage.do?id='+id
             });
         });
     }();

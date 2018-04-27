@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,7 @@
 </head>
 <body class="gray-bg">
 <div style="padding: 0px 50px;padding-top: 20px;">
-    <form id="dateForm" class="layui-form layui-form-pane" action="/goodsinfo/operatorGoodsInfo.do">
+    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/goodsinfo/operatorGoodsInfo.do">
         <input type="hidden" name="id" value="${goodsinfo.id}">
         <div class="layui-form-item">
             <label class="layui-form-label">物品编号</label>

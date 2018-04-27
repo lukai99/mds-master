@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%--设置页面编码格式--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    <%--引入jstl表达式--%>
-<%@ page isELIgnored="false" %>    <%--是否启用EL表达式--%>
+<%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 	<head>
 		<title>用户登录</title>
@@ -76,7 +77,7 @@
             提示：${message}
         </c:if>
 		<div class="mydiv">
-			<form action="userLogin.htm" method="post">
+			<form action="${basepath}/login/userLogin.htm" method="post">
 				<input class="t" type="text" name="username" required=""/>
 				<label alt="请输入用户名" filed = "用户名"></label>
 				<input class="t" type="password" name="password" required=""/>

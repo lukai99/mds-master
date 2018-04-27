@@ -321,7 +321,7 @@
       and de.ischeck=#{ischeck}
     </if>
     <if test="syscode!=null and  syscode!= ''">
-      and de.syscode=#{syscode}
+      and de.syscode like "%"#{syscode,jdbcType=VARCHAR}"%"
     </if>
     <if test="trait!=null and trait!= ''">
       and de.ischeck=#{ischeck}

@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,7 +24,7 @@
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInUp" style="margin-left: 10px;padding: 0px 50px;padding-top: 20px;">
-    <form id="dateForm" class="layui-form layui-form-pane" action="/sys/saveSysconfig.do">
+    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/sys/saveSysconfig.do">
         <input type="hidden" name="id" value="${config.id}">
         <div class="layui-form-item">
             <label class="layui-form-label">折扣率</label>

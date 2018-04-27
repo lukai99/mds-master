@@ -14,3 +14,10 @@
 <script type="text/javascript" src="/library/bootstrap-table/js/bootstrap-table.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/library/bootstrap-table/js/locale/bootstrap-table-zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/library/jqueryEasyUi/jquery.easyui.min.js"></script>  <%--引入js标签库--%>
+<%
+    String path = request.getContextPath();
+    String basepath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+
+            path;
+%>

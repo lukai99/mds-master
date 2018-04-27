@@ -119,7 +119,7 @@
                     $.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: '/goodsDetail/getGoodsInfoListForQuery.do?page='+page+"&&limit="+8,
+                        url: '${basepath}/goodsDetail/getGoodsInfoListForQuery.do?page='+page+"&&limit="+8,
                         data: {
                             syscode:$("#syscode").val(),
                             cartype:$("#cartype option:selected").val(),
@@ -153,7 +153,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['100%' , '100%'],
-                content: '/goodsDetail/toGoodsInfoDetailsShowPage.do?id='+id,
+                content: '${basepath}/goodsDetail/toGoodsInfoDetailsShowPage.do?id='+id,
                 success: function(layero, index){
                     layer.full(index);
                 }

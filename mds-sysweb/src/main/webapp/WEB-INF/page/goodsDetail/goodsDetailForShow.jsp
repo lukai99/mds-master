@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
+<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -85,7 +86,7 @@
         upload.render({
             elem: '#upload',
             field: 'upload',//控件的name名，与后台参数名称一致
-            url:  '/goodsDetail/uploadGoodsIamges.do',
+            url:  '${basepath}/goodsDetail/uploadGoodsIamges.do',
             accept: 'images',//默认值就是images
             multiple: false,//是否允许多文件上传。设置 true即可开启 默认值false
             size: 5120 //上传图片最大为5M
