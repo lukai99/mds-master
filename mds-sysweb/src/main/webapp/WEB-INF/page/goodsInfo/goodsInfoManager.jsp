@@ -8,6 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    <%--引入jstl表达式--%>
 <%@ page isELIgnored="false" %>    <%--是否启用EL表达式--%>
+<%
+    String path = request.getContextPath();
+    String basepath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+
+            path;
+    request.setAttribute("basepath", basepath);
+%>
 <jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>

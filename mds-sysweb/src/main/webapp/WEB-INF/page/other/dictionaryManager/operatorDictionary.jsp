@@ -7,6 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
+<%
+    String path = request.getContextPath();
+    String basepath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+
+            path;
+    request.setAttribute("basepath", basepath);
+%>
 <jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
