@@ -38,6 +38,13 @@ public interface BaseElementService {
     public ResultVo<Baseelement> deleteBaseElement(String baseelement);
 
     /**
+     * 批量删除元素基本信息
+     * @param ids
+     * @return
+     */
+    public ResultVo<Baseelement> deleteForBaseElement(String[] ids);
+
+    /**
      * 查询带分页
      * @param pageBean
      * @return

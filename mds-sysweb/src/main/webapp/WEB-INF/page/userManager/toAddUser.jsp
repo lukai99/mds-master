@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: T5S
@@ -12,26 +13,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>demo</title>
-    <link rel="shortcut icon" href="/library/cfda.ico">
-    <%--<link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
+    <%--<link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="${basepath}/library/animate/animate.min.css" rel="stylesheet">
     <link href="${basepath}/library/layui/css/layui.css" rel="stylesheet">
 
 </head>
 <body class="gray-bg">
 <div style="padding: 0px 50px;padding-top: 20px;">
-    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/baseelement/addBaseElement.do">
-        <input type="hidden" name="id" value="${bl.id}">
+    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/userManager/addUser.do">
+        <input type="hidden" name="id" value="${ul.id}">
         <div class="layui-form-item">
-            <label class="layui-form-label">元素编号</label>
+            <label class="layui-form-label">用户名称</label>
             <div class="layui-input-block">
-                <input type="text" name="code" placeholder="请输入元素编号" class="layui-input" lay-verify="required" value="${bl.code}">
+                <input type="text" name="username" placeholder="请输入用户名称" class="layui-input" lay-verify="required" value="${ul.username}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">元素名称</label>
+            <label class="layui-form-label">用户密码</label>
             <div class="layui-input-block">
-                <input type="text" name="name" placeholder="请输入元素名称" class="layui-input" lay-verify="required" value="${bl.name}">
+                <input type="text" name="password" placeholder="请输入用户密码" class="layui-input" lay-verify="required" value="${ul.password}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户昵称</label>
+            <div class="layui-input-block">
+                <input type="text" name="netname" placeholder="请输入用户昵称" class="layui-input" lay-verify="required" value="${ul.netname}">
+            </div>
+        </div>
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">用户角色</label>
+            <div class="layui-input-block">
+                <select id="role_id" name="role">
+                    <option value="" selected=""></option>
+                    <c:forEach items="${roleVoList}" var="roleVoList">
+                        <option value="${roleVoList.id}" ${roleVoList.id == ul.role ? 'selected' : ''}>${roleVoList.rolename}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="layui-form-item" pane="">
@@ -43,7 +62,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
-                <textarea name="remark" placeholder="请输入备注" class="layui-textarea">${bl.remark}</textarea>
+                <textarea name="remark" placeholder="请输入备注" class="layui-textarea">${ul.remark}</textarea>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
@@ -53,7 +72,7 @@
     </form>
 </div>
 
-<%--<script src="/library/layui/layui.js"></script>--%>
+<%--<script src="${basepath}/library/layui/layui.js"></script>--%>
 <script src="${basepath}/library/layui/layui.all.js"></script>
 <script src="${basepath}/library/jquery/jquery.min.js"></script>
 <script>

@@ -14,11 +14,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>物品信息查询</title>
-    <link rel="shortcut icon" href="/library/cfda.ico">
-    <%--<link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
-    <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/library/animate/animate.min.css" rel="stylesheet">
-    <link href="/library/layui/css/layui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
+    <%--<link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basepath}/library/animate/animate.min.css" rel="stylesheet">
+    <link href="${basepath}/library/layui/css/layui.css" rel="stylesheet">
     <style type="text/css">
         .flow-default{ height: 400px; overflow: auto; font-size: 0;margin-top: 20px;}
         .flow-default li{display: inline-block; margin: 20px 5px; font-size: 14px; width: 300px;  margin-bottom: 10px; height: 200px; line-height: 20px; text-align: center; background-color: #eee;}
@@ -88,8 +88,8 @@
     </div>
 </div>
 </body>
-<script src="/library/layui/layui.all.js"></script>
-<script src="/library/jquery/jquery.min.js"></script>
+<script src="${basepath}/library/layui/layui.all.js"></script>
+<script src="${basepath}/library/jquery/jquery.min.js"></script>
 <script src="/common/common_layui.js"></script>
 <script type="text/javascript">
     ;!function(){

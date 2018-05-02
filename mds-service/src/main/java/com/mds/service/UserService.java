@@ -1,6 +1,9 @@
 package com.mds.service;
 
+import com.mds.common.ResultVo;
 import com.mds.entity.User;
+import com.mds.utils.PageBean;
+import com.mds.vo.UserVo;
 
 import java.util.List;
 
@@ -14,4 +17,26 @@ import java.util.List;
 public interface UserService {
 
     public List<User> getUserByEntity(User user);
+
+    /**
+     * 带分页的查询
+     * @param userVo
+     * @param pageBean
+     * @return
+     */
+    public PageBean<UserVo> queryUserInfo(UserVo userVo, PageBean pageBean);
+
+    public ResultVo<User> queryUser(String id);
+
+    public ResultVo<User> addUser(User user);
+
+    public ResultVo<User> updateUser(User user);
+
+    public ResultVo<User> deleteUser(User user);
+
+    public ResultVo<User> deleteUser(String id);
+
+    public ResultVo<User>  deleteUserForUpdate(String[] ids);
+
+    public User queryUserById(String id);
 }

@@ -30,6 +30,8 @@ public class Menu extends PageBean{
     //冗余字段
     private List<Menu> childList;//子集菜单项
 
+    private String isCheck;
+
     public String getId() {
         return id;
     }
@@ -132,5 +134,13 @@ public class Menu extends PageBean{
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(String isCheck) {
+        this.isCheck = isCheck;
     }
 }

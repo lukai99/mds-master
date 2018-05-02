@@ -16,6 +16,39 @@
   <sql id="Base_Column_List" >
     id, rolename, rolecode, state, isdel, remark, createtime, updatetime
   </sql>
+  <sql id="Base_Column_Where">
+    where
+    1 = 1
+    <if test="id != null and id != ''" >
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="rolename != null and rolename != ''" >
+      and rolename like "%"#{rolename,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="rolecode != null and rolecode != ''" >
+      and rolecode = "%"#{rolecode,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="state != null and state != ''" >
+      and state = #{state,jdbcType=VARCHAR}
+    </if>
+    <if test="isdel != null and isdel != ''" >
+      and isdel = #{isdel,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null and remark != ''" >
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null" >
+      and createtime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null" >
+      and updatetime = #{createtime,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="Page_Where">
+    <if test="page != null and limit != null " >
+      limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -127,4 +160,27 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="queryRoleBySelective" resultType="com.mds.vo.RoleVo" parameterType="com.mds.vo.RoleVo" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    <include refid="Base_Column_Where" />
+    order by createtime desc
+    <include refid="Page_Where" />
+  </select>
+  <select id="countRoleBySelective" resultType="java.lang.Integer" parameterType="com.mds.vo.RoleVo" >
+    select
+    count(1)
+    from sys_role
+    <include refid="Base_Column_Where" />
+  </select>
+  <select id="queryAllRoles" resultType="com.mds.vo.RoleVo"  >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where isdel = '0'
+    order by createtime ASC 
+    <include refid="Page_Where" />
+  </select>
 </mapper>

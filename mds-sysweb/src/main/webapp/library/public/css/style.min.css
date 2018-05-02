@@ -6327,7 +6327,7 @@ body.rtls .top-navigation #page-wrapper,body.rtls .top-navigation .footer.fixed,
 
 .skin-1 .nav-header {
 	background: #0e9aef;
-	background: url(/images/foodGrug-skin-1.png);
+	background: url(../../../images/foodGrug-skin-1.png);
 	background-size: contain;
 	background-repeat: no-repeat;
 }

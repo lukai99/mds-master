@@ -15,11 +15,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>每日价格</title>
-    <link rel="shortcut icon" href="/library/cfda.ico">
-    <%--<link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
-    <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/library/animate/animate.min.css" rel="stylesheet">
-    <link href="/library/layui/css/layui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
+    <%--<link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basepath}/library/animate/animate.min.css" rel="stylesheet">
+    <link href="${basepath}/library/layui/css/layui.css" rel="stylesheet">
 
 </head>
 <body class="gray-bg">
@@ -63,8 +63,8 @@
     </form>
 </div>
 
-<script src="/library/layui/layui.all.js"></script>
-<script src="/library/jquery/jquery.min.js"></script>
+<script src="${basepath}/library/layui/layui.all.js"></script>
+<script src="${basepath}/library/jquery/jquery.min.js"></script>
 <script>
 ;!function(){
     var form = layui.form;

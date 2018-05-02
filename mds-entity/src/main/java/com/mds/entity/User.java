@@ -21,6 +21,10 @@ public class User extends PageBean{
 
     private Date updatetime;
 
+    private String isdel;
+
+    private String role;
+
     public User(String id, String username, String password, String netname, String remark, String state, Date createtime, Date updatetime) {
         this.id = id;
         this.username = username;
@@ -98,5 +102,21 @@ public class User extends PageBean{
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getIsdel() {
+        return isdel;
+    }
+
+    public void setIsdel(String isdel) {
+        this.isdel = isdel;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    <%--引入jstl表达式--%>
 <%@ page isELIgnored="false" %>    <%--是否启用EL表达式--%>
-<jsp:include page="/common/publicTop.jsp"/>
+<jsp:include page="${basepath}/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -27,9 +27,19 @@
         <form id="queryForm" class="layui-form layui-form-pane" action="">
             <div style="margin-top: 10px;">
                 <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
-                    <label class="layui-form-label">编号</label>
+                    <label class="layui-form-label">角色名称</label>
                     <div class="layui-input-inline">
-                        <input id="syscode" type="text" name="syscode" placeholder="请输入编号" autocomplete="off" class="layui-input">
+                        <input id="rolename_id" type="text" name="username" placeholder="请输入用户名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                    <label class="layui-form-label">用户状态</label>
+                    <div class="layui-input-block" style="width:190px;">
+                        <select id="state" name="state">
+                            <option value="" selected=""></option>
+                            <option value="1">启用</option>
+                            <option value="2">禁用</option>
+                        </select>
                     </div>
                 </div>
                 <br style="clear:both;"/>
@@ -43,47 +53,45 @@
     <div class="data-part">
         <div style="margin-top: 5px;">
             <div class="layui-btn-group">
-                <button id="addBtn" class="layui-btn layui-btn-normal layui-btn-sm">录入</button>
+                <button id="addBtn" class="layui-btn layui-btn-normal layui-btn-sm">增加</button>
                 <button id="updateBtn" class="layui-btn layui-btn-normal layui-btn-sm">编辑</button>
                 <button id="deleteBtn" class="layui-btn layui-btn-normal layui-btn-sm">删除</button>
+                <button id="addMenuBtn" class="layui-btn layui-btn-norma2 layui-btn-sm">功能设定</button>
             </div>
         </div>
-        <table class="layui-hide" id="dataTable"></table>
+        <table class="layui-hide" id="roleTable_id"></table>
     </div>
 </div>
 </body>
 <script src="${basepath}/library/layui/layui.all.js"></script>
 <script src="${basepath}/library/jquery/jquery.min.js"></script>
-<script src="/common/common_layui.js"></script>
+<script src="${basepath}//common/common_layui.js"></script>
 <script type="text/javascript">
     ;!function(){
 
         var table = layui.table;
 
         var dataTableObj = table.render({
-            id: 'goodsdetailtable',
-            elem: '#dataTable',
+            id: 'roletable',
+            elem: '#roleTable_id',
             height: 'full-200',
             method:'post',
-            url:'${basepath}/goodsDetail/getGoodsDetailList.do',
+            url:'${basepath}/roleManage/toRoleManageList.do',
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
                 {type:'numbers',title: '序号'},
                 /*{field:'id', width:80, title: 'ID', align:'center'},*/
-                {field:'syscode', width:150, title: '编号', align:'center'},
-                {field:'goodsname', width:150, title: '物品名称', align:'center'},
-                {field:'trait', width:150, title: '特征编号', align:'center'},
-                {field:'grossweight', width:100, title: '毛重', align:'center'},
-                {field:'cartype', width:100, title: '车型', align:'center'},
-                {field:'brand', width:100, title: '品牌', align:'center'},
-                {field:'sougl', width:100, title: '货源位置', align:'center'},
-                {field:'place', width:100, title: '产地', align:'center'},
+                {field:'rolename', width:150, title: '角色名称', align:'center'},
+                {field:'state', width:100, title: '启用状态', align:'center',sort:true,templet:function (d) {
+                        return d.state==1?"可用":"禁用";
+                    }},
                 {field:'remark', width:210, title: '备注', align:'center'},
                 {field:'createtime', width:200, title: '创建时间', align:'center',sort:true,templet:'<div>{{ layui.laytpl.toDateString(d.createtime) }}</div>'},
                 {field:'updatetime', width:200, title: '修改时间', align:'center',sort:true,templet:'<div>{{ layui.laytpl.toDateString(d.updatetime) }}</div>'}
             ]],
             page: true,
+            limits:[10,30,50],
             request: {
                 pageName: 'page', //页码的参数名称，默认：page
                 limitName: 'limit' //每页数据量的参数名，默认：limit
@@ -102,15 +110,20 @@
         $("#queryBtn").click(queryQueryForm);
         //重置查询项
         function resetQueryForm(){
-            $("#queryForm input[type='text']").val("");
+            $("#queryForm input[type='text']").each(function(){
+                $(this).val("");
+            });
+            $("#queryForm select").val("");
+            $("#queryBtn").click();
         }
         //条件查询
         function queryQueryForm(){
             /*表格重新加载的两种方式*/
             /*dataTableObj.reload({*/
-            table.reload("goodsdetailtable",{
+            table.reload("roletable",{
                 where: { //设定异步数据接口的额外参数，任意设
-                    syscode:$("#syscode").val()
+                    rolename:$("#rolename_id").val(),
+                    state:$("#state option:selected").val()
                 }
                 ,page: {
                     curr: 1 //重新从第 1 页开始  不设定就是还是定位到当前页
@@ -122,17 +135,17 @@
         $('#addBtn').on('click', function(){
             layer.open({
                 type: 2,
-                title: '添加物品信息详情',
+                title: '添加角色信息',
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
-                area : ['100%' , '100%'],
-                content: '${basepath}/goodsDetail/toOperatorGoodsDetailPage.do'
+                area : ['800px' , '520px'],
+                content: '${basepath}/roleManage/toAddRole.do'
             });
         });
 
         //修改物品信息
         $('#updateBtn').on('click', function(){
-            var checkStatus = table.checkStatus('goodsdetailtable'); //test即为基础参数id对应的值
+            var checkStatus = table.checkStatus('roletable'); //test即为基础参数id对应的值
             if(checkStatus.data.length==0){
                 layer.msg("请选择需要改的数据");
                 return false;
@@ -146,17 +159,17 @@
             console.log(checkStatus.isAll ) //表格是否全选
             layer.open({
                 type: 2,
-                title: '修改物品信息详情',
+                title: '修改用户信息',
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
-                area : ['100%' , '100%'],
-                content: '${basepath}/goodsDetail/toOperatorGoodsDetailPage.do?id='+checkStatus.data[0].id
+                area : ['800px' , '520px'],
+                content: '${basepath}/roleManage/toAddRole.do?id='+checkStatus.data[0].id
             });
         });
 
-        //删除字典项
+        //删除物品信息
         $("#deleteBtn").on('click', function(){
-            var checkStatus = table.checkStatus('goodsdetailtable'); //test即为基础参数id对应的值
+            var checkStatus = table.checkStatus('roletable'); //test即为基础参数id对应的值
             if(checkStatus.data.length==0){
                 layer.msg("请选择需要删除的数据");
                 return false;
@@ -174,7 +187,7 @@
                 ,yes: function(index){
                     layer.close(index);
                     $.ajax({
-                        url:"${basepath}/goodsDetail/toDeleteGoodsDetailPage.do",
+                        url:"${basepath}/roleManage/toDeleteRole.do",
                         type:"POST",
                         async:false,
                         data:{ids:ids},
@@ -187,6 +200,26 @@
             });
         });
 
+        //绑定功能菜单
+        $("#addMenuBtn").on("click",function () {
+            var checkStatus = table.checkStatus("roletable");
+            if(checkStatus.data.length==0){
+                layer.msg("请选择需要操作的数据");
+                return false;
+            }
+            if(checkStatus.data.length>1){
+                layer.msg("只能选择一条数据进行操作");
+                return false;
+            }
+            layer.open({
+                type:2,
+                title:"功能选择",
+                maxmin: true,
+                shadeClose: false, //点击遮罩关闭层
+                area : ['800px' , '520px'],
+                content: '${basepath}/roleManage/toAddMenu.do?id='+checkStatus.data[0].id
+            });
+        });
 
         //刷新数据表格
         window.reloadDataTable = function reloadDataTable(){
@@ -194,6 +227,14 @@
         }
     }();
 
+
+</script>
+<script type="text/javascript" id="titleTpl">
+    /* {{# if(d.state==1){ }}
+         <div>可用<div>
+     {{# }else{ }}
+         <div>禁用<div>
+     {{# } }}*/
 
 </script>
 </html>

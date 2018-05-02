@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: T5S
@@ -7,7 +8,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
-<jsp:include page="/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -22,18 +22,18 @@
 </head>
 <body class="gray-bg">
 <div style="padding: 0px 50px;padding-top: 20px;">
-    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/goodsinfo/operatorGoodsInfo.do">
-        <input type="hidden" name="id" value="${goodsinfo.id}">
+    <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/roleManage/addRole.do">
+        <input type="hidden" name="id" value="${rl.id}">
         <div class="layui-form-item">
-            <label class="layui-form-label">物品编号</label>
+            <label class="layui-form-label">角色名称</label>
             <div class="layui-input-block">
-                <input type="text" name="goodscode" placeholder="请输入物品编号" class="layui-input" lay-verify="required" value="${goodsinfo.goodscode}">
+                <input type="text" name="rolename" placeholder="请输入角色名称" class="layui-input" lay-verify="required" value="${rl.rolename}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">物品名称</label>
+            <label class="layui-form-label">角色编码</label>
             <div class="layui-input-block">
-                <input type="text" name="goodsname" placeholder="请输入物品名称" class="layui-input" lay-verify="required" value="${goodsinfo.goodsname}">
+                <input type="text" name="rolecode" placeholder="请输入角色编码" class="layui-input" lay-verify="required" value="${rl.rolecode}">
             </div>
         </div>
         <div class="layui-form-item" pane="">
@@ -45,7 +45,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
-                <textarea name="remark" placeholder="请输入备注" class="layui-textarea">${goodsinfo.remark}</textarea>
+                <textarea name="remark" placeholder="请输入备注" class="layui-textarea">${rl.remark}</textarea>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
@@ -59,34 +59,34 @@
 <script src="${basepath}/library/layui/layui.all.js"></script>
 <script src="${basepath}/library/jquery/jquery.min.js"></script>
 <script>
-;!function(){
-    var form = layui.form;
-    /*$("#submitBtn").click(function(){*/
-    //监听提交
-    form.on('submit(demo)', function(data){
-        /*var data = $("#dateForm").serialize();*/
-        var url = $("#dateForm").attr("action");
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: url,
-            data: data.field,
-            success: function (result) {
-                if(result.state == '200'){
-                    parent.reloadDataTable();
-                    //当你在iframe页面关闭自身时
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
-                }else{
+    ;!function(){
+        var form = layui.form;
+        /*$("#submitBtn").click(function(){*/
+        //监听提交
+        form.on('submit(demo)', function(data){
+            /*var data = $("#dateForm").serialize();*/
+            var url = $("#dateForm").attr("action");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: url,
+                data: data.field,
+                success: function (result) {
+                    if(result.state == '200'){
+                        parent.reloadDataTable();
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    }else{
 
+                    }
+                },
+                error: function(data) {
                 }
-            },
-            error: function(data) {
-            }
-        });
+            });
 
-    });
-}();
+        });
+    }();
 </script>
 </body>
 </html>

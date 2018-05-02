@@ -52,12 +52,19 @@ public class BaseElementController {
     @ResponseBody
     public ResultVo addBaseElement(Baseelement baseelement){
         ResultVo vo = null;
-        if(baseelement.getId() != null && "".equals(baseelement.getId())){
-            vo = baseElementService.addBaseElement(baseelement);
-        }else{
+        if(baseelement.getId() != null && !"".equals(baseelement.getId())){
             vo = baseElementService.updateBaseElement(baseelement);
+        }else{
+            vo = baseElementService.addBaseElement(baseelement);
         }
         return vo;
     }
 
+    @RequestMapping("toDeleteBaseElement.do")
+    @SystemServiceLog(module = "mds",option = "删除物品",description = "删除物品")
+    @ResponseBody
+    public ResultVo toDeleteBaseElement(String[] ids){
+        ResultVo vo = baseElementService.deleteForBaseElement(ids);
+        return vo;
+    }
 }

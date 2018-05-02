@@ -1,6 +1,10 @@
 package com.mds.dao;
 
+import com.mds.common.ResultVo;
 import com.mds.entity.Role;
+import com.mds.vo.RoleVo;
+
+import java.util.List;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +18,11 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    int countRoleBySelective(RoleVo roleVo);
+
+    List<RoleVo> queryRoleBySelective(RoleVo roleVo);
+
+    List<RoleVo> queryAllRoles();
+
 }

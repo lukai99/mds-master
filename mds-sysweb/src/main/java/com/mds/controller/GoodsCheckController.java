@@ -56,7 +56,10 @@ public class GoodsCheckController {
         model.addAttribute("detaillist",detaillist);
         //基本元素下拉选项
         ResultVo<BaseElementVo> baseElementVoResultVo = baseElementService.queryBaseElementInfo(new BaseElementVo());
-        List<BaseElementVo> list = baseElementVoResultVo.getDataList();
+        List<BaseElementVo> list = null;
+        if(baseElementVoResultVo != null){
+            list = baseElementVoResultVo.getDataList();
+        }
         model.addAttribute("baseElementVoList",list);
         return "goodsCheck/operatorGoodsCheckInfo";
     }

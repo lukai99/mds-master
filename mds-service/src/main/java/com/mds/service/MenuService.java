@@ -1,6 +1,7 @@
 package com.mds.service;
 
 import com.mds.entity.Menu;
+import com.mds.entity.RoleMenu;
 import com.mds.utils.PageBean;
 import com.mds.common.ResultVo;
 import org.springframework.stereotype.Service;
@@ -85,7 +86,7 @@ public interface MenuService {
      * @param userId
      * @return
      */
-    public ResultVo<Menu> getInitMenusData(String userId);
+    public ResultVo<Menu> getInitMenusData(String userId, String roleId);
 
     /**
      * 获取菜单根据级别
@@ -99,4 +100,8 @@ public interface MenuService {
      * @return
      */
     public ResultVo<Menu> testTransMenuPage();
+
+    public List<RoleMenu> getRoleMenuList(String roleId);
+
+    public ResultVo addMenuTree(String ids, String roleId);
 }

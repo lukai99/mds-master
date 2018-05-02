@@ -7,7 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<jsp:include page="/common/publicTop.jsp"/>
+<%
+    String path = request.getContextPath();
+    String basepath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+
+            path;
+    request.setAttribute("basepath", basepath);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,15 +22,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>魔幻城堡</title>
-    <link rel="shortcut icon" href="/library/cfda.ico">
-    <link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/library/animate/animate.min.css" rel="stylesheet">
-    <script src="/library/sweetalert/js/sweetalert.min.js"></script>
-    <link href="/library/sweetalert/css/sweetalert.css" rel="stylesheet">
-    <link href="/library/public/css/style.min.css?v=1.0.0" rel="stylesheet">
-    <link href="/library/public/css/public.css?v=1.0.0" rel="stylesheet">
+    <title>金属管理系统</title>
+    <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
+    <link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basepath}/library/animate/animate.min.css" rel="stylesheet">
+    <script src="${basepath}/library/sweetalert/js/sweetalert.min.js"></script>
+    <link href="${basepath}/library/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <link href="${basepath}/library/public/css/style.min.css?v=1.0.0" rel="stylesheet">
+    <link href="${basepath}/library/public/css/public.css?v=1.0.0" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg skin-1" style="overflow:hidden">
@@ -37,7 +44,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element" style="text-align: left;">
                     <span>
-                        <img alt="image" class="img-circle" src="/images/cfdaLogo.png"  />
+                        <img alt="image" class="img-circle" src="${basepath}/images/cfdaLogo.png"  />
                     </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
 						<span class="clear">
@@ -158,7 +165,7 @@
                     ${user.netname}<span class="caret"></span>
                 </button>
                 <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                    <li class="J_tabExit"><a href="/login/logout.do">退出</a>
+                    <li class="J_tabExit"><a href="${basepath}/login/logout.do">退出</a>
                     </li>
                 </ul>
             </div>
@@ -174,15 +181,15 @@
     </div>
     <!--右侧部分结束-->
 </div>
-<%--<script src="/library/jquery/jquery-3.1.1.min.js"></script>--%>
-<script src="/library/jquery/jquery.min.js"></script>
-<script src="/library/bootstrap/js/bootstrap.min.js"></script>
-<script src="/library/jquery-metisMenu/js/jquery.metisMenu.js"></script>
-<script src="/library/jquery-slimscroll/js/jquery.slimscroll.min.js"></script>
-<script src="/library/layer/js/layer.min.js"></script>
-<script src="/library/public/js/hplus.min.js"></script>
-<script type="text/javascript" src="/library/public/js/contabs.min.js"></script>
-<script src="/library/pace/js/pace.min.js"></script>
+<%--<script src="${basepath}/library/jquery/jquery-3.1.1.min.js"></script>--%>
+<script src="${basepath}/library/jquery/jquery.min.js"></script>
+<script src="${basepath}/library/bootstrap/js/bootstrap.min.js"></script>
+<script src="${basepath}/library/jquery-metisMenu/js/jquery.metisMenu.js"></script>
+<script src="${basepath}/library/jquery-slimscroll/js/jquery.slimscroll.min.js"></script>
+<script src="${basepath}/library/layer/js/layer.min.js"></script>
+<script src="${basepath}/library/public/js/hplus.min.js"></script>
+<script type="text/javascript" src="${basepath}/library/public/js/contabs.min.js"></script>
+<script src="${basepath}/library/pace/js/pace.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $("[data-toggle='tooltip']").tooltip();
@@ -223,7 +230,7 @@
     }
     function initMenu(){
         $.ajax({
-            url: "/menu/getInitMenusData.do",
+            url: "${basepath}/menu/getInitMenusData.do",
             dataType: 'json',
             success: function (result) {
                 console.log(result);

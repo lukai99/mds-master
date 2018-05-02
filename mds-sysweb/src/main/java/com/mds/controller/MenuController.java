@@ -2,7 +2,9 @@ package com.mds.controller;
 
 import com.mds.annotation.SystemControllerLog;
 import com.mds.entity.Menu;
+import com.mds.entity.User;
 import com.mds.service.MenuService;
+import com.mds.service.UserService;
 import com.mds.utils.PageBean;
 import com.mds.common.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,12 +30,16 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private UserService userService;
+
     /* 初始化主页菜单 */
-    @RequestMapping("getInitMenusData.do")
+    @RequestMapping("/getInitMenusData.do")
     @ResponseBody
-    public ResultVo<Menu> getInitMenusData(HttpServletRequest request,Model model){
-        String userId = "1";
-        ResultVo<Menu> resultVo =  menuService.getInitMenusData(userId);
+    public ResultVo<Menu> getInitMenusData(HttpServletRequest request, Model model, HttpSession session){
+        String userId = (String) session.getAttribute("mds.userid");
+        User user = userService.queryUserById(userId);
+        ResultVo<Menu> resultVo =  menuService.getInitMenusData(user.getId(),user.getRole());
         return resultVo;
     }
     /* 菜单管理 */
@@ -41,7 +48,7 @@ public class MenuController {
         return "other/menuManager/menuManager";
     }
     /* 获取菜单列表 */
-    @RequestMapping("getMenusList.do")
+    @RequestMapping("/getMenusList.do")
     @SystemControllerLog(module = "mds",option = "查询菜单列表",description = "分页查询菜单列表")
     @ResponseBody
     public PageBean<Menu> getMenusList(Menu menu,PageBean pageBean,HttpServletRequest request,Model model){
@@ -58,7 +65,7 @@ public class MenuController {
         return "other/menuManager/operatorMenu";
     }
     /* 增改操作数据 */
-    @RequestMapping("operatorMenus.do")
+    @RequestMapping("/operatorMenus.do")
     @SystemControllerLog(module = "mds",option = "增改菜单",description = "增改菜单")
     @ResponseBody
     public ResultVo operatorMenus(Menu menu,PageBean pageBean,HttpServletRequest request,Model model){
@@ -72,7 +79,7 @@ public class MenuController {
         return vo;
     }
     /* 删除数据数据 */
-    @RequestMapping("deleteMenuPage.do")
+    @RequestMapping("/deleteMenuPage.do")
     @SystemControllerLog(module = "mds",option = "删除菜单",description = "删除菜单")
     @ResponseBody
     public ResultVo deleteMenus(String[] menuIds,PageBean pageBean,HttpServletRequest request,Model model){
@@ -82,7 +89,7 @@ public class MenuController {
     }
 
     /* 事物测试 */
-    @RequestMapping("testTransMenuPage.do")
+    @RequestMapping("/testTransMenuPage.do")
     @ResponseBody
     public ResultVo testTransMenuPage(PageBean pageBean,HttpServletRequest request,Model model){
         ResultVo vo =  null;

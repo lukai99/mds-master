@@ -4,13 +4,13 @@
 <%@ page isELIgnored="false" %>    <%--是否启用EL表达式--%>
 <html>
 <head>
-    <jsp:include page="/common/publicTop.jsp"/>
+    <jsp:include page="${basepath}/common/publicTop.jsp"/>
     <title>fly的魔幻城堡</title>
-    <link rel="stylesheet" href="/css/base.css"/>
-    <link rel="stylesheet" href="/css/util.css"/>
-    <link rel="stylesheet" href="/css/main/main.css"/>
+    <link rel="stylesheet" href="${basepath}/css/base.css"/>
+    <link rel="stylesheet" href="${basepath}/css/util.css"/>
+    <link rel="stylesheet" href="${basepath}/css/main/main.css"/>
 
-    <script type="text/javascript" src="/js/main/main.js"></script>
+    <script type="text/javascript" src="${basepath}/js/main/main.js"></script>
 </head>
 <body>
 <div style="overflow: hidden;width: 100%;height: 100%;">

@@ -1,14 +1,16 @@
 package com.mds.dao;
 
 import com.mds.entity.Menu;
-import com.mds.utils.DateUtil;
+import com.mds.entity.RoleMenu;
 import com.mds.utils.PageBean;
+import com.mds.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,6 +48,17 @@ public class MenuDao {
         List<Menu> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(Menu.class));
         return list;
     }
+
+    public List<Menu> getRoleMenusListForLevel(int level,String roleId){
+        StringBuilder sql = new StringBuilder();
+        sql.append(" select sm.* from mds_rolemenu rm left join ");
+        sql.append(" sys_menu sm on rm.menuid = sm.id ");
+        sql.append(" where rm.roleid = '"+roleId+"' and sm.level = '"+level+"' ");
+        sql.append(" order by sm.`order` asc ");
+        List<Menu> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(Menu.class));
+        return list;
+    }
+
     public int queryMenusCount(Menu menu){
         StringBuilder sql = new StringBuilder("select count(1) from sys_menu t where 1=1");
         if(!StringUtils.isEmpty(menu.getName())){
@@ -112,5 +125,33 @@ public class MenuDao {
         StringBuilder sql = new StringBuilder("");
         sql.append("update sys_menu set isdel = '0' where id in ("+ids+")");
         return jdbcTemplate.update(sql.toString());
+    }
+
+    public List<RoleMenu> getRoleMenuList(String roleId){
+        StringBuffer sql = new StringBuffer();
+        sql.append(" select t.* from mds_rolemenu t where t.roleid = '"+roleId+"' and t.state = '1' and t.isdel = '0' order by t.createtime ");
+        return jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(RoleMenu.class));
+    }
+
+    public int deleteRoleMenus(String roleId){
+        StringBuilder sql = new StringBuilder();
+        sql.append(" delete from mds_rolemenu where roleid = '"+roleId+"' ");
+        return jdbcTemplate.update(sql.toString());
+    }
+
+    public int addRoleMenu(String id,String roleId){
+        StringBuilder sql = new StringBuilder("");
+        sql.append("insert into mds_rolemenu(id,roleid,menuid,state,isdel,remark,createtime) values(?,?,?,?,?,?,?)");
+        return jdbcTemplate.update(sql.toString(), UUIDUtils.getUUID(),roleId,id,"1","0","",new Date());
+    }
+
+    public List<Menu> getChildRoleMenus(String id, String roleId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(" select sm.* from mds_rolemenu rm left join ");
+        sql.append(" sys_menu sm on rm.menuid = sm.id ");
+        sql.append(" where rm.roleid = '"+roleId+"' and sm.parentid = '"+id+"' ");
+        sql.append(" order by sm.`order` asc ");
+        List<Menu> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper(Menu.class));
+        return list;
     }
 }

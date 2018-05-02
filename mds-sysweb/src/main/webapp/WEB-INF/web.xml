@@ -74,7 +74,7 @@
         <init-param>
             <!--对登录页面不进行过滤-->
             <param-name>noFilterUrl</param-name>
-            <param-value>/login/toLoginPage.htm;/login/userLogin.htm</param-value>
+            <param-value>/mds-sysweb/login/toLoginPage.htm;/mds-sysweb/login/userLogin.htm</param-value>
         </init-param>
         <init-param>
             <!--只对指定过滤参数后缀进行过滤-->

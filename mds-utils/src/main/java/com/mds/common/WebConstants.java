@@ -27,4 +27,6 @@ public class WebConstants {
 
         public static final int DATALENGTH = 30;//查询数据长度
     }
+
+    public static final int MENU_LEVEL_P = 1; //父级菜单等级
 }

@@ -17,7 +17,34 @@
     </constructor>
 </resultMap>
 <sql id="Base_Column_List" >
-    id, username, password, netName, remark, state, createTime, updateTime
+    id, username, password, netname, remark, state, createTime, updateTime,role
+</sql>
+ <sql id="Base_Column_Where" >
+     where
+     1 = 1
+     <if test="id != null and id != ''" >
+         and id = #{id,jdbcType=VARCHAR}
+     </if>
+     <if test="username != null and username != ''" >
+         and username like "%"#{username,jdbcType=VARCHAR}"%"
+     </if>
+     <if test="netname != null and netname != ''" >
+         and netname like "%"#{netname,jdbcType=VARCHAR}"%"
+     </if>
+     <if test="remark != null and remark != ''" >
+         and remark = #{remark,jdbcType=VARCHAR}
+     </if>
+     <if test="createtime != null" >
+         and createtime = #{createtime,jdbcType=TIMESTAMP}
+     </if>
+     <if test="updatetime != null" >
+         and updatetime = #{updatetime,jdbcType=TIMESTAMP}
+     </if>
+ </sql>
+<sql id="Page_Where">
+    <if test="page != null and limit != null " >
+        limit #{page,jdbcType=TIMESTAMP},#{limit,jdbcType=TIMESTAMP}
+    </if>
 </sql>
 <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
@@ -32,10 +59,10 @@
 <insert id="insert" parameterType="com.mds.entity.User" >
     insert into sys_user (id, username, password,
     netName, remark, state,
-    createTime, updateTime)
+    createTime, updateTime,role)
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
     #{netname,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{state,jdbcType=CHAR},
-    #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+    #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR})
 </insert>
 <insert id="insertSelective" parameterType="com.mds.entity.User" >
     insert into sys_user
@@ -116,6 +143,9 @@
         <if test="updatetime != null" >
             updateTime = #{updatetime,jdbcType=TIMESTAMP},
         </if>
+        <if test="role != null ">
+            role = #{role,jdbcType=VARCHAR}
+        </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
 </update>
@@ -128,10 +158,27 @@
     state = #{state,jdbcType=CHAR},
     createTime = #{createtime,jdbcType=TIMESTAMP},
     updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    role = #{role,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
 </update>
 
 <select id="getUserByEntity" parameterType="com.mds.entity.User" resultType="com.mds.entity.User">
     select * from sys_user where username = #{username} and password = #{password}
 </select>
+
+<select id="selectBySelective" parameterType="com.mds.vo.UserVo" resultType="com.mds.vo.UserVo">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+    <include refid="Base_Column_Where"/>
+    ORDER BY createtime DESC
+    <include refid="Page_Where"/>
+</select>
+<select id="selectCountBySelective" parameterType="com.mds.vo.UserVo" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM sys_user
+    <include refid="Base_Column_Where"/>
+</select>
+    <select id="getUserById" parameterType="java.lang.String" resultType="com.mds.entity.User">
+      select * from sys_user where id = #{id}
+    </select>
 </mapper>

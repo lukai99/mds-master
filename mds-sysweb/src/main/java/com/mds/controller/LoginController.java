@@ -55,6 +55,7 @@ public class LoginController {
         System.out.println("username:" + user.getUsername() + ",password:" + user.getPassword());
         if(loginService.userLogin(user)) {
             HttpSession session = request.getSession();
+            session.setAttribute("mds.userid",user.getId());
             session.setAttribute(WebConstants.CURRENT_USER,user);
             return "redirect:/main/mainPage.htm";
         }else{

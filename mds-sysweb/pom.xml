@@ -28,7 +28,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>magic-sysweb</finalName>
+        <finalName>mds-sysweb</finalName>
     </build>
     <profiles>
         <!--开发环境-->

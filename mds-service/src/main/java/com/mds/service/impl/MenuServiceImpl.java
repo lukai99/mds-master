@@ -2,8 +2,10 @@ package com.mds.service.impl;
 
 import com.mds.annotation.SystemServiceLog;
 import com.mds.common.ResultVo;
+import com.mds.common.WebConstants;
 import com.mds.dao.MenuDao;
 import com.mds.entity.Menu;
+import com.mds.entity.RoleMenu;
 import com.mds.service.MenuService;
 import com.mds.utils.PageBean;
 import com.mds.utils.UUIDUtils;
@@ -127,12 +129,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public ResultVo<Menu> getInitMenusData(String userId) {
+    public ResultVo<Menu> getInitMenusData(String userId,String roleId) {
         ResultVo<Menu> resultVo = new ResultVo<Menu>(ResultVo.SUCCESS,ResultVo.SUCCESS_MESSAGE);
-        List<Menu> list = getMenusListForLevel(1);  //获取一级菜单
-        resultVo.setDataList(list);
-        for(Menu menu:list){
-            buildMenusData(menu);
+//        List<Menu> list = getMenusListForLevel(1);  //获取一级菜单
+        List<Menu> listm = getRoleMenusListForLevel(WebConstants.MENU_LEVEL_P,roleId);
+        resultVo.setDataList(listm);
+        for(Menu menu:listm){
+            buildMenusData(menu,roleId);
         }
         return resultVo;
     }
@@ -141,14 +144,18 @@ public class MenuServiceImpl implements MenuService {
      * 递归构建菜单数据机构
      * @param menu
      */
-    public void buildMenusData(Menu menu){
-        List<Menu> childList = getChildMenus(menu.getId());  //获取子集菜单
+    public void buildMenusData(Menu menu,String roleId){
+        List<Menu> childList = getChildRoleMenus(menu.getId(),roleId);  //获取子集菜单
         if(childList!=null&&childList.size()>0){
             menu.setChildList(childList);
             for(Menu childMenu:childList){
-                buildMenusData(childMenu);
+                buildMenusData(childMenu,roleId);
             }
         }
+    }
+
+    public List<Menu> getChildRoleMenus(String id,String roleId){
+        return menuDao.getChildRoleMenus(id,roleId);
     }
 
     @Override
@@ -158,6 +165,10 @@ public class MenuServiceImpl implements MenuService {
         queryMenu.setState(1+"");
         List<Menu> list = queryMenus(queryMenu);
         return list;
+    }
+
+    public List<Menu> getRoleMenusListForLevel(int level,String roleId){
+        return menuDao.getRoleMenusListForLevel(level,roleId);
     }
 
     @Override
@@ -173,6 +184,25 @@ public class MenuServiceImpl implements MenuService {
        // menuDao.saveMenu(menu);
         addMenu(menu);
         return null;
+    }
+
+    @Override
+    public List<RoleMenu> getRoleMenuList(String roleId) {
+        return menuDao.getRoleMenuList(roleId);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    public ResultVo addMenuTree(String ids, String roleId) {
+        ResultVo vo = new ResultVo();
+        String[] arrayIds = ids.split(",");
+        int a = menuDao.deleteRoleMenus(roleId);
+        for (String id : arrayIds){
+            menuDao.addRoleMenu(id,roleId);
+        }
+        vo.setState(ResultVo.SUCCESS);
+        vo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return vo;
     }
 
 }

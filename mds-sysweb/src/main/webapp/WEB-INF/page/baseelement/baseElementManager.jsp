@@ -14,11 +14,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>demo</title>
-    <link rel="shortcut icon" href="/library/cfda.ico">
-    <%--<link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
-    <link href="/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/library/animate/animate.min.css" rel="stylesheet">
-    <link href="/library/layui/css/layui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
+    <%--<link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basepath}/library/animate/animate.min.css" rel="stylesheet">
+    <link href="${basepath}/library/layui/css/layui.css" rel="stylesheet">
 
 </head>
 <body class="gray-bg">
@@ -68,8 +68,8 @@
     </div>
 </div>
 </body>
-<script src="/library/layui/layui.all.js"></script>
-<script src="/library/jquery/jquery.min.js"></script>
+<script src="${basepath}/library/layui/layui.all.js"></script>
+<script src="${basepath}/library/jquery/jquery.min.js"></script>
 <script src="/common/common_layui.js"></script>
 <script type="text/javascript">
     ;!function(){
@@ -81,7 +81,7 @@
             elem: '#baseDataTable_id',
             height: 'full-200',
             method:'post',
-            url:'${basepath}/baseelement/toBaseElementList.do',
+            url:'/baseelement/toBaseElementList.do',
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
@@ -117,8 +117,11 @@
         $("#queryBtn").click(queryQueryForm);
         //重置查询项
         function resetQueryForm(){
-            $("#queryForm input[type='text']").val("");
+            $("#queryForm input[type='text']").each(function(){
+                $(this).val("");
+            });
             $("#queryForm select").val("");
+            $("#queryBtn").click();
         }
         //条件查询
         function queryQueryForm(){
@@ -144,7 +147,7 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['800px' , '520px'],
-                content: '${basepath}/baseelement/toAddBaseElement.do'
+                content: '/baseelement/toAddBaseElement.do'
             });
         });
 
@@ -168,7 +171,40 @@
                 maxmin: true,
                 shadeClose: false, //点击遮罩关闭层
                 area : ['800px' , '520px'],
-                content: '${basepath}/goodsinfo/toOperatorGoodsInfoPage.do?id='+checkStatus.data[0].id
+                content: '/baseelement/toAddBaseElement.do?id='+checkStatus.data[0].id
+            });
+        });
+
+        //删除物品信息
+        $("#deleteBtn").on('click', function(){
+            var checkStatus = table.checkStatus('baseelementtable'); //test即为基础参数id对应的值
+            if(checkStatus.data.length==0){
+                alert("请选择需要删除的数据");
+                return false;
+            }
+            //得到要删除的数据的id
+            var ids = "";
+            for(var i=0;i<checkStatus.data.length;i++){
+                ids += checkStatus.data[i].id+",";
+            }
+            ids = ids.substr(0,ids.length-1);
+            layer.msg('确定要删除此数据？', {
+                shade:0.3,
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    layer.close(index);
+                    $.ajax({
+                        url:"/baseelement/toDeleteBaseElement.do",
+                        type:"POST",
+                        async:false,
+                        data:{ids:ids},
+                        dataType:"json",
+                        success:function(data){
+                            reloadDataTable();
+                        }
+                    });
+                }
             });
         });
 

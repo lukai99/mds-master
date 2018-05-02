@@ -78,6 +78,19 @@ public class BaseElementServiceImpl implements BaseElementService{
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    @SystemServiceLog(module = "mds",option = "批量删除元素基本信息",description = "批量删除元素基本信息")
+    public ResultVo<Baseelement> deleteForBaseElement(String[] ids) {
+        ResultVo<Baseelement> resultVo = new ResultVo<>();
+        for(String id : ids){
+            baseelementMapper.deleteByPrimaryKey(id);
+        }
+        resultVo.setState(ResultVo.SUCCESS);
+        resultVo.setMessage(ResultVo.SUCCESS_MESSAGE);
+        return resultVo;
+    }
+
+    @Override
     public PageBean<BaseElementVo> queryBaseElementInfo(BaseElementVo baseElementVo, PageBean pageBean) {
         PageBean<BaseElementVo> resultPageBean = new PageBean<BaseElementVo>();
         baseElementVo.setPage(pageBean.getStartRowNum());

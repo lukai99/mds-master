@@ -4,10 +4,10 @@
 <%@ page isELIgnored="false" %>    <%--是否启用EL表达式--%>
 <html>
 <head>
-    <jsp:include page="/common/publicTop.jsp"/>
+    <jsp:include page="${basepath}/common/publicTop.jsp"/>
     <title>fly的魔幻城堡</title>
-    <link rel="stylesheet" href="/css/base.css"/>
-    <link rel="stylesheet" href="/css/util.css"/>
+    <link rel="stylesheet" href="${basepath}/css/base.css"/>
+    <link rel="stylesheet" href="${basepath}/css/util.css"/>
     <style type="text/css">
         body{min-width: 1000px;}
         body a:hover, a:visited, a:link, a:active {color:#1b9bdd;}
