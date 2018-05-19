@@ -329,7 +329,7 @@
     <if test="cartype!=null and cartype != ''">
       and de.ischeck=#{ischeck}
     </if>
-    <include refid="Page_Where" />
+    <!--<include refid="Page_Where" />-->
   </select>
   <select id="countGoodsDetail" resultType="java.lang.Integer" parameterType="com.mds.vo.GoodsdetailsinfoVo">
     select

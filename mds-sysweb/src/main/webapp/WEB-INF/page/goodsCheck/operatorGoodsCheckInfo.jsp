@@ -39,9 +39,9 @@
         </div>
         <%--净重--%>
         <div class="layui-form-item">
-            <label class="layui-form-label">净重</label>
+            <label class="layui-form-label">净重（g）</label>
             <div class="layui-input-block">
-                <input type="text" name="netweight" placeholder="请输入净重" class="layui-input" lay-verify="required" value="">
+                <input type="text" name="netweight" placeholder="请输入净重" class="layui-input" lay-verify="required|number" value="">
             </div>
         </div>
         <div class="layui-form-item">
@@ -128,8 +128,6 @@
                 url: url,
                 data: {elname:elnames,elcontent:elcontents,
                     id:$("select[name='id']").val(),
-                    carriershape:$("input[name='carriershape']").val(),
-                    honeycombshape:$("input[name='honeycombshape']").val(),
                     netweight:$("input[name='netweight']").val(),
                     checkremark:$("textarea[name='checkremark']").val()
                 },

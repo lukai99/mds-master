@@ -194,6 +194,7 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
         //获取物品图片信息
         Fileinfo fileinfo = new Fileinfo();
         fileinfo.setDetailinfo(id);
+        fileinfo.setIsdel(WebConstants.NO);
         List<Fileinfo> fileinfoList = fileinfoMapper.selectBySelective(fileinfo);
 
         //返回结果
