@@ -52,6 +52,9 @@ public class LoginFilter implements Filter {
         if(noFilterUrl.indexOf(url) > -1){
             filterChain.doFilter(servletRequest,servletResponse);
             return;
+        }else if(url.contains(".css") || url.contains(".js")|| url.contains(".jpg")|| url.contains(".png")){
+            filterChain.doFilter(servletRequest,servletResponse);
+            return;
         }
         String redirectUrl = filterConfig.getInitParameter("redirectUrl"); //重定向url
         //验证用户登录

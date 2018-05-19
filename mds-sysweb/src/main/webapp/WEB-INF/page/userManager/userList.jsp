@@ -16,12 +16,12 @@
             path;
     request.setAttribute("basepath", basepath);
 %>
-<jsp:include page="${basepath}/common/publicTop.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>demo</title>
+    <jsp:include page="/common/publicTop.jsp"/>
     <link rel="shortcut icon" href="${basepath}/library/cfda.ico">
     <%--<link href="${basepath}/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <link href="${basepath}/library/font_awesome/css/font-awesome.min.css" rel="stylesheet">
