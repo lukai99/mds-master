@@ -33,16 +33,22 @@
     <div class="query-part" style="border: 1px solid #1f9fff; margin-top: 10px;padding: 5px;margin-right: 15px;">
         <form id="queryForm" class="layui-form layui-form-pane" action="">
             <div style="margin-top: 10px;">
-                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                <%--<div class="layui-form-item" style="width: 310px;float:left;clear: none;">
                     <label class="layui-form-label">元素名称</label>
                     <div class="layui-input-inline">
                         <input id="name" type="text" name="name" placeholder="请输入元素名称" autocomplete="off" class="layui-input">
                     </div>
-                </div>
+                </div>--%>
                 <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
                     <label class="layui-form-label">日期范围</label>
                     <div class="layui-input-inline">
                         <input id="queryDate" class="layui-input" type="text" name="queryDate" placeholder="请选择时间范围">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-inline">
+                        <input id="createDate" class="layui-input" type="text" name="createDate" placeholder="请选择时间范围">
                     </div>
                 </div>
                 <br style="clear:both;"/>
@@ -85,9 +91,11 @@
                 {type:'checkbox'},
                 {type:'numbers',title: '序号'},
                 /*{field:'id', width:80, title: 'ID', align:'center'},*/
-                {field:'name', width:150, title: '名称', align:'center'},
-                {field:'dailyprice', width:100, title: '价格', align:'center'},
+                /*{field:'name', width:150, title: '名称', align:'center'},*/
                 {field:'inputtime', width:150, title: '日期', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime,"yyyy-MM-dd") }}</div>'},
+                {field:'dailyprice', width:100, title: '铂价格', align:'center'},
+                {field:'ba_dailyprice', width:100, title: '钯价格', align:'center'},
+                {field:'lao_dailyprice', width:100, title: '铑价格', align:'center'},
                 {field:'remark', width:200, title: '备注', align:'center'},
                 {field:'createtime', width:200, title: '创建时间', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.createtime) }}</div>'},
                 {field:'updatetime', width:200, title: '修改时间', align:'center',templet:'<div>{{ layui.laytpl.toDateString(d.updatetime) }}</div>'}
@@ -111,6 +119,11 @@
             elem: '#queryDate',
             range: '~'
         });
+        laydate.render({
+            elem: '#createDate',
+            range: '~',
+            type:"datetime"
+        });
         /*事件绑定*/
         $("#resetBtn").click(resetQueryForm);
         $("#queryBtn").click(queryQueryForm);
@@ -124,7 +137,8 @@
             dataTableObj.reload({
                 where: { //设定异步数据接口的额外参数，任意设
                     name:$("#name").val(),
-                    queryDate:$("#queryDate").val()
+                    queryDate:$("#queryDate").val(),
+                    createDate:$("#createDate").val()
                 }
                 ,page: {
                     curr: 1 //重新从第 1 页开始

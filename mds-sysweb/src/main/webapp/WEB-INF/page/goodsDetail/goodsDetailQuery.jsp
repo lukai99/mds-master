@@ -51,25 +51,36 @@
                     </div>
                 </div>
                 <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
-                    <label class="layui-form-label">物品编号</label>
+                    <label class="layui-form-label">品牌</label>
                     <div class="layui-input-block" style="width:190px;">
-                        <select id="trait" name="trait">
-                            <option value="" selected=""></option>
-                            <option value="1" >一级</option>
-                            <option value="2">二级</option>
-                            <option value="3">三级</option>
-                        </select>
+                        <input id="brand" type="text" name="brand" placeholder="请输入品牌" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
                     <label class="layui-form-label">车型</label>
                     <div class="layui-input-block" style="width:190px;">
-                        <select id="cartype" name="cartype">
-                            <option value="" selected=""></option>
-                            <option value="1" >一级</option>
-                            <option value="2">二级</option>
-                            <option value="3">三级</option>
-                        </select>
+                        <input id="cartype" type="text" name="cartype" placeholder="请输入车型" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <br style="clear:both;"/>
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                    <label class="layui-form-label">特征编号</label>
+                    <div class="layui-input-inline">
+                        <input id="trait" type="text" name="trait" placeholder="请输入特征编号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                    <label class="layui-form-label">产地</label>
+                    <div class="layui-input-block" style="width:190px;">
+                        <input id="place" type="text" name="place" placeholder="请输入产地" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="width: 310px;float:left;clear: none;">
+                    <label class="layui-form-label">货源位置</label>
+                    <div class="layui-input-block" style="width:190px;">
+                        <input id="sougl" type="text" name="sougl" placeholder="请输入货源位置" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <br style="clear:both;"/>
@@ -106,7 +117,7 @@
         /*事件绑定*/
         $("#queryBtn").click(queryQueryForm);
 
-        getData();
+//        getData();
 
         //条件查询
         function queryQueryForm(){
@@ -130,8 +141,13 @@
                         url: '${basepath}/goodsDetail/getGoodsInfoListForQuery.do?page='+page+"&&limit="+8,
                         data: {
                             syscode:$("#syscode").val(),
-                            cartype:$("#cartype option:selected").val(),
-                            trait:$("#trait option:selected").val()
+                            brand:$("#brand").val(),
+                            cartype:$("#cartype").val(),
+
+                            trait:$("#trait").val(),
+                            place:$("#place").val(),
+                            sougl:$("#sougl").val()
+
                         },
                         success: function (result) {
                             //假设你的列表返回在data集合中

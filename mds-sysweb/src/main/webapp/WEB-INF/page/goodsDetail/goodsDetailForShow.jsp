@@ -41,10 +41,40 @@
                         <input type="text" name="syscode" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.syscode}">
                     </div>
                 </div>
+                <%--<div class="layui-form-item">--%>
+                    <%--<label class="layui-form-label">物品名称</label>--%>
+                    <%--<div class="layui-input-block">--%>
+                        <%--<input type="text" name="grossweight" placeholder="请输入物品名称" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.goodsname}">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">物品名称</label>
+                    <label class="layui-form-label">特征编号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="grossweight" placeholder="请输入物品名称" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.goodsname}">
+                        <input type="text" name="" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.trait}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">品牌</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.brand}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">车型</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.cartype}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">产地</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.place}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">货源位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="请输入编号" class="layui-input" lay-verify="required" readonly="readonly" value="${detailsinfoObj.sougl}">
                     </div>
                 </div>
                 <div class="layui-form-item">

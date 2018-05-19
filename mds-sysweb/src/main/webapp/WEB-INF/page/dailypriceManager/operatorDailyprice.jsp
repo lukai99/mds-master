@@ -35,6 +35,13 @@
     <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/dailyPrice/operatorDailyPrice.do">
         <input type="hidden" name="id" value="${dailyPrice.id}">
         <div class="layui-form-item">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <input id="inputtime" type="text" name="inputtime" placeholder="请选择日期" class="layui-input" lay-verify="required" value="<fmt:formatDate pattern='yyyy-MM-dd'
+            value='${dailyPrice.inputtime}' />">
+            </div>
+        </div>
+        <%--<div class="layui-form-item">
             <label class="layui-form-label">请选择元素</label>
             <div class="layui-input-block">
                 <select name="baseelementid" lay-verify="required" lay-search="">
@@ -44,20 +51,26 @@
                     </c:forEach>
                 </select>
             </div>
-        </div>
+        </div>--%>
         <div class="layui-form-item">
-            <label class="layui-form-label">价格</label>
+            <label class="layui-form-label">铂价格</label>
             <div class="layui-input-block">
                 <input type="text" name="dailyprice" placeholder="请输入今日价格" class="layui-input" lay-verify="required|number" value="${dailyPrice.dailyprice}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">日期</label>
+            <label class="layui-form-label">钯价格</label>
             <div class="layui-input-block">
-                <input id="inputtime" type="text" name="inputtime" placeholder="请选择日期" class="layui-input" lay-verify="required" value="<fmt:formatDate pattern='yyyy-MM-dd'
-            value='${dailyPrice.inputtime}' />">
+                <input type="text" name="ba_dailyprice" placeholder="请输入今日价格" class="layui-input" lay-verify="required|number" value="${dailyPrice.ba_dailyprice}">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">铑价格</label>
+            <div class="layui-input-block">
+                <input type="text" name="lao_dailyprice" placeholder="请输入今日价格" class="layui-input" lay-verify="required|number" value="${dailyPrice.lao_dailyprice}">
+            </div>
+        </div>
+
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">

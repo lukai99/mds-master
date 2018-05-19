@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,14 @@ public class GoodsCheckServiceImpl implements GoodsCheckService {
                 //新增检测信息
                 if(goodsdetailsinfoVo.getElname()!=null &&
                         goodsdetailsinfoVo.getElname().length>0){
+                    /**查询当日维护的价格，会有多条，以最新的为准**/
+                    DailypriceVo o = new DailypriceVo();
+                    o.setInputtime(DateUtil.getDay());
+                    List<Dailyprice> dailyprice = dailypriceMapper.queryTodayPrice(o);
+                    if(dailyprice == null || dailyprice.size() == 0){
+                        throw new Exception("元素当日价格未维护，请先维护价格");
+                    }
+                    Dailyprice daily = dailyprice.get(0);
                     for(int i=0;i<goodsdetailsinfoVo.getElname().length;i++){
                         String ement = goodsdetailsinfoVo.getElname()[i];
                         Ementidcontentinfo ementCheck = new Ementidcontentinfo();
@@ -64,7 +73,14 @@ public class GoodsCheckServiceImpl implements GoodsCheckService {
                             String elcontent = goodsdetailsinfoVo.getElcontent()[i];
                             ementCheck.setContent(elcontent);
                             //获得元素当日价格
-                            Double todayprice = getTodayPrice(ement);
+                            Double todayprice = null;
+                            if("01".equals(ement)){//钯
+                                todayprice = daily.getBa_dailyprice();
+                            }else if("02".equals(ement)){//铂
+                                todayprice = daily.getDailyprice();
+                            }else if("03".equals(ement)){//铑
+                                todayprice = daily.getLao_dailyprice();
+                            }
                             //获得折扣率
                             Double zkrate = getZkRate();
 
@@ -75,15 +91,17 @@ public class GoodsCheckServiceImpl implements GoodsCheckService {
                             if(zkrate == null){
                                 throw new Exception("折扣率未维护，请先维护折扣率");
                             }
+                            //算出物品的ppm
+                            Double unit = Double.valueOf(goodsdetailsinfoVo.getNetweight()) / 1000000;
                             //实际价格
-                            double realprice = todayprice * Double.valueOf(elcontent);
+                            BigDecimal realprice = new BigDecimal(todayprice * Double.valueOf(elcontent) * unit).setScale(2,BigDecimal.ROUND_HALF_UP);
                             //参考价格
-                            double reprice = zkrate * todayprice * Double.valueOf(elcontent);
+                            BigDecimal reprice = new BigDecimal(String.valueOf(zkrate)).multiply(realprice).setScale(2,BigDecimal.ROUND_HALF_UP);
 
                             ementCheck.setDailyprice(todayprice);
                             ementCheck.setZkrate(zkrate);
-                            ementCheck.setRealprice(realprice);
-                            ementCheck.setReprice(reprice);
+                            ementCheck.setRealprice(realprice.doubleValue());
+                            ementCheck.setReprice(reprice.doubleValue());
                         }
                         ementCheck.setCreatetime(new Date());
                         ementCheck.setIsdel(WebConstants.NO);

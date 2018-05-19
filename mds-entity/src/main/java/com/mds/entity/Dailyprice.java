@@ -12,6 +12,10 @@ public class Dailyprice  extends PageBean {
 
     private Double dailyprice;
 
+    private Double ba_dailyprice;
+
+    private Double lao_dailyprice;
+
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date inputtime;
 
@@ -23,10 +27,12 @@ public class Dailyprice  extends PageBean {
 
     private Date updatetime;
 
-    public Dailyprice(String id, String baseelementid, Double dailyprice, Date inputtime, String isdel, String remark, Date createtime, Date updatetime) {
+    public Dailyprice(String id, String baseelementid, Double dailyprice,Double ba_dailyprice,Double lao_dailyprice, Date inputtime, String isdel, String remark, Date createtime, Date updatetime) {
         this.id = id;
         this.baseelementid = baseelementid;
         this.dailyprice = dailyprice;
+        this.ba_dailyprice = ba_dailyprice;
+        this.lao_dailyprice = lao_dailyprice;
         this.inputtime = inputtime;
         this.isdel = isdel;
         this.remark = remark;
@@ -100,5 +106,21 @@ public class Dailyprice  extends PageBean {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Double getBa_dailyprice() {
+        return ba_dailyprice;
+    }
+
+    public Double getLao_dailyprice() {
+        return lao_dailyprice;
+    }
+
+    public void setBa_dailyprice(Double ba_dailyprice) {
+        this.ba_dailyprice = ba_dailyprice;
+    }
+
+    public void setLao_dailyprice(Double lao_dailyprice) {
+        this.lao_dailyprice = lao_dailyprice;
     }
 }

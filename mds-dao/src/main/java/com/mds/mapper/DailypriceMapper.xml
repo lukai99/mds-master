@@ -6,6 +6,8 @@
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="baseelementid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="dailyprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="ba_dailyprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="lao_dailyprice" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="inputtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="isdel" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -47,7 +49,7 @@
     </if>
   </sql>
   <sql id="Base_Column_List" >
-  id, baseelementid, dailyprice, inputtime, isdel, remark, createtime, updatetime
+  id, baseelementid, dailyprice,ba_dailyprice,lao_dailyprice, inputtime, isdel, remark, createtime, updatetime
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -81,6 +83,12 @@
       <if test="dailyprice != null" >
         dailyprice,
       </if>
+      <if test="ba_dailyprice != null" >
+        ba_dailyprice,
+      </if>
+      <if test="lao_dailyprice != null" >
+        lao_dailyprice,
+      </if>
       <if test="inputtime != null" >
         inputtime,
       </if>
@@ -107,6 +115,12 @@
       <if test="dailyprice != null" >
         #{dailyprice,jdbcType=DOUBLE},
       </if>
+      <if test="ba_dailyprice != null" >
+        #{ba_dailyprice,jdbcType=DOUBLE},
+      </if>
+      <if test="lao_dailyprice != null" >
+        #{lao_dailyprice,jdbcType=DOUBLE},
+      </if>
       <if test="inputtime != null" >
         #{inputtime,jdbcType=TIMESTAMP},
       </if>
@@ -132,6 +146,12 @@
       </if>
       <if test="dailyprice != null" >
         dailyprice = #{dailyprice,jdbcType=DOUBLE},
+      </if>
+      <if test="ba_dailyprice != null" >
+        ba_dailyprice = #{ba_dailyprice,jdbcType=DOUBLE},
+      </if>
+      <if test="lao_dailyprice != null" >
+        lao_dailyprice = #{lao_dailyprice,jdbcType=DOUBLE},
       </if>
       <if test="inputtime != null" >
         inputtime = #{inputtime,jdbcType=TIMESTAMP},
@@ -178,7 +198,7 @@
   </select>
   <select id="selectVoBySelective" resultType="com.mds.vo.DailypriceVo" parameterType="com.mds.entity.Dailyprice" >
     select
-    a.id, a.baseelementid,b.name, a.dailyprice, a.inputtime, a.isdel, a.remark, a.createtime, a.updatetime
+    a.id, a.baseelementid,b.name, a.dailyprice,a.ba_dailyprice,a.lao_dailyprice, a.inputtime, a.isdel, a.remark, a.createtime, a.updatetime
     from mds_dailyprice a left join mds_baseelement b on a.baseelementid = b.id
     where 1=1
     <if test="id != null and id != ''" >
@@ -207,13 +227,19 @@
     </if>
     /*冗余字段查询*/
     <if test="name != null and name != ''" >
-      and name like "%"#{name,jdbcType=VARCHAR}"%"
+      and a.name like "%"#{name,jdbcType=VARCHAR}"%"
     </if>
     <if test="startDate != null and startDate != ''" >
-      <![CDATA[ and inputtime >= #{startDate,jdbcType=VARCHAR}]]>
+      <![CDATA[ and a.inputtime >= #{startDate,jdbcType=VARCHAR}]]>
     </if>
     <if test="endDate != null and endDate != ''" >
-      <![CDATA[ and inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+      <![CDATA[ and a.inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="start_createDate != null and start_createDate != ''" >
+      <![CDATA[ and a.createtime >= #{start_createDate,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="end_createDate != null and end_createDate != ''" >
+      <![CDATA[ and a.createtime <= #{end_createDate,jdbcType=TIMESTAMP}]]>
     </if>
     order by a.createtime desc
     <include refid="Page_Where" />
@@ -249,20 +275,25 @@
     </if>
     /*冗余字段查询*/
     <if test="name != null and name != ''" >
-      and name like "%"#{name,jdbcType=VARCHAR}"%"
+      and a.name like "%"#{name,jdbcType=VARCHAR}"%"
     </if>
     <if test="startDate != null and startDate != ''" >
-      <![CDATA[ and inputtime >= #{startDate,jdbcType=VARCHAR}]]>
+      <![CDATA[ and a.inputtime >= #{startDate,jdbcType=VARCHAR}]]>
     </if>
     <if test="endDate != null and endDate != ''" >
-      <![CDATA[ and inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+      <![CDATA[ and a.inputtime <= #{endDate,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="start_createDate != null and start_createDate != ''" >
+      <![CDATA[ and a.createtime >= #{start_createDate,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="end_createDate != null and end_createDate != ''" >
+      <![CDATA[ and a.createtime <= #{end_createDate,jdbcType=TIMESTAMP}]]>
     </if>
   </select>
 
   <select id="queryTodayPrice" resultType="com.mds.entity.Dailyprice" parameterType="com.mds.vo.DailypriceVo">
     select * from mds_dailyprice where 1=1
-    and baseelementid = #{baseelementid,jdbcType=VARCHAR}
     and inputtime = #{inputtime,jdbcType=TIMESTAMP}
-    order by createtime
+    order by createtime desc
   </select>
 </mapper>

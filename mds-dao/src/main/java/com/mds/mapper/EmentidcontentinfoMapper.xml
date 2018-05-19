@@ -173,7 +173,7 @@
   </update>
 
   <select id="getCheckInfoByDetailid" resultType="com.mds.vo.EmentidcontentinfoVo" parameterType="java.lang.String">
-    select me.*,mb.name from mds_ementidcontentinfo me join mds_baseelement mb on mb.id = me.baseelementid
+    select me.*,mb.name from mds_ementidcontentinfo me join mds_baseelement mb on mb.code = me.baseelementid
     where me.isdel = '0'
     and me.goodsdetailid = #{goodsdetailid} order by me.sort
   </select>
