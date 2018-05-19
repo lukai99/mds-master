@@ -323,11 +323,21 @@
     <if test="syscode!=null and  syscode!= ''">
       and de.syscode like "%"#{syscode,jdbcType=VARCHAR}"%"
     </if>
-    <if test="trait!=null and trait!= ''">
-      and de.ischeck=#{ischeck}
+    <if test="brand!=null and brand != ''">
+      and de.brand like "%"#{brand,jdbcType=VARCHAR}"%"
     </if>
     <if test="cartype!=null and cartype != ''">
-      and de.ischeck=#{ischeck}
+      and de.cartype like "%"#{cartype,jdbcType=VARCHAR}"%"
+    </if>
+
+    <if test="trait!=null and trait!= ''">
+      and de.trait like "%"#{trait,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="place!=null and place != ''">
+      and de.place like "%"#{place,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="sougl!=null and sougl != ''">
+      and de.sougl like "%"#{sougl,jdbcType=VARCHAR}"%"
     </if>
     <!--<include refid="Page_Where" />-->
   </select>
@@ -342,11 +352,21 @@
     <if test="syscode!=null and  syscode!= ''">
       and de.syscode=#{syscode}
     </if>
-    <if test="trait!=null and trait!= ''">
-      and de.ischeck=#{ischeck}
+    <if test="brand!=null and brand != ''">
+      and de.brand like "%"#{brand,jdbcType=VARCHAR}"%"
     </if>
     <if test="cartype!=null and cartype != ''">
-      and de.ischeck=#{ischeck}
+      and de.cartype like "%"#{cartype,jdbcType=VARCHAR}"%"
+    </if>
+
+    <if test="trait!=null and trait!= ''">
+      and de.trait like "%"#{trait,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="place!=null and place != ''">
+      and de.place like "%"#{place,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="sougl!=null and sougl != ''">
+      and de.sougl like "%"#{sougl,jdbcType=VARCHAR}"%"
     </if>
   </select>
 </mapper>

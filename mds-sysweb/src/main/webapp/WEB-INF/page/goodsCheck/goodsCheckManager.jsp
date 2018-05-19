@@ -79,11 +79,11 @@
                 {type:'checkbox'},
                 {type:'numbers',title: '序号'},
                 {field:'syscode', width:150, title: '编号', align:'center'},
+                {field:'netweight', width:150, title: '净重（g）', align:'center'},
                 {field:'carriershape', width:150, title: '载体形状', align:'center'},
                 {field:'honeycombshape', width:150, title: '蜂窝形状', align:'center'},
-                {field:'netweight', width:150, title: '净重', align:'center'},
-                {field:'checkremark', width:210, title: '备注', align:'center'},
-                {width:210, title: '操作', align:'center',toolbar: '#barDemo'}
+                {field:'checkremark', width:210, title: '备注', align:'center'}
+                ,{width:210, title: '操作', align:'center',toolbar: '#barDemo'}
             ]],
             page: true,
             request: {

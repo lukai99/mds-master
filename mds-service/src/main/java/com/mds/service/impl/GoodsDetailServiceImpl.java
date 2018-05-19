@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -186,8 +187,9 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
         List<EmentidcontentinfoVo> ementidcontentinfoList = ementidcontentinfoMapper.getCheckInfoByDetailid(goodsdetailsinfo.getId());
         Double totalPrice = new Double(0);
         for(EmentidcontentinfoVo vo:ementidcontentinfoList){
-            totalPrice += vo.getRealprice();
+            totalPrice += vo.getReprice();
         }
+        BigDecimal showPrice = new BigDecimal(String.valueOf(totalPrice)).setScale(2,BigDecimal.ROUND_HALF_UP);
         //获得物品名称
         Goodsinfo goodsinfo = goodsinfoMapper.selectByPrimaryKey(goodsdetailsinfo.getGoodsinfoid());
 
@@ -199,8 +201,14 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
 
         //返回结果
         GoodsdetailsinfoVo goodsdetailsinfoVo = new GoodsdetailsinfoVo();
-        goodsdetailsinfoVo.setTotalreprice(totalPrice+"");
+        goodsdetailsinfoVo.setTotalreprice(showPrice.toString());
         goodsdetailsinfoVo.setSyscode(goodsdetailsinfo.getSyscode());
+        goodsdetailsinfoVo.setTrait(goodsdetailsinfo.getTrait());
+        goodsdetailsinfoVo.setBrand(goodsdetailsinfo.getBrand());
+        goodsdetailsinfoVo.setCartype(goodsdetailsinfo.getCartype());
+        goodsdetailsinfoVo.setSougl(goodsdetailsinfo.getSougl());
+        goodsdetailsinfoVo.setPlace(goodsdetailsinfo.getPlace());
+
         goodsdetailsinfoVo.setGoodsname(goodsinfo.getGoodsname());
         goodsdetailsinfoVo.setFileinfoList(fileinfoList);
         resultVo.setData(goodsdetailsinfoVo);

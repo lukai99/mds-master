@@ -50,7 +50,7 @@
                 <select name="elname" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
+                        <option value="${baseElement.code}" >${baseElement.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -67,7 +67,7 @@
                 <select name="elname" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
+                        <option value="${baseElement.code}" >${baseElement.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -84,7 +84,7 @@
                 <select name="elname" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${baseElementVoList}" var="baseElement">
-                        <option value="${baseElement.id}" >${baseElement.name}</option>
+                        <option value="${baseElement.code}" >${baseElement.name}</option>
                     </c:forEach>
                 </select>
             </div>

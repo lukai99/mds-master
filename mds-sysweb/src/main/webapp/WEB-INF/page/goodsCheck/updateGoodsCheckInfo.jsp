@@ -35,20 +35,20 @@
                 </select>
             </div>
         </div>
-        <%--载体形状--%>
+        <%--&lt;%&ndash;载体形状&ndash;%&gt;
         <div class="layui-form-item">
             <label class="layui-form-label">载体形状</label>
             <div class="layui-input-block">
                 <input type="text" name="carriershape" placeholder="请输入载体形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.carriershape}">
             </div>
         </div>
-        <%--蜂窝形状--%>
+        &lt;%&ndash;蜂窝形状&ndash;%&gt;
         <div class="layui-form-item">
             <label class="layui-form-label">蜂窝形状</label>
             <div class="layui-input-block">
                 <input type="text" name="honeycombshape" placeholder="请输入蜂窝形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.honeycombshape}">
             </div>
-        </div>
+        </div>--%>
         <%--净重--%>
         <div class="layui-form-item">
             <label class="layui-form-label">净重</label>
@@ -63,7 +63,7 @@
                     <select name="elname" lay-verify="required" lay-search="">
                         <option value="">直接选择或搜索选择</option>
                         <c:forEach items="${baseElementVoList}" var="baseElement">
-                            <option value="${baseElement.id}" ${baseElement.id eq check.baseelementid? 'selected':''}>${baseElement.name}</option>
+                            <option value="${baseElement.code}" ${baseElement.code eq check.baseelementid? 'selected':''}>${baseElement.name}</option>
                         </c:forEach>
                     </select>
                 </div>
