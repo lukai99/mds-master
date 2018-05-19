@@ -80,13 +80,15 @@
                 {type:'numbers',title: '序号'},
                 /*{field:'id', width:80, title: 'ID', align:'center'},*/
                 {field:'syscode', width:150, title: '编号', align:'center'},
-                {field:'goodsname', width:150, title: '物品名称', align:'center'},
+                /*{field:'goodsname', width:150, title: '物品名称', align:'center'},*/
                 {field:'trait', width:150, title: '特征编号', align:'center'},
                 {field:'grossweight', width:100, title: '毛重', align:'center'},
                 {field:'cartype', width:100, title: '车型', align:'center'},
                 {field:'brand', width:100, title: '品牌', align:'center'},
                 {field:'sougl', width:100, title: '货源位置', align:'center'},
                 {field:'place', width:100, title: '产地', align:'center'},
+                {field:'carriershape', width:100, title: '载体形状', align:'center'},
+                {field:'honeycombshape', width:100, title: '蜂窝形状', align:'center'},
                 {field:'remark', width:210, title: '备注', align:'center'},
                 {field:'createtime', width:200, title: '创建时间', align:'center',sort:true,templet:'<div>{{ layui.laytpl.toDateString(d.createtime) }}</div>'},
                 {field:'updatetime', width:200, title: '修改时间', align:'center',sort:true,templet:'<div>{{ layui.laytpl.toDateString(d.updatetime) }}</div>'}

@@ -37,20 +37,6 @@
                 </select>
             </div>
         </div>
-        <%--载体形状--%>
-        <div class="layui-form-item">
-            <label class="layui-form-label">载体形状</label>
-            <div class="layui-input-block">
-                <input type="text" name="carriershape" placeholder="请输入载体形状" class="layui-input" lay-verify="required" value="">
-            </div>
-        </div>
-        <%--蜂窝形状--%>
-        <div class="layui-form-item">
-            <label class="layui-form-label">蜂窝形状</label>
-            <div class="layui-input-block">
-                <input type="text" name="honeycombshape" placeholder="请输入蜂窝形状" class="layui-input" lay-verify="required" value="">
-            </div>
-        </div>
         <%--净重--%>
         <div class="layui-form-item">
             <label class="layui-form-label">净重</label>

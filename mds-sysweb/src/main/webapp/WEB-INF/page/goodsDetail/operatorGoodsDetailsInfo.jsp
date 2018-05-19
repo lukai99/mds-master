@@ -1,5 +1,6 @@
 <%@ page import="com.mds.utils.PropertiesUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
 <%
@@ -27,17 +28,18 @@
 <div style="padding: 0px 50px;padding-top: 20px;">
     <form id="dateForm" class="layui-form layui-form-pane" action="${basepath}/goodsDetail/operatorGoodsDetail.do">
         <input type="hidden" name="id" value="${detailsinfoObj.id}">
-        <div class="layui-form-item">
-            <label class="layui-form-label">请选择物品</label>
-            <div class="layui-input-block">
-                <select name="goodsinfoid" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${goodslist}" var="goods">
-                        <option value="${goods.id}" ${detailsinfoObj.goodsinfoid eq goods.id ? 'selected' : ''}>${goods.goodsname}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
+        <%--<div class="layui-form-item">--%>
+            <%--<label class="layui-form-label">请选择物品</label>--%>
+            <%--<div class="layui-input-block">--%>
+                <%--<select name="goodsinfoid" lay-verify="required" lay-search="">--%>
+                    <%--<option value="">直接选择或搜索选择</option>--%>
+                    <%--<c:forEach items="${goodslist}" var="goods">--%>
+                        <%--<option value="${goods.id}" ${detailsinfoObj.goodsinfoid eq goods.id ? 'selected' : ''}>${goods.goodsname}</option>--%>
+                    <%--</c:forEach>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <input class="layui-hide" name="goodsinfoid" value="${(fn:length(goodslist))>0?goodslist[0].id:''}">
         <div class="layui-form-item">
             <label class="layui-form-label">编号</label>
             <div class="layui-input-block">
@@ -46,9 +48,9 @@
         </div>
         <%--毛重--%>
         <div class="layui-form-item">
-            <label class="layui-form-label">毛重</label>
+            <label class="layui-form-label">毛重（g）</label>
             <div class="layui-input-block">
-                <input type="text" name="grossweight" placeholder="请输入毛重" class="layui-input" lay-verify="required" value="${detailsinfoObj.grossweight}">
+                <input type="text" name="grossweight" placeholder="请输入毛重" class="layui-input" lay-verify="required|number" value="${detailsinfoObj.grossweight}">
             </div>
         </div>
         <%--特征编号--%>
@@ -84,6 +86,20 @@
             <label class="layui-form-label">产地</label>
             <div class="layui-input-block">
                 <input type="text" name="place" placeholder="请输入产地" class="layui-input" lay-verify="required" value="${detailsinfoObj.place}">
+            </div>
+        </div>
+        <%--载体形状--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">载体形状</label>
+            <div class="layui-input-block">
+                <input type="text" name="carriershape" placeholder="请输入载体形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.carriershape}">
+            </div>
+        </div>
+        <%--蜂窝形状--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">蜂窝形状</label>
+            <div class="layui-input-block">
+                <input type="text" name="honeycombshape" placeholder="请输入蜂窝形状" class="layui-input" lay-verify="required" value="${detailsinfoObj.honeycombshape}">
             </div>
         </div>
         <%--上传文件--%>
